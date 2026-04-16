@@ -228,13 +228,13 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
               color: t.isDark ? const Color(0xFF0D1628) : const Color(0xFFF1F5FF),
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               child: Row(children: [
-                SizedBox(width: 155, child: Text('Timestamp', style: AppTheme.tableHeader(t))),
-                SizedBox(width: 155, child: Text('Usuario', style: AppTheme.tableHeader(t))),
-                SizedBox(width: 140, child: Text('Módulo', style: AppTheme.tableHeader(t))),
-                SizedBox(width: 110, child: Text('Acción', style: AppTheme.tableHeader(t))),
+                SizedBox(width: 128, child: Text('Timestamp', style: AppTheme.tableHeader(t))),
+                SizedBox(width: 145, child: Text('Usuario', style: AppTheme.tableHeader(t))),
+                SizedBox(width: 115, child: Text('Módulo', style: AppTheme.tableHeader(t))),
+                SizedBox(width: 95, child: Text('Acción', style: AppTheme.tableHeader(t))),
                 Expanded(child: Text('Descripción', style: AppTheme.tableHeader(t))),
-                SizedBox(width: 120, child: Text('Resultado', style: AppTheme.tableHeader(t))),
-                SizedBox(width: 115, child: Text('IP', style: AppTheme.tableHeader(t))),
+                SizedBox(width: 105, child: Text('Resultado', style: AppTheme.tableHeader(t))),
+                SizedBox(width: 100, child: Text('IP', style: AppTheme.tableHeader(t))),
               ]),
             ),
             Divider(color: t.border, height: 1),
@@ -257,23 +257,23 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                     child: Row(children: [
                       SizedBox(
-                        width: 155,
+                        width: 128,
                         child: Text(tsStr,
                             style: AppTheme.tableData(t).copyWith(
                                 fontSize: 11, color: t.textSecondary)),
                       ),
                       SizedBox(
-                        width: 155,
+                        width: 145,
                         child: Text(ev.usuario as String,
                             style: AppTheme.tableData(t).copyWith(fontSize: 12),
                             overflow: TextOverflow.ellipsis),
                       ),
                       SizedBox(
-                        width: 140,
+                        width: 115,
                         child: _chip(ev.modulo as String, t.primary, t),
                       ),
                       SizedBox(
-                        width: 110,
+                        width: 95,
                         child: _chip(ev.accion as String, acColor, t),
                       ),
                       Expanded(
@@ -282,7 +282,7 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
                             overflow: TextOverflow.ellipsis),
                       ),
                       SizedBox(
-                        width: 120,
+                        width: 105,
                         child: Row(children: [
                           Icon(_resultIcon(ev.resultado as String), size: 14, color: resColor),
                           const SizedBox(width: 5),
@@ -294,7 +294,7 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
                         ]),
                       ),
                       SizedBox(
-                        width: 115,
+                        width: 100,
                         child: Text(
                           (ev.ip as String?) ?? '—',
                           style: AppTheme.tableData(t).copyWith(

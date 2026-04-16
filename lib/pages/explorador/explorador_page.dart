@@ -15,6 +15,7 @@ class ExploradorPage extends StatefulWidget {
 class _ExploradorPageState extends State<ExploradorPage> {
   PlutoGridStateManager? _sm;
   String _filterTipo = 'Todos';
+  String _filterFormato = 'Todos';
   String _groupBy = 'Ninguno';
 
   final _tipos = [
@@ -33,6 +34,8 @@ class _ExploradorPageState extends State<ExploradorPage> {
   List<Documento> get _filtered => MetaDocsMockData.documentos
       .where((d) => d.estatus == 'revisado' || d.estatus == 'extraido')
       .where((d) => _filterTipo == 'Todos' || d.tipoDocumental == _filterTipo)
+      .where((d) => _filterFormato == 'Todos' ||
+          d.nombre.toLowerCase().endsWith('.${_filterFormato.toLowerCase()}'))
       .toList();
 
   List<PlutoColumn> _cols(AppThemeData t) => [
@@ -40,11 +43,20 @@ class _ExploradorPageState extends State<ExploradorPage> {
           title: 'Documento',
           field: 'nombre',
           type: PlutoColumnType.text(),
-          width: 220,
+          width: 240,
           titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          renderer: (ctx) => Text(ctx.cell.value as String,
-              style: AppTheme.tableData(t), overflow: TextOverflow.ellipsis),
+          renderer: (ctx) {
+            final nombre = ctx.cell.value as String;
+            return Row(children: [
+              _formatIcon(nombre),
+              const SizedBox(width: 6),
+              Expanded(
+                  child: Text(nombre,
+                      style: AppTheme.tableData(t),
+                      overflow: TextOverflow.ellipsis)),
+            ]);
+          },
         ),
         PlutoColumn(
           title: 'Tipo',
@@ -255,12 +267,27 @@ class _ExploradorPageState extends State<ExploradorPage> {
                 (v) => setState(() => _groupBy = v!)),
             if (_filterTipo != 'Todos')
               TextButton.icon(
-                onPressed: () => setState(() => _filterTipo = 'Todos'),
+                onPressed: () => setState(() {
+                  _filterTipo = 'Todos';
+                  _filterFormato = 'Todos';
+                }),
                 icon: const Icon(Icons.clear, size: 13),
                 label: const Text('Limpiar filtros'),
               ),
           ]),
-          const SizedBox(height: 16),
+          const SizedBox(height: 10),
+
+          // Format quick-filter
+          Row(children: [
+            Text('Formato:', style: AppTheme.caption(t).copyWith(color: t.textSecondary)),
+            const SizedBox(width: 10),
+            _fmtChip('Todos', Icons.folder_outlined, t.neutral, t),
+            const SizedBox(width: 6),
+            _fmtChip('PDF', Icons.picture_as_pdf_outlined, const Color(0xFFDC2626), t),
+            const SizedBox(width: 6),
+            _fmtChip('XML', Icons.code_outlined, const Color(0xFF0284C7), t),
+          ]),
+          const SizedBox(height: 14),
 
           // Legend
           Wrap(spacing: 10, children: [
@@ -419,4 +446,53 @@ class _ExploradorPageState extends State<ExploradorPage> {
               color: color, fontSize: 10, fontWeight: FontWeight.w700)),
     );
   }
+
+  /// Returns a colored icon for a given document filename extension.
+  Widget _formatIcon(String nombre) {
+    final ext = nombre.contains('.')
+        ? nombre.split('.').last.toLowerCase()
+        : '';
+    switch (ext) {
+      case 'pdf':
+        return const Icon(Icons.picture_as_pdf,
+            size: 16, color: Color(0xFFDC2626));
+      case 'xml':
+        return const Icon(Icons.code, size: 16, color: Color(0xFF0284C7));
+      default:
+        return const Icon(Icons.insert_drive_file_outlined,
+            size: 16, color: Color(0xFF64748B));
+    }
+  }
+
+  /// Quick-filter chip for document format.
+  Widget _fmtChip(String fmt, IconData icon, Color color, AppThemeData t) {
+    final isSelected = _filterFormato == fmt;
+    return GestureDetector(
+      onTap: () => setState(() => _filterFormato = fmt),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 150),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        decoration: BoxDecoration(
+          color: isSelected ? color.withOpacity(0.14) : t.surface,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+              color: isSelected ? color.withOpacity(0.6) : t.border,
+              width: isSelected ? 1.5 : 1),
+        ),
+        child: Row(mainAxisSize: MainAxisSize.min, children: [
+          Icon(icon,
+              size: 14,
+              color: isSelected ? color : t.textSecondary),
+          const SizedBox(width: 5),
+          Text(fmt,
+              style: TextStyle(
+                  color: isSelected ? color : t.textSecondary,
+                  fontSize: 12,
+                  fontWeight:
+                      isSelected ? FontWeight.w700 : FontWeight.w500)),
+        ]),
+      ),
+    );
+  }
 }
+

@@ -36,6 +36,29 @@ class _UsuariosPageState extends State<UsuariosPage> {
         _ => rol,
       };
 
+  /// Maps user first name to a real avatar asset path.
+  String _avatarPath(String nombre) {
+    final first = nombre.split(' ').first.toLowerCase();
+    const map = {
+      'valeria': 'assets/images/avatares/valeria.png',
+      'carlos': 'assets/images/avatares/Carlos.png',
+      'patricia': 'assets/images/avatares/Marta.png',
+      'rodrigo': 'assets/images/avatares/Fernando.png',
+      'elena': 'assets/images/avatares/Laura.png',
+      'miguel': 'assets/images/avatares/Eduardo.png',
+      'sandra': 'assets/images/avatares/Maria.png',
+      'jorge': 'assets/images/avatares/Juan.png',
+      'laura': 'assets/images/avatares/Laura.png',
+      'maria': 'assets/images/avatares/Maria.png',
+      'marta': 'assets/images/avatares/Marta.png',
+      'eduardo': 'assets/images/avatares/Eduardo.png',
+      'fernando': 'assets/images/avatares/Fernando.png',
+      'juan': 'assets/images/avatares/Juan.png',
+      'yuna': 'assets/images/avatares/Yuna.png',
+    };
+    return map[first] ?? '';
+  }
+
   Color _estatusColor(String estatus, AppThemeData t) => switch (estatus) {
         'activo' => t.success,
         'inactivo' => t.neutral,
@@ -64,12 +87,14 @@ class _UsuariosPageState extends State<UsuariosPage> {
           children: [
             // Header
             Row(children: [
-              Expanded(child: Column(
+              Expanded(
+                  child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Usuarios y Roles', style: AppTheme.h1(t)),
                   const SizedBox(height: 4),
-                  Text('${MetaDocsMockData.usuarios.where((u) => u.estatus == "activo").length} activos · ${MetaDocsMockData.usuarios.length} usuarios registrados',
+                  Text(
+                      '${MetaDocsMockData.usuarios.where((u) => u.estatus == "activo").length} activos · ${MetaDocsMockData.usuarios.length} usuarios registrados',
                       style: AppTheme.bodySmall(t)),
                 ],
               )),
@@ -89,11 +114,26 @@ class _UsuariosPageState extends State<UsuariosPage> {
 
             // Filtros
             Row(children: [
-              _filterDropdown('Rol', _filterRol, ['todos', 'admin', 'analyst', 'reviewer', 'compliance', 'operations'],
-                  (v) => setState(() => _filterRol = v!), t),
+              _filterDropdown(
+                  'Rol',
+                  _filterRol,
+                  [
+                    'todos',
+                    'admin',
+                    'analyst',
+                    'reviewer',
+                    'compliance',
+                    'operations'
+                  ],
+                  (v) => setState(() => _filterRol = v!),
+                  t),
               const SizedBox(width: 10),
-              _filterDropdown('Estatus', _filterEstatus, ['todos', 'activo', 'inactivo', 'bloqueado'],
-                  (v) => setState(() => _filterEstatus = v!), t),
+              _filterDropdown(
+                  'Estatus',
+                  _filterEstatus,
+                  ['todos', 'activo', 'inactivo', 'bloqueado'],
+                  (v) => setState(() => _filterEstatus = v!),
+                  t),
             ]),
             const SizedBox(height: 16),
 
@@ -103,121 +143,177 @@ class _UsuariosPageState extends State<UsuariosPage> {
                   ? _buildMobileCards(usuarios, t)
                   : Container(
                       decoration: AppTheme.tableDecoration(t),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(18),
-                  child: Column(
-                    children: [
-                      // Header row
-                      Container(
-                        color: t.isDark ? const Color(0xFF0D1628) : const Color(0xFFF1F5FF),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 12),
-                        child: Row(children: [
-                          SizedBox(width: 200, child: Text('Usuario', style: AppTheme.tableHeader(t))),
-                          SizedBox(width: 220, child: Text('Email', style: AppTheme.tableHeader(t))),
-                          SizedBox(width: 110, child: Text('Rol', style: AppTheme.tableHeader(t))),
-                          SizedBox(width: 110, child: Text('Estatus', style: AppTheme.tableHeader(t))),
-                          SizedBox(width: 120, child: Text('Último acceso', style: AppTheme.tableHeader(t))),
-                          SizedBox(width: 80, child: Text('Permisos', style: AppTheme.tableHeader(t))),
-                          const Spacer(),
-                          SizedBox(width: 120, child: Text('Acciones', style: AppTheme.tableHeader(t))),
-                        ]),
-                      ),
-                      Divider(color: t.border, height: 1),
-
-                      // Data rows
-                      Expanded(
-                        child: ListView.separated(
-                          itemCount: usuarios.length,
-                          separatorBuilder: (_, __) => Divider(color: t.border, height: 1),
-                          itemBuilder: (_, i) {
-                            final u = usuarios[i];
-                            final isOdd = i.isOdd;
-                            final rolColor = _rolColor(u.rol, t);
-                            final estColor = _estatusColor(u.estatus, t);
-                            final ua = u.ultimoAcceso;
-                            final dStr = '${ua.day.toString().padLeft(2,"0")}/${ua.month.toString().padLeft(2,"0")}/${ua.year}';
-                            return Container(
-                              color: isOdd
-                                  ? (t.isDark ? const Color(0xFF0D1628) : const Color(0xFFF8FAFC))
-                                  : t.surface,
-                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(18),
+                        child: Column(
+                          children: [
+                            // Header row
+                            Container(
+                              color: t.isDark
+                                  ? const Color(0xFF0D1628)
+                                  : const Color(0xFFF1F5FF),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 12),
                               child: Row(children: [
-                                // Nombre con avatar
                                 SizedBox(
-                                  width: 200,
-                                  child: Row(children: [
-                                    CircleAvatar(
-                                      radius: 16,
-                                      backgroundColor: rolColor.withOpacity(0.15),
-                                      child: Text(
-                                        u.nombre.split(' ').map((p) => p[0]).take(2).join(),
-                                        style: TextStyle(
-                                            color: rolColor,
-                                            fontSize: 11,
-                                            fontWeight: FontWeight.w700),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Expanded(child: Text(u.nombre, style: AppTheme.tableData(t),
-                                        overflow: TextOverflow.ellipsis)),
-                                  ]),
-                                ),
-                                // Email
+                                    width: 180,
+                                    child: Text('Usuario',
+                                        style: AppTheme.tableHeader(t))),
+                                Expanded(
+                                    child: Text('Email',
+                                        style: AppTheme.tableHeader(t))),
                                 SizedBox(
-                                  width: 220,
-                                  child: Text(u.email,
-                                      style: AppTheme.tableData(t).copyWith(color: t.textSecondary),
-                                      overflow: TextOverflow.ellipsis),
-                                ),
-                                // Rol badge
+                                    width: 105,
+                                    child: Text('Rol',
+                                        style: AppTheme.tableHeader(t))),
                                 SizedBox(
-                                  width: 110,
-                                  child: _chip(_rolLabel(u.rol), rolColor),
-                                ),
-                                // Estatus badge
+                                    width: 95,
+                                    child: Text('Estatus',
+                                        style: AppTheme.tableHeader(t))),
                                 SizedBox(
-                                  width: 110,
-                                  child: _chip(u.estatus, estColor),
-                                ),
-                                // Último acceso
+                                    width: 105,
+                                    child: Text('Último acceso',
+                                        style: AppTheme.tableHeader(t))),
                                 SizedBox(
-                                  width: 120,
-                                  child: Text(dStr,
-                                      style: AppTheme.tableData(t).copyWith(color: t.textSecondary)),
-                                ),
-                                // Permisos count
+                                    width: 70,
+                                    child: Text('Perms.',
+                                        style: AppTheme.tableHeader(t))),
                                 SizedBox(
-                                  width: 80,
-                                  child: _chip('${u.permisos.length} perms', t.info),
-                                ),
-                                const Spacer(),
-                                // Acciones
-                                SizedBox(
-                                  width: 120,
-                                  child: Row(mainAxisSize: MainAxisSize.min, children: [
-                                    _iconBtn(Icons.edit_outlined, t.info,
-                                        () => _showSnack('Editar: ${u.nombre}')),
-                                    const SizedBox(width: 4),
-                                    _iconBtn(
-                                        u.estatus == 'bloqueado'
-                                            ? Icons.lock_open_outlined
-                                            : Icons.block_outlined,
-                                        u.estatus == 'bloqueado' ? t.success : t.error,
-                                        () => _showSnack(u.estatus == 'bloqueado'
-                                            ? 'Desbloquear: ${u.nombre}'
-                                            : 'Bloquear: ${u.nombre}')),
-                                  ]),
-                                ),
+                                    width: 90,
+                                    child: Text('Acciones',
+                                        style: AppTheme.tableHeader(t))),
                               ]),
-                            );
-                          },
+                            ),
+                            Divider(color: t.border, height: 1),
+
+                            // Data rows
+                            Expanded(
+                              child: ListView.separated(
+                                itemCount: usuarios.length,
+                                separatorBuilder: (_, __) =>
+                                    Divider(color: t.border, height: 1),
+                                itemBuilder: (_, i) {
+                                  final u = usuarios[i];
+                                  final isOdd = i.isOdd;
+                                  final rolColor = _rolColor(u.rol, t);
+                                  final estColor = _estatusColor(u.estatus, t);
+                                  final ua = u.ultimoAcceso;
+                                  final dStr =
+                                      '${ua.day.toString().padLeft(2, "0")}/${ua.month.toString().padLeft(2, "0")}/${ua.year}';
+                                  return Container(
+                                    color: isOdd
+                                        ? (t.isDark
+                                            ? const Color(0xFF0D1628)
+                                            : const Color(0xFFF8FAFC))
+                                        : t.surface,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 12),
+                                    child: Row(children: [
+                                      // Nombre con avatar
+                                      SizedBox(
+                                        width: 180,
+                                        child: Row(children: [
+                                          () {
+                                            final path = _avatarPath(u.nombre);
+                                            return CircleAvatar(
+                                              radius: 16,
+                                              backgroundColor:
+                                                  rolColor.withOpacity(0.15),
+                                              backgroundImage: path.isNotEmpty
+                                                  ? AssetImage(path)
+                                                  : null,
+                                              child: path.isEmpty
+                                                  ? Text(
+                                                      u.nombre
+                                                          .split(' ')
+                                                          .map((p) => p[0])
+                                                          .take(2)
+                                                          .join(),
+                                                      style: TextStyle(
+                                                          color: rolColor,
+                                                          fontSize: 11,
+                                                          fontWeight:
+                                                              FontWeight.w700),
+                                                    )
+                                                  : null,
+                                            );
+                                          }(),
+                                          const SizedBox(width: 8),
+                                          Expanded(
+                                              child: Text(u.nombre,
+                                                  style: AppTheme.tableData(t),
+                                                  overflow:
+                                                      TextOverflow.ellipsis)),
+                                        ]),
+                                      ),
+                                      // Email
+                                      Expanded(
+                                        child: Text(u.email,
+                                            style: AppTheme.tableData(t)
+                                                .copyWith(
+                                                    color: t.textSecondary),
+                                            overflow: TextOverflow.ellipsis),
+                                      ),
+                                      // Rol badge
+                                      SizedBox(
+                                        width: 105,
+                                        child:
+                                            _chip(_rolLabel(u.rol), rolColor),
+                                      ),
+                                      // Estatus badge
+                                      SizedBox(
+                                        width: 95,
+                                        child: _chip(u.estatus, estColor),
+                                      ),
+                                      // Último acceso
+                                      SizedBox(
+                                        width: 105,
+                                        child: Text(dStr,
+                                            style: AppTheme.tableData(t)
+                                                .copyWith(
+                                                    color: t.textSecondary)),
+                                      ),
+                                      // Permisos count
+                                      SizedBox(
+                                        width: 70,
+                                        child: _chip(
+                                            '${u.permisos.length}',
+                                            t.info),
+                                      ),
+                                      // Acciones
+                                      SizedBox(
+                                        width: 90,
+                                        child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              _iconBtn(
+                                                  Icons.edit_outlined,
+                                                  t.info,
+                                                  () => _showSnack(
+                                                      'Editar: ${u.nombre}')),
+                                              const SizedBox(width: 4),
+                                              _iconBtn(
+                                                  u.estatus == 'bloqueado'
+                                                      ? Icons.lock_open_outlined
+                                                      : Icons.block_outlined,
+                                                  u.estatus == 'bloqueado'
+                                                      ? t.success
+                                                      : t.error,
+                                                  () => _showSnack(u.estatus ==
+                                                          'bloqueado'
+                                                      ? 'Desbloquear: ${u.nombre}'
+                                                      : 'Bloquear: ${u.nombre}')),
+                                            ]),
+                                      ),
+                                    ]),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
+                    ),
             ),
           ],
         ),
@@ -240,27 +336,34 @@ class _UsuariosPageState extends State<UsuariosPage> {
         return Container(
           padding: const EdgeInsets.all(14),
           decoration: AppTheme.cardDecoration(t),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(children: [
-              CircleAvatar(
-                radius: 20,
-                backgroundColor: rolColor.withOpacity(0.15),
-                child: Text(
-                  u.nombre.split(' ').map((p) => p[0]).take(2).join(),
-                  style: TextStyle(
-                      color: rolColor,
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700),
-                ),
-              ),
+              () {
+                final path = _avatarPath(u.nombre);
+                return CircleAvatar(
+                  radius: 20,
+                  backgroundColor: rolColor.withOpacity(0.15),
+                  backgroundImage: path.isNotEmpty ? AssetImage(path) : null,
+                  child: path.isEmpty
+                      ? Text(
+                          u.nombre.split(' ').map((p) => p[0]).take(2).join(),
+                          style: TextStyle(
+                              color: rolColor,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700),
+                        )
+                      : null,
+                );
+              }(),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(u.nombre,
-                          style:
-                              AppTheme.body(t).copyWith(fontWeight: FontWeight.w600)),
+                          style: AppTheme.body(t)
+                              .copyWith(fontWeight: FontWeight.w600)),
                       Text(u.email,
                           style: AppTheme.caption(t),
                           overflow: TextOverflow.ellipsis),
