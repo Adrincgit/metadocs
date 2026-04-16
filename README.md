@@ -1,16 +1,32 @@
-# nethive_neo
+# MetaDocs — AI Document Intelligence Demo
 
-A new Flutter project.
+Demo de sistema de gestión documental con inteligencia artificial, desarrollado con Flutter Web.
 
-## Getting Started
+Creado por [CBLuna](https://cbluna.com/).
 
-This project is a starting point for a Flutter application.
+## Demo en vivo
 
-A few resources to get you started if this is your first Flutter project:
+🔗 [https://adrincgit.github.io/metadocs/](https://adrincgit.github.io/metadocs/)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Tecnologías
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Flutter Web
+- Provider (state management)
+- GoRouter (navegación)
+- PlutoGrid (tablas administrativas)
+- fl_chart (gráficas)
+
+## Desarrollo local
+
+```bash
+flutter pub get
+flutter run -d chrome
+```
+
+## Build de producción
+
+```bash
+flutter build web --release --no-tree-shake-icons --base-href /metadocs/
+```
+
+El output queda en `build/web/` y se copia a `docs/` para el deploy en GitHub Pages.
