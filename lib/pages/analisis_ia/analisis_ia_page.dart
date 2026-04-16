@@ -1,8 +1,8 @@
-ï»¿import 'package:flutter/material.dart';
-import 'package:nethive_neo/data/metadocs_mock_data.dart';
-import 'package:nethive_neo/helpers/constants.dart';
-import 'package:nethive_neo/models/models.dart';
-import 'package:nethive_neo/theme/theme.dart';
+import 'package:flutter/material.dart';
+import 'package:metadocs/data/metadocs_mock_data.dart';
+import 'package:metadocs/helpers/constants.dart';
+import 'package:metadocs/models/models.dart';
+import 'package:metadocs/theme/theme.dart';
 
 class AnalisisIaPage extends StatefulWidget {
   const AnalisisIaPage({super.key});
@@ -45,17 +45,17 @@ class _AnalisisIaPageState extends State<AnalisisIaPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('AnÃ¡lisis con IA', style: AppTheme.h1(t)),
+            Text('Análisis con IA', style: AppTheme.h1(t)),
             const SizedBox(height: 4),
             Text(
-                'Motor: Gemini Vision Â· ${MetaDocsMockData.documentos.length} documentos en corpus',
+                'Motor: Gemini Vision · ${MetaDocsMockData.documentos.length} documentos en corpus',
                 style: AppTheme.bodySmall(t)),
             const SizedBox(height: 20),
             Expanded(
               child: LayoutBuilder(builder: (_, box) {
                 final mob = box.maxWidth < mobileSize;
 
-                // â”€â”€ Sidebar: lista de documentos â”€â”€
+                // -- Sidebar: lista de documentos --
                 final sidebar = Container(
                   decoration: AppTheme.cardDecoration(t),
                   child: Column(children: [
@@ -128,7 +128,7 @@ class _AnalisisIaPageState extends State<AnalisisIaPage> {
                   ]),
                 );
 
-                // â”€â”€ Panel de anÃ¡lisis â”€â”€
+                // -- Panel de análisis --
                 final detail = _loading
                     ? Container(
                         decoration: AppTheme.cardDecoration(t),
@@ -138,7 +138,7 @@ class _AnalisisIaPageState extends State<AnalisisIaPage> {
                             children: [
                               CircularProgressIndicator(color: t.primary),
                               const SizedBox(height: 16),
-                              Text('Procesando con IAâ€¦',
+                              Text('Procesando con IA…',
                                   style: AppTheme.body(t)),
                             ],
                           ),
@@ -166,7 +166,7 @@ class _AnalisisIaPageState extends State<AnalisisIaPage> {
                                               overflow: TextOverflow.ellipsis),
                                           const SizedBox(height: 4),
                                           Text(
-                                              '${doc.tipoDocumental} Â· ${doc.paginas} pÃ¡gs. Â· ${(doc.tamanoKb / 1024).toStringAsFixed(1)} MB',
+                                              '${doc.tipoDocumental} · ${doc.paginas} págs. · ${(doc.tamanoKb / 1024).toStringAsFixed(1)} MB',
                                               style: AppTheme.bodySmall(t)),
                                         ],
                                       ),
@@ -232,31 +232,31 @@ class _AnalisisIaPageState extends State<AnalisisIaPage> {
                                         'Extraer datos',
                                         t.success,
                                         t,
-                                        () => _simulate('ExtracciÃ³n de datos')),
+                                        () => _simulate('Extracción de datos')),
                                     _iaBtn(
                                         Icons.security_outlined,
                                         'Detectar riesgos',
                                         t.error,
                                         t,
-                                        () => _simulate('AnÃ¡lisis de riesgo')),
+                                        () => _simulate('Análisis de riesgo')),
                                     _iaBtn(
                                         Icons.compare_arrows_outlined,
                                         'Comparar versiones',
                                         t.warning,
                                         t,
-                                        () => _simulate('ComparaciÃ³n')),
+                                        () => _simulate('Comparación')),
                                     _iaBtn(
                                         Icons.category_outlined,
                                         'Re-clasificar',
                                         t.indigo,
                                         t,
-                                        () => _simulate('Re-clasificaciÃ³n')),
+                                        () => _simulate('Re-clasificación')),
                                     _iaBtn(
                                         Icons.translate_outlined,
                                         'Traducir',
                                         t.info,
                                         t,
-                                        () => _simulate('TraducciÃ³n')),
+                                        () => _simulate('Traducción')),
                                   ]),
                                 ],
                               ),
@@ -275,7 +275,7 @@ class _AnalisisIaPageState extends State<AnalisisIaPage> {
                                       Icon(Icons.fact_check_outlined,
                                           size: 18, color: t.success),
                                       const SizedBox(width: 8),
-                                      Text('Campos extraÃ­dos',
+                                      Text('Campos extraídos',
                                           style: AppTheme.h3(t)),
                                       const Spacer(),
                                       Text('${doc.metadatos.length} campos',
@@ -308,7 +308,7 @@ class _AnalisisIaPageState extends State<AnalisisIaPage> {
                                         )),
                                     if (doc.metadatos.length > 8)
                                       Text(
-                                          '+ ${doc.metadatos.length - 8} campos mÃ¡sâ€¦',
+                                          '+ ${doc.metadatos.length - 8} campos más…',
                                           style: AppTheme.caption(t)
                                               .copyWith(color: t.primary)),
                                   ],
@@ -388,7 +388,7 @@ class _AnalisisIaPageState extends State<AnalisisIaPage> {
                                         'Motor OCR', resultado.motorOCR, t),
                                     _metaRow('Tiempo',
                                         '${resultado.tiempoMs} ms', t),
-                                    _metaRow('Campos extraÃ­dos',
+                                    _metaRow('Campos extraídos',
                                         '${resultado.camposExtraidos}', t),
                                     _metaRow('Estatus', resultado.estatus, t),
                                     if (resultado.errores.isNotEmpty)
@@ -403,7 +403,7 @@ class _AnalisisIaPageState extends State<AnalisisIaPage> {
                         ),
                       );
 
-                // â”€â”€ Layout â”€â”€
+                // -- Layout --
                 if (mob) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

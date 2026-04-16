@@ -2,8 +2,8 @@
 // Drawer mobile que expone el mismo Sidebar dentro de un Drawer de Flutter
 
 import 'package:flutter/material.dart';
-import 'package:nethive_neo/widgets/sidebar/sidebar_widget.dart';
-import 'package:nethive_neo/theme/theme.dart';
+import 'package:metadocs/widgets/sidebar/sidebar_widget.dart';
+import 'package:metadocs/theme/theme.dart';
 
 /// Drawer used on mobile (≤ 768 px).
 /// Pásalo al parámetro `drawer` del Scaffold en MainContainerPage.

@@ -1,13 +1,13 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import 'package:nethive_neo/helpers/constants.dart';
-import 'package:nethive_neo/providers/visual_state_provider.dart';
-import 'package:nethive_neo/theme/theme.dart';
-import 'package:nethive_neo/widgets/header/header_widget.dart';
-import 'package:nethive_neo/widgets/navbar/navbar_widget.dart';
-import 'package:nethive_neo/widgets/sidebar/sidebar_widget.dart';
+import 'package:metadocs/helpers/constants.dart';
+import 'package:metadocs/providers/visual_state_provider.dart';
+import 'package:metadocs/theme/theme.dart';
+import 'package:metadocs/widgets/header/header_widget.dart';
+import 'package:metadocs/widgets/navbar/navbar_widget.dart';
+import 'package:metadocs/widgets/sidebar/sidebar_widget.dart';
 
 class MainContainerPage extends StatefulWidget {
   final Widget child;
@@ -48,7 +48,7 @@ class _MainContainerPageState extends State<MainContainerPage> {
   }
 }
 
-// ─── Layout Desktop ───────────────────────────────────────────────────────────
+// --- Layout Desktop -----------------------------------------------------------
 
 class _DesktopLayout extends StatelessWidget {
   final Widget child;
@@ -73,7 +73,7 @@ class _DesktopLayout extends StatelessWidget {
   }
 }
 
-// ─── Layout Mobile ────────────────────────────────────────────────────────────
+// --- Layout Mobile ------------------------------------------------------------
 
 class _MobileLayout extends StatelessWidget {
   final Widget child;

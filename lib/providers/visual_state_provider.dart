@@ -1,6 +1,6 @@
-﻿// lib/providers/visual_state_provider.dart
+// lib/providers/visual_state_provider.dart
 import 'package:flutter/material.dart';
-import 'package:nethive_neo/theme/theme.dart';
+import 'package:metadocs/theme/theme.dart';
 
 class VisualStateProvider extends ChangeNotifier {
   String _currentRoute = '/';

@@ -1,10 +1,10 @@
-﻿// lib/helpers/globals.dart
+// lib/helpers/globals.dart
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pluto_grid/pluto_grid.dart';
-import 'package:nethive_neo/theme/theme.dart';
+import 'package:metadocs/theme/theme.dart';
 
-// ─── Keys globales ───────────────────────────────────────────────────────────
+// --- Keys globales -----------------------------------------------------------
 final GlobalKey<ScaffoldMessengerState> snackbarKey =
     GlobalKey<ScaffoldMessengerState>();
 
@@ -14,7 +14,7 @@ Future<void> initGlobals() async {
   prefs = await SharedPreferences.getInstance();
 }
 
-// ─── PlutoGrid configs enterprise ───────────────────────────────────────────
+// --- PlutoGrid configs enterprise -------------------------------------------
 
 PlutoGridScrollbarConfig plutoGridScrollbarConfig(BuildContext context) {
   final t = AppTheme.of(context);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nethive_neo/data/metadocs_mock_data.dart';
-import 'package:nethive_neo/helpers/constants.dart';
-import 'package:nethive_neo/theme/theme.dart';
+import 'package:metadocs/data/metadocs_mock_data.dart';
+import 'package:metadocs/helpers/constants.dart';
+import 'package:metadocs/theme/theme.dart';
 
 class IngestaPage extends StatefulWidget {
   const IngestaPage({super.key});

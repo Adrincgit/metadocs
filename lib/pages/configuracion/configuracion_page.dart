@@ -1,5 +1,5 @@
-Ôªøimport 'package:flutter/material.dart';
-import 'package:nethive_neo/theme/theme.dart';
+import 'package:flutter/material.dart';
+import 'package:metadocs/theme/theme.dart';
 
 class ConfiguracionPage extends StatefulWidget {
   const ConfiguracionPage({super.key});
@@ -16,9 +16,9 @@ class _ConfiguracionPageState extends State<ConfiguracionPage> {
   // Section 2: OCR/IA
   String _motorOCR = 'Gemini Vision Pro';
   double _umbralConfianza = 0.75;
-  String _idioma = 'Espa√±ol';
+  String _idioma = 'EspaÒol';
 
-  // Section 3: Retenci√≥n
+  // Section 3: RetenciÛn
   int _diasRetencion = 365;
   bool _autoArchivado = true;
 
@@ -27,7 +27,7 @@ class _ConfiguracionPageState extends State<ConfiguracionPage> {
 
   // Section 5: Indexado
   bool _autoIndice = true;
-  String _idiomaIndice = 'Espa√±ol';
+  String _idiomaIndice = 'EspaÒol';
 
   // Section 6: Notificaciones
   bool _emailNotif = true;
@@ -59,9 +59,9 @@ class _ConfiguracionPageState extends State<ConfiguracionPage> {
               Expanded(child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Configuraci√≥n', style: AppTheme.h1(t)),
+                  Text('ConfiguraciÛn', style: AppTheme.h1(t)),
                   const SizedBox(height: 4),
-                  Text('Par√°metros del sistema de gesti√≥n documental',
+                  Text('Par·metros del sistema de gestiÛn documental',
                       style: AppTheme.bodySmall(t)),
                 ],
               )),
@@ -121,17 +121,17 @@ class _ConfiguracionPageState extends State<ConfiguracionPage> {
                   _dropdownRow(
                     label: 'Idioma principal',
                     value: _idioma,
-                    items: ['Espa√±ol', 'Ingl√©s', 'Portugu√©s', 'Franc√©s'],
+                    items: ['EspaÒol', 'InglÈs', 'PortuguÈs', 'FrancÈs'],
                     onChanged: (v) => setState(() => _idioma = v!),
                     t: t,
                   ),
                 ],
               ),
 
-              // Section 3: Retenci√≥n
+              // Section 3: RetenciÛn
               _card(
                 icon: Icons.history_outlined,
-                title: 'Retenci√≥n y archivo',
+                title: 'RetenciÛn y archivo',
                 iconColor: t.warning,
                 t: t,
                 children: [
@@ -139,7 +139,7 @@ class _ConfiguracionPageState extends State<ConfiguracionPage> {
                     Expanded(child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('D√≠as de retenci√≥n', style: AppTheme.bodySmall(t)),
+                        Text('DÌas de retenciÛn', style: AppTheme.bodySmall(t)),
                         const SizedBox(height: 6),
                         DropdownButtonFormField<int>(
                           value: _diasRetencion,
@@ -158,7 +158,7 @@ class _ConfiguracionPageState extends State<ConfiguracionPage> {
                           items: [90, 180, 365, 730, 1825]
                               .map((v) => DropdownMenuItem(
                                     value: v,
-                                    child: Text('$v d√≠as'),
+                                    child: Text('$v dÌas'),
                                   ))
                               .toList(),
                           onChanged: (v) => setState(() => _diasRetencion = v!),
@@ -194,13 +194,13 @@ class _ConfiguracionPageState extends State<ConfiguracionPage> {
                 iconColor: t.info,
                 t: t,
                 children: [
-                  _switchRow('Indexado autom√°tico', _autoIndice,
+                  _switchRow('Indexado autom·tico', _autoIndice,
                       (v) => setState(() => _autoIndice = v), t),
                   const SizedBox(height: 12),
                   _dropdownRow(
-                    label: 'Idioma de √≠ndice',
+                    label: 'Idioma de Ìndice',
                     value: _idiomaIndice,
-                    items: ['Espa√±ol', 'Ingl√©s', 'Multilenguaje'],
+                    items: ['EspaÒol', 'InglÈs', 'Multilenguaje'],
                     onChanged: (v) => setState(() => _idiomaIndice = v!),
                     t: t,
                   ),

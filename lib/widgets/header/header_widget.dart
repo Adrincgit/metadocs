@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import 'package:nethive_neo/helpers/constants.dart';
-import 'package:nethive_neo/providers/visual_state_provider.dart';
-import 'package:nethive_neo/theme/theme.dart';
+import 'package:metadocs/helpers/constants.dart';
+import 'package:metadocs/providers/visual_state_provider.dart';
+import 'package:metadocs/theme/theme.dart';
 
 // ─── Mapa ruta → título ───────────────────────────────────────────────────────
 
@@ -205,7 +205,7 @@ class _UserAvatarState extends State<_UserAvatar> {
         ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Image.asset(
-            'assets/images/avatares/valeria.png',
+            'assets/images/avatares/carlos.png',
             width: 36,
             height: 36,
             fit: BoxFit.cover,
@@ -235,11 +235,11 @@ class _UserAvatarState extends State<_UserAvatar> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Valeria Ríos',
+              'Carlos Mendoza',
               style: AppTheme.label(t).copyWith(fontWeight: FontWeight.w600),
             ),
             Text(
-              'Finanzas',
+              'Administrador',
               style: AppTheme.caption(t),
             ),
           ],

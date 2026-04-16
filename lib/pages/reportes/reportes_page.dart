@@ -1,8 +1,8 @@
-﻿import 'package:fl_chart/fl_chart.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:nethive_neo/data/metadocs_mock_data.dart';
-import 'package:nethive_neo/helpers/constants.dart';
-import 'package:nethive_neo/theme/theme.dart';
+import 'package:metadocs/data/metadocs_mock_data.dart';
+import 'package:metadocs/helpers/constants.dart';
+import 'package:metadocs/theme/theme.dart';
 
 class ReportesPage extends StatefulWidget {
   const ReportesPage({super.key});
@@ -12,7 +12,7 @@ class ReportesPage extends StatefulWidget {
 }
 
 class _ReportesPageState extends State<ReportesPage> {
-  int _period = 0; // 0=mes, 1=trimestre, 2=año
+  int _period = 0; // 0=mes, 1=trimestre, 2=a�o
 
   void _showSnack(String msg) => ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(msg), duration: const Duration(seconds: 2)));
@@ -262,7 +262,7 @@ class _ReportesPageState extends State<ReportesPage> {
     );
   }
 
-  // ── Chart cards ──────────────────────────────────────────────────────────
+  // -- Chart cards ----------------------------------------------------------
 
   Widget _buildVolumeChartCard(
       AppThemeData t, List<double> docsPerMonth, List<String> meses) {
@@ -572,7 +572,7 @@ class _ReportesPageState extends State<ReportesPage> {
     );
   }
 
-  // ── Helpers ───────────────────────────────────────────────────────────────
+  // -- Helpers ---------------------------------------------------------------
 
   Widget _kpi(
       String label, String value, IconData icon, Color color, AppThemeData t) {

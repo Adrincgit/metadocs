@@ -1,8 +1,8 @@
-ï»¿import 'package:flutter/material.dart';
-import 'package:nethive_neo/data/metadocs_mock_data.dart';
-import 'package:nethive_neo/models/models.dart';
-import 'package:nethive_neo/helpers/constants.dart';
-import 'package:nethive_neo/theme/theme.dart';
+import 'package:flutter/material.dart';
+import 'package:metadocs/data/metadocs_mock_data.dart';
+import 'package:metadocs/models/models.dart';
+import 'package:metadocs/helpers/constants.dart';
+import 'package:metadocs/theme/theme.dart';
 
 class EsquemasPage extends StatefulWidget {
   const EsquemasPage({super.key});
@@ -55,10 +55,10 @@ class _EsquemasPageState extends State<EsquemasPage> {
                   child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Esquemas y TaxonomÃ­a', style: AppTheme.h1(t)),
+                  Text('Esquemas y Taxonomía', style: AppTheme.h1(t)),
                   const SizedBox(height: 4),
                   Text(
-                      '${tipos.length} tipos documentales Â· ${tipos.fold(0, (s, td) => s + td.campos.length)} campos definidos',
+                      '${tipos.length} tipos documentales · ${tipos.fold(0, (s, td) => s + td.campos.length)} campos definidos',
                       style: AppTheme.bodySmall(t)),
                 ],
               )),
@@ -296,7 +296,7 @@ class _EsquemasPageState extends State<EsquemasPage> {
                                           Icon(Icons.check_circle_outline,
                                               size: 14, color: t.error),
                                           const SizedBox(width: 4),
-                                          Text('SÃ­',
+                                          Text('Sí',
                                               style: AppTheme.tableData(t)
                                                   .copyWith(color: t.error)),
                                         ])

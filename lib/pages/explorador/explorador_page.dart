@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:nethive_neo/data/metadocs_mock_data.dart';
-import 'package:nethive_neo/helpers/constants.dart';
-import 'package:nethive_neo/models/models.dart';
-import 'package:nethive_neo/theme/theme.dart';
+import 'package:metadocs/data/metadocs_mock_data.dart';
+import 'package:metadocs/helpers/constants.dart';
+import 'package:metadocs/models/models.dart';
+import 'package:metadocs/theme/theme.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
 class ExploradorPage extends StatefulWidget {

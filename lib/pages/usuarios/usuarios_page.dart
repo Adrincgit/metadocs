@@ -1,8 +1,8 @@
-﻿import 'package:flutter/material.dart';
-import 'package:nethive_neo/data/metadocs_mock_data.dart';
-import 'package:nethive_neo/helpers/constants.dart';
-import 'package:nethive_neo/models/models.dart';
-import 'package:nethive_neo/theme/theme.dart';
+import 'package:flutter/material.dart';
+import 'package:metadocs/data/metadocs_mock_data.dart';
+import 'package:metadocs/helpers/constants.dart';
+import 'package:metadocs/models/models.dart';
+import 'package:metadocs/theme/theme.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
 class UsuariosPage extends StatefulWidget {
@@ -96,7 +96,7 @@ class _UsuariosPageState extends State<UsuariosPage> {
                   Text('Usuarios y Roles', style: AppTheme.h1(t)),
                   const SizedBox(height: 4),
                   Text(
-                      '${MetaDocsMockData.usuarios.where((u) => u.estatus == "activo").length} activos · ${MetaDocsMockData.usuarios.length} usuarios registrados',
+                      '${MetaDocsMockData.usuarios.where((u) => u.estatus == "activo").length} activos � ${MetaDocsMockData.usuarios.length} usuarios registrados',
                       style: AppTheme.bodySmall(t)),
                 ],
               )),
@@ -166,17 +166,15 @@ class _UsuariosPageState extends State<UsuariosPage> {
     );
   }
 
-  // ── PLUTOGRID HELPERS ─────────────────────────────────────
+  // -- PLUTOGRID HELPERS -------------------------------------
   List<PlutoColumn> _usuCols(AppThemeData t) => [
         PlutoColumn(
           title: 'Usuario',
           field: 'nombre',
           type: PlutoColumnType.text(),
           width: 200,
-          titlePadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          cellPadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           renderer: (ctx) {
             final nombre = ctx.cell.value as String;
             final rol = ctx.row.cells['rol']?.value as String? ?? '';
@@ -210,13 +208,10 @@ class _UsuariosPageState extends State<UsuariosPage> {
           field: 'email',
           type: PlutoColumnType.text(),
           width: 220,
-          titlePadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          cellPadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           renderer: (ctx) => Text(ctx.cell.value as String,
-              style:
-                  AppTheme.tableData(t).copyWith(color: t.textSecondary),
+              style: AppTheme.tableData(t).copyWith(color: t.textSecondary),
               overflow: TextOverflow.ellipsis),
         ),
         PlutoColumn(
@@ -224,10 +219,8 @@ class _UsuariosPageState extends State<UsuariosPage> {
           field: 'rol',
           type: PlutoColumnType.text(),
           width: 110,
-          titlePadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          cellPadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           renderer: (ctx) {
             final rol = ctx.cell.value as String;
             return _chip(_rolLabel(rol), _rolColor(rol, t));
@@ -238,53 +231,42 @@ class _UsuariosPageState extends State<UsuariosPage> {
           field: 'estatus',
           type: PlutoColumnType.text(),
           width: 95,
-          titlePadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          cellPadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           renderer: (ctx) {
             final est = ctx.cell.value as String;
             return _chip(est, _estatusColor(est, t));
           },
         ),
         PlutoColumn(
-          title: 'Último acceso',
+          title: '�ltimo acceso',
           field: 'ultimoAcceso',
           type: PlutoColumnType.text(),
           width: 110,
-          titlePadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          cellPadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           renderer: (ctx) => Text(ctx.cell.value as String,
-              style:
-                  AppTheme.tableData(t).copyWith(color: t.textSecondary)),
+              style: AppTheme.tableData(t).copyWith(color: t.textSecondary)),
         ),
         PlutoColumn(
           title: 'Perms.',
           field: 'permisos',
           type: PlutoColumnType.number(),
           width: 70,
-          titlePadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          cellPadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          renderer: (ctx) =>
-              _chip('${ctx.cell.value}', t.info),
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) => _chip('${ctx.cell.value}', t.info),
         ),
         PlutoColumn(
           title: 'Acciones',
           field: 'accNombre',
           type: PlutoColumnType.text(),
           width: 90,
-          titlePadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          cellPadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           renderer: (ctx) {
             final nombre = ctx.cell.value as String;
-            final est =
-                ctx.row.cells['estatus']?.value as String? ?? '';
+            final est = ctx.row.cells['estatus']?.value as String? ?? '';
             return Row(mainAxisSize: MainAxisSize.min, children: [
               _iconBtn(Icons.edit_outlined, t.info,
                   () => _showSnack('Editar: $nombre')),
@@ -410,7 +392,7 @@ class _UsuariosPageState extends State<UsuariosPage> {
               _chip('${u.permisos.length} perms', t.info),
             ]),
             const SizedBox(height: 6),
-            Text('Último acceso: $dStr', style: AppTheme.caption(t)),
+            Text('�ltimo acceso: $dStr', style: AppTheme.caption(t)),
           ]),
         );
       },

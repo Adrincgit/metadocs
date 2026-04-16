@@ -1,7 +1,7 @@
-ï»¿import 'package:flutter/material.dart';
-import 'package:nethive_neo/data/metadocs_mock_data.dart';
-import 'package:nethive_neo/models/models.dart';
-import 'package:nethive_neo/theme/theme.dart';
+import 'package:flutter/material.dart';
+import 'package:metadocs/data/metadocs_mock_data.dart';
+import 'package:metadocs/models/models.dart';
+import 'package:metadocs/theme/theme.dart';
 
 class ConsultasPage extends StatefulWidget {
   const ConsultasPage({super.key});
@@ -20,9 +20,9 @@ class _ConsultasPageState extends State<ConsultasPage> {
     'Contratos vigentes firmados en 2026',
     'Facturas con monto mayor a 50,000',
     'Documentos rechazados del mes de enero',
-    'Expedientes clÃ­nicos de confianza alta',
-    'Informes tÃ©cnicos pendientes de revisiÃ³n',
-    'Solicitudes con campo RFC extraÃ­do',
+    'Expedientes clínicos de confianza alta',
+    'Informes técnicos pendientes de revisión',
+    'Solicitudes con campo RFC extraído',
     'Documentos de origen email sin revisar',
     'Actas constitutivas archivadas',
   ];
@@ -99,7 +99,7 @@ class _ConsultasPageState extends State<ConsultasPage> {
                     style: AppTheme.body(t).copyWith(fontSize: 15),
                     onSubmitted: _search,
                     decoration: InputDecoration(
-                      hintText: 'Ej: contratos vigentes con RFC extraÃ­doâ€¦',
+                      hintText: 'Ej: contratos vigentes con RFC extraído…',
                       hintStyle: AppTheme.body(t).copyWith(color: t.textDisabled),
                       border: InputBorder.none,
                     ),
@@ -145,7 +145,7 @@ class _ConsultasPageState extends State<ConsultasPage> {
               Row(children: [
                 _statCard('Total documentos', '${MetaDocsMockData.documentos.length}', Icons.folder_copy_outlined, t.primary, t),
                 const SizedBox(width: 10),
-                _statCard('ExtraÃ­dos', '${MetaDocsMockData.documentos.where((d) => d.estatus == "extraido" || d.estatus == "revisado").length}', Icons.check_circle_outline, t.success, t),
+                _statCard('Extraídos', '${MetaDocsMockData.documentos.where((d) => d.estatus == "extraido" || d.estatus == "revisado").length}', Icons.check_circle_outline, t.success, t),
                 const SizedBox(width: 10),
                 _statCard('Tipos documentales', '${MetaDocsMockData.tiposDocumentales.length}', Icons.category_outlined, t.info, t),
                 const SizedBox(width: 10),
@@ -159,7 +159,7 @@ class _ConsultasPageState extends State<ConsultasPage> {
               Center(child: Column(children: [
                 CircularProgressIndicator(color: t.primary),
                 const SizedBox(height: 14),
-                Text('Consultando corpus documentalâ€¦',
+                Text('Consultando corpus documental…',
                     style: AppTheme.body(t).copyWith(color: t.textSecondary)),
               ])),
             ],
@@ -172,7 +172,7 @@ class _ConsultasPageState extends State<ConsultasPage> {
                 Text('"$_searchedQuery"',
                     style: AppTheme.h3(t).copyWith(color: t.primary)),
                 const SizedBox(width: 8),
-                Text('â€” ${_results.length} resultado(s)',
+                Text('— ${_results.length} resultado(s)',
                     style: AppTheme.bodySmall(t).copyWith(color: t.textSecondary)),
                 const Spacer(),
                 TextButton.icon(
@@ -216,7 +216,7 @@ class _ConsultasPageState extends State<ConsultasPage> {
                                 style: AppTheme.body(t).copyWith(fontWeight: FontWeight.w600)),
                             const SizedBox(height: 3),
                             Row(children: [
-                              Text('${doc.tipoDocumental} Â· ${doc.origen}',
+                              Text('${doc.tipoDocumental} · ${doc.origen}',
                                   style: AppTheme.caption(t)),
                               const SizedBox(width: 8),
                               if (doc.etiquetas.isNotEmpty)
@@ -263,7 +263,7 @@ class _ConsultasPageState extends State<ConsultasPage> {
                 const SizedBox(height: 8),
                 TextButton(
                   onPressed: () => setState(() { _searchedQuery = ''; _queryCtrl.clear(); }),
-                  child: Text('Borrar bÃºsqueda', style: AppTheme.body(t).copyWith(color: t.primary)),
+                  child: Text('Borrar búsqueda', style: AppTheme.body(t).copyWith(color: t.primary)),
                 ),
               ])),
             ],

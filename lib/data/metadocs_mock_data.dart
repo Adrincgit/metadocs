@@ -6,7 +6,7 @@
 // ============================================================================
 library;
 
-import 'package:nethive_neo/models/models.dart';
+import 'package:metadocs/models/models.dart';
 
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 

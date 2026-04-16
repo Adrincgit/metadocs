@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nethive_neo/helpers/scroll_behavior.dart';
-import 'package:nethive_neo/internationalization/internationalization.dart';
-import 'package:nethive_neo/router/router.dart';
-import 'package:nethive_neo/theme/theme.dart';
+import 'package:metadocs/helpers/scroll_behavior.dart';
+import 'package:metadocs/internationalization/internationalization.dart';
+import 'package:metadocs/router/router.dart';
+import 'package:metadocs/theme/theme.dart';
 import 'package:provider/provider.dart';
 
-import 'package:nethive_neo/providers/providers.dart';
-import 'package:nethive_neo/helpers/globals.dart';
+import 'package:metadocs/providers/providers.dart';
+import 'package:metadocs/helpers/globals.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

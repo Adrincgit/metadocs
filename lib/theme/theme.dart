@@ -1,10 +1,10 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:nethive_neo/helpers/globals.dart';
+import 'package:metadocs/helpers/globals.dart';
 
 const kThemeModeKey = '__theme_mode__';
 
-// ─── Color token data class ────────────────────────────────────────────────────
+// --- Color token data class ----------------------------------------------------
 class AppThemeData {
   const AppThemeData({
     required this.primary,
@@ -53,9 +53,9 @@ class AppThemeData {
   final bool isDark;
 }
 
-// ─── AppTheme — acceso a paleta, texto y Material ThemeData ───────────────────
+// --- AppTheme � acceso a paleta, texto y Material ThemeData -------------------
 abstract class AppTheme {
-  // ── Persistencia del modo ────────────────────────────────────────────────────
+  // -- Persistencia del modo ----------------------------------------------------
   static ThemeMode get themeMode {
     final darkMode = prefs.getBool(kThemeModeKey);
 
@@ -69,7 +69,7 @@ abstract class AppTheme {
       ? prefs.remove(kThemeModeKey)
       : prefs.setBool(kThemeModeKey, mode == ThemeMode.dark);
 
-  // ── Gradientes útiles para headers, banners, highlights ─────────────────────
+  // -- Gradientes �tiles para headers, banners, highlights ---------------------
   static const LinearGradient primaryGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
@@ -88,7 +88,7 @@ abstract class AppTheme {
     ],
   );
 
-  // ── Paleta modo claro ────────────────────────────────────────────────────────
+  // -- Paleta modo claro --------------------------------------------------------
   static const AppThemeData light = AppThemeData(
     primary: Color(0xFF6366F1),
     primaryHover: Color(0xFF5558E8),
@@ -113,7 +113,7 @@ abstract class AppTheme {
     isDark: false,
   );
 
-  // ── Paleta modo oscuro ───────────────────────────────────────────────────────
+  // -- Paleta modo oscuro -------------------------------------------------------
   static const AppThemeData dark = AppThemeData(
     // Acento principal del sistema
     primary: Color(0xFF6366F1),
@@ -130,11 +130,11 @@ abstract class AppTheme {
     error: Color(0xFFEF4444),
     errorSoft: Color(0xFF4A1113),
 
-    // Info / IA / búsqueda / semantic search
+    // Info / IA / b�squeda / semantic search
     info: Color(0xFF22D3EE),
     infoSoft: Color(0xFF0C364D),
 
-    // Violeta ocasional para módulos AI o énfasis secundarios
+    // Violeta ocasional para m�dulos AI o �nfasis secundarios
     indigo: Color(0xFF8B5CF6),
     indigoSoft: Color(0xFF312E81),
 
@@ -152,11 +152,11 @@ abstract class AppTheme {
     isDark: true,
   );
 
-  // ── Selector de tema según contexto ──────────────────────────────────────────
+  // -- Selector de tema seg�n contexto ------------------------------------------
   static AppThemeData of(BuildContext context) =>
       Theme.of(context).brightness == Brightness.dark ? dark : light;
 
-  // ── Estilos de texto (Inter) ─────────────────────────────────────────────────
+  // -- Estilos de texto (Inter) -------------------------------------------------
   static TextStyle h1(AppThemeData t) => GoogleFonts.inter(
         fontSize: 24,
         fontWeight: FontWeight.w700,
@@ -251,7 +251,7 @@ abstract class AppTheme {
         letterSpacing: 0.25,
       );
 
-  // ── MaterialApp ThemeData ────────────────────────────────────────────────────
+  // -- MaterialApp ThemeData ----------------------------------------------------
   static ThemeData materialLight() => ThemeData(
         useMaterial3: true,
         brightness: Brightness.light,
@@ -338,11 +338,11 @@ abstract class AppTheme {
         ),
       );
 
-  // ── Compatibilidad legacy ────────────────────────────────────────────────────
+  // -- Compatibilidad legacy ----------------------------------------------------
   static AppThemeData get lightTheme => light;
   static AppThemeData get darkTheme => dark;
 
-  // ── Decoración estándar para cards ───────────────────────────────────────────
+  // -- Decoraci�n est�ndar para cards -------------------------------------------
   static BoxDecoration cardDecoration(AppThemeData t) => BoxDecoration(
         color: t.surface,
         borderRadius: BorderRadius.circular(18),
@@ -356,7 +356,7 @@ abstract class AppTheme {
         ],
       );
 
-  // ── Decoración estándar para PlutoGrid container ─────────────────────────────
+  // -- Decoraci�n est�ndar para PlutoGrid container -----------------------------
   static BoxDecoration tableDecoration(AppThemeData t) => BoxDecoration(
         color: t.surface,
         borderRadius: BorderRadius.circular(18),

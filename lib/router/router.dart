@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 
-import 'package:nethive_neo/pages/pages.dart';
-import 'package:nethive_neo/services/navigation_service.dart';
+import 'package:metadocs/pages/pages.dart';
+import 'package:metadocs/services/navigation_service.dart';
 
 /// Router MetaDocs — AI Document Intelligence Demo
 /// Todas las rutas usan NoTransitionPage (sin animaciones de transición).

@@ -1,8 +1,8 @@
-﻿import 'package:fl_chart/fl_chart.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:nethive_neo/data/metadocs_mock_data.dart';
-import 'package:nethive_neo/helpers/constants.dart';
-import 'package:nethive_neo/theme/theme.dart';
+import 'package:metadocs/data/metadocs_mock_data.dart';
+import 'package:metadocs/helpers/constants.dart';
+import 'package:metadocs/theme/theme.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
 class ProcesamientoPage extends StatefulWidget {
@@ -232,17 +232,15 @@ class _ProcesamientoPageState extends State<ProcesamientoPage> {
     );
   }
 
-  // ── PLUTOGRID HELPERS ─────────────────────────────────────
+  // -- PLUTOGRID HELPERS -------------------------------------
   List<PlutoColumn> _procCols(AppThemeData t) => [
         PlutoColumn(
           title: 'ID',
           field: 'id',
           type: PlutoColumnType.text(),
           width: 110,
-          titlePadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          cellPadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           renderer: (ctx) => Text(ctx.cell.value as String,
               style: AppTheme.tableData(t)
                   .copyWith(fontSize: 11, color: t.textSecondary)),
@@ -252,10 +250,8 @@ class _ProcesamientoPageState extends State<ProcesamientoPage> {
           field: 'documento',
           type: PlutoColumnType.text(),
           width: 240,
-          titlePadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          cellPadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           renderer: (ctx) => Text(ctx.cell.value as String,
               style: AppTheme.tableData(t), overflow: TextOverflow.ellipsis),
         ),
@@ -264,10 +260,8 @@ class _ProcesamientoPageState extends State<ProcesamientoPage> {
           field: 'motor',
           type: PlutoColumnType.text(),
           width: 120,
-          titlePadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          cellPadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           renderer: (ctx) => Text(ctx.cell.value as String,
               style: AppTheme.tableData(t).copyWith(fontSize: 11),
               overflow: TextOverflow.ellipsis),
@@ -277,10 +271,8 @@ class _ProcesamientoPageState extends State<ProcesamientoPage> {
           field: 'tiempoMs',
           type: PlutoColumnType.number(),
           width: 100,
-          titlePadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          cellPadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           renderer: (ctx) => Text('${ctx.cell.value} ms',
               style: AppTheme.tableData(t).copyWith(color: t.info)),
         ),
@@ -289,10 +281,8 @@ class _ProcesamientoPageState extends State<ProcesamientoPage> {
           field: 'campos',
           type: PlutoColumnType.number(),
           width: 80,
-          titlePadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          cellPadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           renderer: (ctx) =>
               Text('${ctx.cell.value}', style: AppTheme.tableData(t)),
         ),
@@ -301,10 +291,8 @@ class _ProcesamientoPageState extends State<ProcesamientoPage> {
           field: 'estatus',
           type: PlutoColumnType.text(),
           width: 110,
-          titlePadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          cellPadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           renderer: (ctx) {
             final est = ctx.cell.value as String;
             final color = _estatusColor(est, t);
@@ -323,20 +311,17 @@ class _ProcesamientoPageState extends State<ProcesamientoPage> {
           field: 'accId',
           type: PlutoColumnType.text(),
           width: 90,
-          titlePadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          cellPadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           renderer: (ctx) {
             final id = ctx.cell.value as String;
-            final est =
-                ctx.row.cells['estatus']?.value as String? ?? '';
+            final est = ctx.row.cells['estatus']?.value as String? ?? '';
             return Row(mainAxisSize: MainAxisSize.min, children: [
               if (est == 'error' || est == 'parcial')
                 _iconBtn(Icons.autorenew, t.warning,
                     () => _showSnack('Reintentando: $id')),
-              _iconBtn(Icons.info_outline, t.info,
-                  () => _showSnack('Detalle: $id')),
+              _iconBtn(
+                  Icons.info_outline, t.info, () => _showSnack('Detalle: $id')),
             ]);
           },
         ),

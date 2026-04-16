@@ -1,7 +1,7 @@
-﻿import 'package:flutter/material.dart';
-import 'package:nethive_neo/data/metadocs_mock_data.dart';
-import 'package:nethive_neo/helpers/constants.dart';
-import 'package:nethive_neo/theme/theme.dart';
+import 'package:flutter/material.dart';
+import 'package:metadocs/data/metadocs_mock_data.dart';
+import 'package:metadocs/helpers/constants.dart';
+import 'package:metadocs/theme/theme.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
 class AuditoriaPage extends StatefulWidget {
@@ -108,10 +108,10 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
                       child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Auditoría', style: AppTheme.h1(t)),
+                      Text('Auditor�a', style: AppTheme.h1(t)),
                       const SizedBox(height: 4),
                       Text(
-                          '${MetaDocsMockData.auditoriaEventos.length} eventos registrados — Log de actividad del sistema',
+                          '${MetaDocsMockData.auditoriaEventos.length} eventos registrados � Log de actividad del sistema',
                           style: AppTheme.bodySmall(t)),
                     ],
                   )),
@@ -119,7 +119,7 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
                     OutlinedButton.icon(
                       onPressed: () => ScaffoldMessenger.of(context)
                           .showSnackBar(const SnackBar(
-                              content: Text('Exportando log de auditoría…'),
+                              content: Text('Exportando log de auditor�a�'),
                               duration: Duration(seconds: 2))),
                       icon: Icon(Icons.download_outlined,
                           size: 15, color: t.info),
@@ -140,12 +140,12 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
                     controller: _searchCtrl,
                     onChanged: (_) => setState(() {}),
                     style: AppTheme.body(t),
-                    decoration: _inputDeco('Buscar usuario, descripción…', t),
+                    decoration: _inputDeco('Buscar usuario, descripci�n�', t),
                   ),
                   const SizedBox(height: 8),
                   Row(children: [
                     Expanded(
-                        child: _filterDrop('Módulo', _filterModulo, modulos,
+                        child: _filterDrop('M�dulo', _filterModulo, modulos,
                             (v) => setState(() => _filterModulo = v!), t)),
                     const SizedBox(width: 8),
                     Expanded(
@@ -164,14 +164,14 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
                         controller: _searchCtrl,
                         onChanged: (_) => setState(() {}),
                         style: AppTheme.body(t),
-                        decoration: _inputDeco('Buscar…', t),
+                        decoration: _inputDeco('Buscar�', t),
                       ),
                     ),
                     const SizedBox(width: 8),
-                    _filterDrop('Módulo', _filterModulo, modulos,
+                    _filterDrop('M�dulo', _filterModulo, modulos,
                         (v) => setState(() => _filterModulo = v!), t),
                     const SizedBox(width: 8),
-                    _filterDrop('Acción', _filterAccion, acciones,
+                    _filterDrop('Acci�n', _filterAccion, acciones,
                         (v) => setState(() => _filterAccion = v!), t),
                     const SizedBox(width: 8),
                     _filterDrop('Resultado', _filterResultado, resultados,
@@ -197,7 +197,7 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
     );
   }
 
-  // ── MOBILE CARDS ──────────────────────────────────────────
+  // -- MOBILE CARDS ------------------------------------------
   Widget _mobileCards(List eventos, AppThemeData t) {
     return ListView.separated(
       itemCount: eventos.length,
@@ -249,17 +249,15 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
     );
   }
 
-  // ── DESKTOP TABLE (PlutoGrid) ─────────────────────────────
+  // -- DESKTOP TABLE (PlutoGrid) -----------------------------
   List<PlutoColumn> _cols(AppThemeData t) => [
         PlutoColumn(
           title: 'Timestamp',
           field: 'timestamp',
           type: PlutoColumnType.text(),
           width: 130,
-          titlePadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          cellPadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           renderer: (ctx) => Text(ctx.cell.value as String,
               style: AppTheme.tableData(t)
                   .copyWith(fontSize: 11, color: t.textSecondary)),
@@ -269,48 +267,40 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
           field: 'usuario',
           type: PlutoColumnType.text(),
           width: 145,
-          titlePadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          cellPadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           renderer: (ctx) => Text(ctx.cell.value as String,
               style: AppTheme.tableData(t).copyWith(fontSize: 12),
               overflow: TextOverflow.ellipsis),
         ),
         PlutoColumn(
-          title: 'Módulo',
+          title: 'M�dulo',
           field: 'modulo',
           type: PlutoColumnType.text(),
           width: 110,
-          titlePadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          cellPadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           renderer: (ctx) => _chip(ctx.cell.value as String, t.primary, t),
         ),
         PlutoColumn(
-          title: 'Acción',
+          title: 'Acci�n',
           field: 'accion',
           type: PlutoColumnType.text(),
           width: 95,
-          titlePadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          cellPadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           renderer: (ctx) {
             final accion = ctx.cell.value as String;
             return _chip(accion, _accionColor(accion, t), t);
           },
         ),
         PlutoColumn(
-          title: 'Descripción',
+          title: 'Descripci�n',
           field: 'descripcion',
           type: PlutoColumnType.text(),
           width: 280,
-          titlePadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          cellPadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           renderer: (ctx) => Text(ctx.cell.value as String,
               style: AppTheme.tableData(t).copyWith(fontSize: 12),
               overflow: TextOverflow.ellipsis),
@@ -320,10 +310,8 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
           field: 'resultado',
           type: PlutoColumnType.text(),
           width: 105,
-          titlePadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          cellPadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           renderer: (ctx) {
             final res = ctx.cell.value as String;
             final color = _resultColor(res, t);
@@ -342,10 +330,8 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
           field: 'ip',
           type: PlutoColumnType.text(),
           width: 100,
-          titlePadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          cellPadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           renderer: (ctx) => Text(ctx.cell.value as String,
               style: AppTheme.tableData(t).copyWith(
                   fontSize: 11,
@@ -366,7 +352,7 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
           'accion': PlutoCell(value: ev.accion as String),
           'descripcion': PlutoCell(value: ev.descripcion as String),
           'resultado': PlutoCell(value: ev.resultado as String),
-          'ip': PlutoCell(value: (ev.ip as String?) ?? '—'),
+          'ip': PlutoCell(value: (ev.ip as String?) ?? '�'),
         });
       }).toList();
 
@@ -413,7 +399,7 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
     );
   }
 
-  // ── HELPERS ───────────────────────────────────────────────
+  // -- HELPERS -----------------------------------------------
   Widget _chip(String label, Color color, AppThemeData t) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),

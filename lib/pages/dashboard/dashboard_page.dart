@@ -1,8 +1,8 @@
-﻿import 'package:fl_chart/fl_chart.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:nethive_neo/data/metadocs_mock_data.dart';
-import 'package:nethive_neo/helpers/constants.dart';
-import 'package:nethive_neo/theme/theme.dart';
+import 'package:metadocs/data/metadocs_mock_data.dart';
+import 'package:metadocs/helpers/constants.dart';
+import 'package:metadocs/theme/theme.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -77,7 +77,7 @@ class _DashboardPageState extends State<DashboardPage> {
           children: [
             Text('Dashboard', style: AppTheme.h1(t)),
             const SizedBox(height: 4),
-            Text('Resumen operativo · 7 de marzo de 2026',
+            Text('Resumen operativo � 7 de marzo de 2026',
                 style: AppTheme.bodySmall(t)),
             const SizedBox(height: 24),
             _kpiRow(t),
@@ -94,7 +94,7 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  // ── KPI Row ──────────────────────────────────────────────────────────────
+  // -- KPI Row --------------------------------------------------------------
   Widget _kpiRow(AppThemeData t) {
     final kpis = [
       _KpiData('Total Documentos', '$_totalDocs', Icons.description_outlined,
@@ -111,7 +111,7 @@ class _DashboardPageState extends State<DashboardPage> {
           Icons.psychology_outlined,
           t.indigo,
           t.indigoSoft),
-      _KpiData('Campos Extraídos', '$_camposExtraidos',
+      _KpiData('Campos Extra�dos', '$_camposExtraidos',
           Icons.data_object_rounded, t.success, t.successSoft),
     ];
     return LayoutBuilder(builder: (_, box) {
@@ -132,7 +132,7 @@ class _DashboardPageState extends State<DashboardPage> {
     });
   }
 
-  // ── Charts row 1: Line + Pie ──────────────────────────────────────────────
+  // -- Charts row 1: Line + Pie ----------------------------------------------
   Widget _chartsRow1(AppThemeData t) {
     return LayoutBuilder(builder: (_, box) {
       if (box.maxWidth < mobileSize) {
@@ -155,7 +155,7 @@ class _DashboardPageState extends State<DashboardPage> {
     });
   }
 
-  // ── Charts row 2: Bar + Origen ────────────────────────────────────────────
+  // -- Charts row 2: Bar + Origen --------------------------------------------
   Widget _chartsRow2(AppThemeData t) {
     return LayoutBuilder(builder: (_, box) {
       if (box.maxWidth < mobileSize) {
@@ -178,7 +178,7 @@ class _DashboardPageState extends State<DashboardPage> {
     });
   }
 
-  // ── Bottom row: Activity + Alerts ─────────────────────────────────────────
+  // -- Bottom row: Activity + Alerts -----------------------------------------
   Widget _bottomRow(AppThemeData t) {
     return LayoutBuilder(builder: (_, box) {
       if (box.maxWidth < mobileSize) {
@@ -201,7 +201,7 @@ class _DashboardPageState extends State<DashboardPage> {
     });
   }
 
-  // ── Line Chart ────────────────────────────────────────────────────────────
+  // -- Line Chart ------------------------------------------------------------
   Widget _lineChart(AppThemeData t) {
     const labels = [
       'Ene',
@@ -226,7 +226,7 @@ class _DashboardPageState extends State<DashboardPage> {
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text('Volumen de Ingesta Mensual', style: AppTheme.h3(t)),
         const SizedBox(height: 2),
-        Text('Documentos procesados por mes — 2026',
+        Text('Documentos procesados por mes � 2026',
             style: AppTheme.bodySmall(t)),
         const SizedBox(height: 16),
         Expanded(
@@ -290,7 +290,7 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  // ── Pie Chart ─────────────────────────────────────────────────────────────
+  // -- Pie Chart -------------------------------------------------------------
   Widget _pieChart(AppThemeData t) {
     final colorMap = {
       'revisado': t.success,
@@ -368,7 +368,7 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  // ── Bar Chart por Tipo ────────────────────────────────────────────────────
+  // -- Bar Chart por Tipo ----------------------------------------------------
   Widget _barChartTipo(AppThemeData t) {
     final sorted = _porTipo.entries.toList()
       ..sort((a, b) => b.value.compareTo(a.value));
@@ -427,7 +427,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     }
                     final full = top[i].key;
                     final label =
-                        full.length > 7 ? '${full.substring(0, 6)}…' : full;
+                        full.length > 7 ? '${full.substring(0, 6)}�' : full;
                     return Padding(
                       padding: const EdgeInsets.only(top: 4),
                       child: Text(label,
@@ -444,14 +444,14 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  // ── Origen Chart ──────────────────────────────────────────────────────────
+  // -- Origen Chart ----------------------------------------------------------
   Widget _origenChart(AppThemeData t) {
     final labelMap = {
       'email': 'Email',
       'carga_manual': 'Manual',
-      'escaner': 'Escáner',
+      'escaner': 'Esc�ner',
       'api': 'API REST',
-      'integracion': 'Integración',
+      'integracion': 'Integraci�n',
     };
     final sorted = _porOrigen.entries.toList()
       ..sort((a, b) => b.value.compareTo(a.value));
@@ -500,7 +500,7 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  // ── Recent Activity ───────────────────────────────────────────────────────
+  // -- Recent Activity -------------------------------------------------------
   Widget _recentActivity(AppThemeData t) {
     final recent = MetaDocsMockData.auditoriaEventos.take(6).toList();
     return Container(
@@ -534,7 +534,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis),
                       const SizedBox(height: 2),
-                      Text('${evt.usuario} · ${evt.modulo}',
+                      Text('${evt.usuario} � ${evt.modulo}',
                           style: AppTheme.caption(t)),
                     ],
                   ),
@@ -545,7 +545,7 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  // ── Alerts ────────────────────────────────────────────────────────────────
+  // -- Alerts ----------------------------------------------------------------
   Widget _alerts(AppThemeData t) {
     final errDocs =
         MetaDocsMockData.documentos.where((d) => d.estatus == 'rechazado');
@@ -565,7 +565,7 @@ class _DashboardPageState extends State<DashboardPage> {
           icon: Icons.cancel_outlined,
           color: t.error,
           title: '${errDocs.length} documentos rechazados',
-          subtitle: 'Confianza IA < 65 % — revisión manual requerida',
+          subtitle: 'Confianza IA < 65 % � revisi�n manual requerida',
           t: t,
         ),
         const SizedBox(height: 8),
@@ -573,15 +573,15 @@ class _DashboardPageState extends State<DashboardPage> {
           icon: Icons.hourglass_bottom_rounded,
           color: t.warning,
           title: '${pendDocs.length} pendientes de OCR',
-          subtitle: 'En cola · sin procesamiento iniciado',
+          subtitle: 'En cola � sin procesamiento iniciado',
           t: t,
         ),
         const SizedBox(height: 8),
         _AlertItem(
           icon: Icons.wifi_off_rounded,
           color: t.info,
-          title: 'Email IMAP en revisión',
-          subtitle: 'Certificado SSL expirado — verificar',
+          title: 'Email IMAP en revisi�n',
+          subtitle: 'Certificado SSL expirado � verificar',
           t: t,
         ),
       ]),
@@ -607,7 +607,7 @@ class _DashboardPageState extends State<DashboardPage> {
       };
 }
 
-// ── KPI helpers ───────────────────────────────────────────────────────────────
+// -- KPI helpers ---------------------------------------------------------------
 class _KpiData {
   const _KpiData(this.label, this.value, this.icon, this.color, this.softColor);
   final String label;
