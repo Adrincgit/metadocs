@@ -794,6 +794,6 @@ flutter build web --release
 | **Dark background** | `#0F1C2E` |
 | **Light background** | `#F4F6F9` |
 | **Fuente** | Inter (Google Fonts) |
-| **Exit URL** | https://cbluna.com/ |
+| **Exit URL** | https://google.com/ |
 | **Breakpoint móvil** | 768px |
 | **Package name** | `nethive_neo` |

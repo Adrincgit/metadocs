@@ -109309,7 +109309,7 @@ $S:0}
 A.aNZ.prototype={
 $0(){var s=0,r=A.a0(t.H),q
 var $async$$0=A.X(function(a,b){if(a===1)return A.Y(b,r)
-for(;;)switch(s){case 0:q=A.fe("https://cbluna.com/",0,null)
+for(;;)switch(s){case 0:q=A.fe("https://google.com/",0,null)
 s=4
 return A.a6(A.b47(q),$async$$0)
 case 4:s=b?2:3

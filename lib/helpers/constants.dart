@@ -18,11 +18,11 @@ const int mobileSize = 768;
 
 // Demo info
 const String demoVersion = '1.0.0';
-const String demoTag = 'CBLuna Demo';
+const String demoTag = 'Adrinc MetaDoc Demo';
 const String demoDisclaimer = 'Datos simulados — Solo demo';
 
 // Fiscal year
 const int fiscalYear = 2026;
 
 // Exit / external link
-const String exitUrl = 'https://cbluna.com/';
+const String exitUrl = 'https://google.com/';

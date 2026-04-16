@@ -2,11 +2,8 @@
 
 Demo de sistema de gestión documental con inteligencia artificial, desarrollado con Flutter Web.
 
-Creado por [CBLuna](https://cbluna.com/).
+Creado por [Adrinc]
 
-## Demo en vivo
-
-🔗 [https://adrincgit.github.io/metadocs/](https://adrincgit.github.io/metadocs/)
 
 ## Tecnologías
 

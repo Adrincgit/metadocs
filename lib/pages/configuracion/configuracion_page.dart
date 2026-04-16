@@ -10,15 +10,16 @@ class ConfiguracionPage extends StatefulWidget {
 
 class _ConfiguracionPageState extends State<ConfiguracionPage> {
   // Section 1: Workspace
-  final _empresaCtrl = TextEditingController(text: 'Distribuidora Nexo S.A. de C.V.');
+  final _empresaCtrl =
+      TextEditingController(text: 'Distribuidora Nexo S.A. de C.V.');
   final _nitCtrl = TextEditingController(text: 'NDX-8301-MX');
 
   // Section 2: OCR/IA
   String _motorOCR = 'Gemini Vision Pro';
   double _umbralConfianza = 0.75;
-  String _idioma = 'EspaÒol';
+  String _idioma = 'Espa√±ol';
 
-  // Section 3: RetenciÛn
+  // Section 3: Retenci√≥n
   int _diasRetencion = 365;
   bool _autoArchivado = true;
 
@@ -27,7 +28,7 @@ class _ConfiguracionPageState extends State<ConfiguracionPage> {
 
   // Section 5: Indexado
   bool _autoIndice = true;
-  String _idiomaIndice = 'EspaÒol';
+  String _idiomaIndice = 'Espa√±ol';
 
   // Section 6: Notificaciones
   bool _emailNotif = true;
@@ -56,12 +57,13 @@ class _ConfiguracionPageState extends State<ConfiguracionPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(children: [
-              Expanded(child: Column(
+              Expanded(
+                  child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('ConfiguraciÛn', style: AppTheme.h1(t)),
+                  Text('Configuraci√≥n', style: AppTheme.h1(t)),
                   const SizedBox(height: 4),
-                  Text('Par·metros del sistema de gestiÛn documental',
+                  Text('Par√°metros del sistema de gesti√≥n documental',
                       style: AppTheme.bodySmall(t)),
                 ],
               )),
@@ -104,7 +106,11 @@ class _ConfiguracionPageState extends State<ConfiguracionPage> {
                   _dropdownRow(
                     label: 'Motor OCR',
                     value: _motorOCR,
-                    items: ['Gemini Vision Pro', 'Tesseract OCR', 'Azure Form Recognizer'],
+                    items: [
+                      'Gemini Vision Pro',
+                      'Tesseract OCR',
+                      'Azure Form Recognizer'
+                    ],
                     onChanged: (v) => setState(() => _motorOCR = v!),
                     t: t,
                   ),
@@ -121,25 +127,26 @@ class _ConfiguracionPageState extends State<ConfiguracionPage> {
                   _dropdownRow(
                     label: 'Idioma principal',
                     value: _idioma,
-                    items: ['EspaÒol', 'InglÈs', 'PortuguÈs', 'FrancÈs'],
+                    items: ['Espa√±ol', 'Ingl√©s', 'Portugu√©s', 'Franc√©s'],
                     onChanged: (v) => setState(() => _idioma = v!),
                     t: t,
                   ),
                 ],
               ),
 
-              // Section 3: RetenciÛn
+              // Section 3: Retenci√≥n
               _card(
                 icon: Icons.history_outlined,
-                title: 'RetenciÛn y archivo',
+                title: 'Retenci√≥n y archivo',
                 iconColor: t.warning,
                 t: t,
                 children: [
                   Row(children: [
-                    Expanded(child: Column(
+                    Expanded(
+                        child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('DÌas de retenciÛn', style: AppTheme.bodySmall(t)),
+                        Text('D√≠as de retenci√≥n', style: AppTheme.bodySmall(t)),
                         const SizedBox(height: 6),
                         DropdownButtonFormField<int>(
                           value: _diasRetencion,
@@ -158,7 +165,7 @@ class _ConfiguracionPageState extends State<ConfiguracionPage> {
                           items: [90, 180, 365, 730, 1825]
                               .map((v) => DropdownMenuItem(
                                     value: v,
-                                    child: Text('$v dÌas'),
+                                    child: Text('$v d√≠as'),
                                   ))
                               .toList(),
                           onChanged: (v) => setState(() => _diasRetencion = v!),
@@ -180,8 +187,10 @@ class _ConfiguracionPageState extends State<ConfiguracionPage> {
                 t: t,
                 children: [
                   _switchRow('PDF', _pdf, (v) => setState(() => _pdf = v), t),
-                  _switchRow('XML / CFDI', _xml, (v) => setState(() => _xml = v), t),
-                  _switchRow('Word (DOCX)', _docx, (v) => setState(() => _docx = v), t),
+                  _switchRow(
+                      'XML / CFDI', _xml, (v) => setState(() => _xml = v), t),
+                  _switchRow('Word (DOCX)', _docx,
+                      (v) => setState(() => _docx = v), t),
                   _switchRow('Imagen (JPG / PNG)', _jpg,
                       (v) => setState(() => _jpg = v), t),
                 ],
@@ -194,13 +203,13 @@ class _ConfiguracionPageState extends State<ConfiguracionPage> {
                 iconColor: t.info,
                 t: t,
                 children: [
-                  _switchRow('Indexado autom·tico', _autoIndice,
+                  _switchRow('Indexado autom√°tico', _autoIndice,
                       (v) => setState(() => _autoIndice = v), t),
                   const SizedBox(height: 12),
                   _dropdownRow(
-                    label: 'Idioma de Ìndice',
+                    label: 'Idioma de √≠ndice',
                     value: _idiomaIndice,
-                    items: ['EspaÒol', 'InglÈs', 'Multilenguaje'],
+                    items: ['Espa√±ol', 'Ingl√©s', 'Multilenguaje'],
                     onChanged: (v) => setState(() => _idiomaIndice = v!),
                     t: t,
                   ),
@@ -252,7 +261,8 @@ class _ConfiguracionPageState extends State<ConfiguracionPage> {
       }
       final rows = <Widget>[];
       for (var i = 0; i < children.length; i += 2) {
-        final right = i + 1 < children.length ? children[i + 1] : const SizedBox.shrink();
+        final right =
+            i + 1 < children.length ? children[i + 1] : const SizedBox.shrink();
         rows.add(Padding(
           padding: const EdgeInsets.only(bottom: 16),
           child: Row(
@@ -310,7 +320,8 @@ class _ConfiguracionPageState extends State<ConfiguracionPage> {
         controller: ctrl,
         style: AppTheme.body(t),
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(color: t.border)),
@@ -342,7 +353,8 @@ class _ConfiguracionPageState extends State<ConfiguracionPage> {
         dropdownColor: t.surface,
         style: AppTheme.body(t),
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(color: t.border)),
@@ -391,8 +403,8 @@ class _ConfiguracionPageState extends State<ConfiguracionPage> {
     ]);
   }
 
-  Widget _switchRow(String label, bool value, void Function(bool) onChanged,
-      AppThemeData t) {
+  Widget _switchRow(
+      String label, bool value, void Function(bool) onChanged, AppThemeData t) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 4),
       child: Row(children: [
