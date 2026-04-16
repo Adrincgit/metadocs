@@ -1,5 +1,7 @@
 ﻿import 'package:flutter/material.dart';
 import 'package:nethive_neo/data/metadocs_mock_data.dart';
+import 'package:nethive_neo/helpers/constants.dart';
+import 'package:nethive_neo/models/models.dart';
 import 'package:nethive_neo/theme/theme.dart';
 
 class UsuariosPage extends StatefulWidget {
@@ -44,6 +46,7 @@ class _UsuariosPageState extends State<UsuariosPage> {
   @override
   Widget build(BuildContext context) {
     final t = AppTheme.of(context);
+    final isMobile = MediaQuery.sizeOf(context).width < mobileSize;
     var usuarios = MetaDocsMockData.usuarios;
     if (_filterRol != 'todos') {
       usuarios = usuarios.where((u) => u.rol == _filterRol).toList();
@@ -55,7 +58,7 @@ class _UsuariosPageState extends State<UsuariosPage> {
     return ColoredBox(
       color: t.background,
       child: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: EdgeInsets.all(isMobile ? 16 : 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -96,8 +99,10 @@ class _UsuariosPageState extends State<UsuariosPage> {
 
             // Tabla manual scroll
             Expanded(
-              child: Container(
-                decoration: AppTheme.tableDecoration(t),
+              child: isMobile
+                  ? _buildMobileCards(usuarios, t)
+                  : Container(
+                      decoration: AppTheme.tableDecoration(t),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(18),
                   child: Column(
@@ -217,6 +222,74 @@ class _UsuariosPageState extends State<UsuariosPage> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildMobileCards(List<UsuarioSistema> usuarios, AppThemeData t) {
+    return ListView.separated(
+      padding: const EdgeInsets.only(bottom: 16),
+      itemCount: usuarios.length,
+      separatorBuilder: (_, __) => const SizedBox(height: 8),
+      itemBuilder: (_, i) {
+        final u = usuarios[i];
+        final rolColor = _rolColor(u.rol, t);
+        final estColor = _estatusColor(u.estatus, t);
+        final ua = u.ultimoAcceso;
+        final dStr =
+            '${ua.day.toString().padLeft(2, "0")}/${ua.month.toString().padLeft(2, "0")}/${ua.year}';
+        return Container(
+          padding: const EdgeInsets.all(14),
+          decoration: AppTheme.cardDecoration(t),
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Row(children: [
+              CircleAvatar(
+                radius: 20,
+                backgroundColor: rolColor.withOpacity(0.15),
+                child: Text(
+                  u.nombre.split(' ').map((p) => p[0]).take(2).join(),
+                  style: TextStyle(
+                      color: rolColor,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(u.nombre,
+                          style:
+                              AppTheme.body(t).copyWith(fontWeight: FontWeight.w600)),
+                      Text(u.email,
+                          style: AppTheme.caption(t),
+                          overflow: TextOverflow.ellipsis),
+                    ]),
+              ),
+              _iconBtn(Icons.edit_outlined, t.info,
+                  () => _showSnack('Editar: ${u.nombre}')),
+              const SizedBox(width: 4),
+              _iconBtn(
+                u.estatus == 'bloqueado'
+                    ? Icons.lock_open_outlined
+                    : Icons.block_outlined,
+                u.estatus == 'bloqueado' ? t.success : t.error,
+                () => _showSnack(u.estatus == 'bloqueado'
+                    ? 'Desbloquear: ${u.nombre}'
+                    : 'Bloquear: ${u.nombre}'),
+              ),
+            ]),
+            const SizedBox(height: 10),
+            Wrap(spacing: 6, runSpacing: 6, children: [
+              _chip(_rolLabel(u.rol), rolColor),
+              _chip(u.estatus, estColor),
+              _chip('${u.permisos.length} perms', t.info),
+            ]),
+            const SizedBox(height: 6),
+            Text('Último acceso: $dStr', style: AppTheme.caption(t)),
+          ]),
+        );
+      },
     );
   }
 

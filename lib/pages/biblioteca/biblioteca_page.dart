@@ -417,23 +417,22 @@ class _BibliotecaPageState extends State<BibliotecaPage> {
                     size: 12, color: t.textSecondary),
                 const SizedBox(width: 4),
                 Text(doc.tipoDocumental,
-                    style: AppTheme.caption(t)
-                        .copyWith(color: t.textSecondary)),
+                    style:
+                        AppTheme.caption(t).copyWith(color: t.textSecondary)),
                 const SizedBox(width: 12),
                 Icon(Icons.source_outlined, size: 12, color: t.textSecondary),
                 const SizedBox(width: 4),
                 Text(doc.origen,
-                    style: AppTheme.caption(t)
-                        .copyWith(color: t.textSecondary)),
+                    style:
+                        AppTheme.caption(t).copyWith(color: t.textSecondary)),
                 const Spacer(),
-                Text('${doc.paginas} págs.',
-                    style: AppTheme.caption(t)),
+                Text('${doc.paginas} págs.', style: AppTheme.caption(t)),
               ]),
               const SizedBox(height: 8),
               Row(children: [
                 Text('Confianza IA: ',
-                    style: AppTheme.caption(t)
-                        .copyWith(color: t.textSecondary)),
+                    style:
+                        AppTheme.caption(t).copyWith(color: t.textSecondary)),
                 Expanded(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(3),

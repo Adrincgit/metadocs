@@ -1,6 +1,7 @@
 ﻿import 'package:flutter/material.dart';
 import 'package:nethive_neo/data/metadocs_mock_data.dart';
 import 'package:nethive_neo/models/models.dart';
+import 'package:nethive_neo/helpers/constants.dart';
 import 'package:nethive_neo/theme/theme.dart';
 
 class EsquemasPage extends StatefulWidget {
@@ -40,10 +41,11 @@ class _EsquemasPageState extends State<EsquemasPage> {
     final tipos = MetaDocsMockData.tiposDocumentales;
     final sel = _selected ?? tipos.first;
 
+    final isMobile = MediaQuery.sizeOf(context).width < mobileSize;
     return ColoredBox(
       color: t.background,
       child: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: EdgeInsets.all(isMobile ? 16 : 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -72,13 +74,10 @@ class _EsquemasPageState extends State<EsquemasPage> {
             const SizedBox(height: 20),
 
             Expanded(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Sidebar de tipos
-                  SizedBox(
-                    width: 260,
-                    child: Container(
+              child: LayoutBuilder(builder: (_, box) {
+                final mob = box.maxWidth < mobileSize;
+                // Sidebar de tipos
+                final sidebar = Container(
                       decoration: AppTheme.cardDecoration(t),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -140,13 +139,8 @@ class _EsquemasPageState extends State<EsquemasPage> {
                           ),
                         ],
                       ),
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-
-                  // Panel de campos del tipo seleccionado
-                  Expanded(
-                    child: Container(
+                    );
+                final detail = Container(
                       decoration: AppTheme.cardDecoration(t),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -286,10 +280,27 @@ class _EsquemasPageState extends State<EsquemasPage> {
                           ),
                         ],
                       ),
-                    ),
-                  ),
-                ],
-              ),
+                    );
+
+                if (mob) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 220, child: sidebar),
+                      const SizedBox(height: 12),
+                      Expanded(child: detail),
+                    ],
+                  );
+                }
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(width: 260, child: sidebar),
+                    const SizedBox(width: 16),
+                    Expanded(child: detail),
+                  ],
+                );
+              }),
             ),
           ],
         ),

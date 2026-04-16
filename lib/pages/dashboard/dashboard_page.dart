@@ -1,6 +1,7 @@
 ﻿import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:nethive_neo/data/metadocs_mock_data.dart';
+import 'package:nethive_neo/helpers/constants.dart';
 import 'package:nethive_neo/theme/theme.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -66,10 +67,11 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     final t = AppTheme.of(context);
+    final isMobile = MediaQuery.sizeOf(context).width < mobileSize;
     return ColoredBox(
       color: t.background,
       child: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
+        padding: EdgeInsets.all(isMobile ? 16 : 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -132,38 +134,65 @@ class _DashboardPageState extends State<DashboardPage> {
 
   // ── Charts row 1: Line + Pie ──────────────────────────────────────────────
   Widget _chartsRow1(AppThemeData t) {
-    return SizedBox(
-      height: 280,
-      child: Row(children: [
-        Expanded(flex: 3, child: _lineChart(t)),
-        const SizedBox(width: 16),
-        Expanded(flex: 2, child: _pieChart(t)),
-      ]),
-    );
+    return LayoutBuilder(builder: (_, box) {
+      if (box.maxWidth < mobileSize) {
+        return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          SizedBox(height: 240, child: _lineChart(t)),
+          const SizedBox(height: 12),
+          SizedBox(height: 220, child: _pieChart(t)),
+        ]);
+      }
+      return SizedBox(
+        height: 280,
+        child: Row(children: [
+          Expanded(flex: 3, child: _lineChart(t)),
+          const SizedBox(width: 16),
+          Expanded(flex: 2, child: _pieChart(t)),
+        ]),
+      );
+    });
   }
 
   // ── Charts row 2: Bar + Origen ────────────────────────────────────────────
   Widget _chartsRow2(AppThemeData t) {
-    return SizedBox(
-      height: 240,
-      child: Row(children: [
-        Expanded(flex: 3, child: _barChartTipo(t)),
-        const SizedBox(width: 16),
-        Expanded(flex: 2, child: _origenChart(t)),
-      ]),
-    );
+    return LayoutBuilder(builder: (_, box) {
+      if (box.maxWidth < mobileSize) {
+        return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          SizedBox(height: 220, child: _barChartTipo(t)),
+          const SizedBox(height: 12),
+          SizedBox(height: 200, child: _origenChart(t)),
+        ]);
+      }
+      return SizedBox(
+        height: 240,
+        child: Row(children: [
+          Expanded(flex: 3, child: _barChartTipo(t)),
+          const SizedBox(width: 16),
+          Expanded(flex: 2, child: _origenChart(t)),
+        ]),
+      );
+    });
   }
 
   // ── Bottom row: Activity + Alerts ─────────────────────────────────────────
   Widget _bottomRow(AppThemeData t) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(flex: 3, child: _recentActivity(t)),
-        const SizedBox(width: 16),
-        Expanded(flex: 2, child: _alerts(t)),
-      ],
-    );
+    return LayoutBuilder(builder: (_, box) {
+      if (box.maxWidth < mobileSize) {
+        return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          _recentActivity(t),
+          const SizedBox(height: 12),
+          _alerts(t),
+        ]);
+      }
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(flex: 3, child: _recentActivity(t)),
+          const SizedBox(width: 16),
+          Expanded(flex: 2, child: _alerts(t)),
+        ],
+      );
+    });
   }
 
   // ── Line Chart ────────────────────────────────────────────────────────────

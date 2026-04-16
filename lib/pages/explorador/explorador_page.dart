@@ -329,8 +329,8 @@ class _ExploradorPageState extends State<ExploradorPage> {
                         overflow: TextOverflow.ellipsis),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 7, vertical: 2),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
                     decoration: BoxDecoration(
                       color: t.info.withOpacity(0.10),
                       borderRadius: BorderRadius.circular(5),
@@ -345,30 +345,30 @@ class _ExploradorPageState extends State<ExploradorPage> {
                 ]),
                 const SizedBox(height: 6),
                 Text('${campos.length} campos extraídos · $fecha',
-                    style: AppTheme.caption(t)
-                        .copyWith(color: t.textSecondary)),
+                    style:
+                        AppTheme.caption(t).copyWith(color: t.textSecondary)),
                 const SizedBox(height: 8),
                 ...campos.take(4).map((e) => Padding(
-                  padding: const EdgeInsets.only(bottom: 3),
-                  child: Row(children: [
-                    SizedBox(
-                      width: 110,
-                      child: Text(e.key,
-                          style: AppTheme.caption(t)
-                              .copyWith(color: t.info, fontWeight: FontWeight.w500),
-                          overflow: TextOverflow.ellipsis),
-                    ),
-                    Expanded(
-                      child: Text(e.value.toString(),
-                          style: AppTheme.caption(t),
-                          overflow: TextOverflow.ellipsis),
-                    ),
-                  ]),
-                )),
+                      padding: const EdgeInsets.only(bottom: 3),
+                      child: Row(children: [
+                        SizedBox(
+                          width: 110,
+                          child: Text(e.key,
+                              style: AppTheme.caption(t).copyWith(
+                                  color: t.info, fontWeight: FontWeight.w500),
+                              overflow: TextOverflow.ellipsis),
+                        ),
+                        Expanded(
+                          child: Text(e.value.toString(),
+                              style: AppTheme.caption(t),
+                              overflow: TextOverflow.ellipsis),
+                        ),
+                      ]),
+                    )),
                 if (campos.length > 4)
                   Text('+ ${campos.length - 4} campos más',
-                      style: AppTheme.caption(t)
-                          .copyWith(color: t.textDisabled)),
+                      style:
+                          AppTheme.caption(t).copyWith(color: t.textDisabled)),
               ],
             ),
           ),

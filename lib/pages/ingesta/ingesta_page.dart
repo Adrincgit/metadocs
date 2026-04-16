@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nethive_neo/data/metadocs_mock_data.dart';
+import 'package:nethive_neo/helpers/constants.dart';
 import 'package:nethive_neo/theme/theme.dart';
 
 class IngestaPage extends StatefulWidget {
@@ -36,10 +37,11 @@ class _IngestaPageState extends State<IngestaPage> {
         : tiemposProcesados.fold(0, (s, r) => s + r.tiempoMs) ~/
             tiemposProcesados.length;
 
+    final isMobile = MediaQuery.sizeOf(context).width < mobileSize;
     return ColoredBox(
       color: t.background,
       child: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
+        padding: EdgeInsets.all(isMobile ? 16 : 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -50,29 +52,33 @@ class _IngestaPageState extends State<IngestaPage> {
             const SizedBox(height: 24),
 
             // KPIs
-            _kpiRow(t, hoy.length, totalKb, tiempoPromedio),
+            _kpiRow(t, hoy.length, totalKb, tiempoPromedio, isMobile: isMobile),
             const SizedBox(height: 20),
 
             // Main area: Drop + Reglas
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(flex: 3, child: _dropArea(t)),
-                const SizedBox(width: 16),
-                Expanded(flex: 2, child: _reglasPanel(t)),
-              ],
-            ),
+            if (isMobile) ...[_dropArea(t), const SizedBox(height: 16), _reglasPanel(t)]
+            else
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(flex: 3, child: _dropArea(t)),
+                  const SizedBox(width: 16),
+                  Expanded(flex: 2, child: _reglasPanel(t)),
+                ],
+              ),
             const SizedBox(height: 20),
 
             // Queue + Sources
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(flex: 3, child: _colaPanel(t, recent)),
-                const SizedBox(width: 16),
-                Expanded(flex: 2, child: _origenesPanel(t)),
-              ],
-            ),
+            if (isMobile) ...[_colaPanel(t, recent), const SizedBox(height: 16), _origenesPanel(t)]
+            else
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(flex: 3, child: _colaPanel(t, recent)),
+                  const SizedBox(width: 16),
+                  Expanded(flex: 2, child: _origenesPanel(t)),
+                ],
+              ),
             const SizedBox(height: 24),
           ],
         ),
@@ -80,7 +86,7 @@ class _IngestaPageState extends State<IngestaPage> {
     );
   }
 
-  Widget _kpiRow(AppThemeData t, int hoy, int kb, int ms) {
+  Widget _kpiRow(AppThemeData t, int hoy, int kb, int ms, {bool isMobile = false}) {
     final kpis = [
       (
         label: 'Ingestados hoy',
@@ -107,37 +113,43 @@ class _IngestaPageState extends State<IngestaPage> {
         color: t.primary
       ),
     ];
-    return Row(
-      children: kpis.map((k) {
-        return Expanded(
-          child: Container(
-            margin: EdgeInsets.only(right: kpis.last.label == k.label ? 0 : 12),
-            padding: const EdgeInsets.all(16),
-            decoration: AppTheme.cardDecoration(t),
-            child: Row(children: [
-              Container(
-                width: 38,
-                height: 38,
-                decoration: BoxDecoration(
-                  color: k.color.withOpacity(0.14),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(k.icon, color: k.color, size: 19),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(k.value, style: AppTheme.h3(t).copyWith(fontSize: 17)),
-                    Text(k.label, style: AppTheme.caption(t)),
-                  ],
-                ),
-              ),
-            ]),
+    Widget card(int i, {bool hasRight = true}) => Expanded(
+      child: Container(
+        margin: EdgeInsets.only(right: hasRight ? (isMobile ? 10 : 12) : 0),
+        padding: EdgeInsets.all(isMobile ? 12 : 16),
+        decoration: AppTheme.cardDecoration(t),
+        child: Row(children: [
+          Container(
+            width: isMobile ? 32 : 38,
+            height: isMobile ? 32 : 38,
+            decoration: BoxDecoration(
+              color: kpis[i].color.withOpacity(0.14),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Icon(kpis[i].icon, color: kpis[i].color, size: isMobile ? 16 : 19),
           ),
-        );
-      }).toList(),
+          SizedBox(width: isMobile ? 8 : 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(kpis[i].value, style: AppTheme.h3(t).copyWith(fontSize: isMobile ? 13 : 17)),
+                Text(kpis[i].label, style: AppTheme.caption(t)),
+              ],
+            ),
+          ),
+        ]),
+      ),
+    );
+    if (isMobile) {
+      return Column(children: [
+        Row(children: [card(0), card(1, hasRight: false)]),
+        const SizedBox(height: 10),
+        Row(children: [card(2), card(3, hasRight: false)]),
+      ]);
+    }
+    return Row(
+      children: List.generate(kpis.length, (i) => card(i, hasRight: i < kpis.length - 1)),
     );
   }
 
