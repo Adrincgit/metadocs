@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nethive_neo/data/metadocs_mock_data.dart';
 import 'package:nethive_neo/helpers/constants.dart';
 import 'package:nethive_neo/theme/theme.dart';
+import 'package:pluto_grid/pluto_grid.dart';
 
 class ProcesamientoPage extends StatefulWidget {
   const ProcesamientoPage({super.key});
@@ -12,6 +13,7 @@ class ProcesamientoPage extends StatefulWidget {
 }
 
 class _ProcesamientoPageState extends State<ProcesamientoPage> {
+  PlutoGridStateManager? _sm;
   String _filter = 'todos';
 
   void _showSnack(String msg) => ScaffoldMessenger.of(context).showSnackBar(
@@ -211,131 +213,16 @@ class _ProcesamientoPageState extends State<ProcesamientoPage> {
                       decoration: AppTheme.tableDecoration(t),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(18),
-                        child: Column(children: [
-                          Container(
-                            color: t.isDark
-                                ? const Color(0xFF0D1628)
-                                : const Color(0xFFF1F5FF),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 12),
-                            child: Row(children: [
-                              SizedBox(
-                                  width: 110,
-                                  child: Text('ID',
-                                      style: AppTheme.tableHeader(t))),
-                              Expanded(
-                                  child: Text('Documento',
-                                      style: AppTheme.tableHeader(t))),
-                              SizedBox(
-                                  width: 120,
-                                  child: Text('Motor OCR',
-                                      style: AppTheme.tableHeader(t))),
-                              SizedBox(
-                                  width: 100,
-                                  child: Text('Tiempo (ms)',
-                                      style: AppTheme.tableHeader(t))),
-                              SizedBox(
-                                  width: 80,
-                                  child: Text('Campos',
-                                      style: AppTheme.tableHeader(t))),
-                              SizedBox(
-                                  width: 110,
-                                  child: Text('Estatus',
-                                      style: AppTheme.tableHeader(t))),
-                              SizedBox(
-                                  width: 100,
-                                  child: Text('Acciones',
-                                      style: AppTheme.tableHeader(t))),
-                            ]),
-                          ),
-                          Divider(color: t.border, height: 1),
-                          Expanded(
-                            child: ListView.separated(
-                              itemCount: filtered.length,
-                              separatorBuilder: (_, __) =>
-                                  Divider(color: t.border, height: 1),
-                              itemBuilder: (_, i) {
-                                final r = filtered[i];
-                                final doc = docs
-                                    .where((d) => d.id == r.documentoId)
-                                    .firstOrNull;
-                                final isOdd = i.isOdd;
-                                final estColor = _estatusColor(r.estatus, t);
-                                return Container(
-                                  color: isOdd
-                                      ? (t.isDark
-                                          ? const Color(0xFF0D1628)
-                                          : const Color(0xFFF8FAFC))
-                                      : t.surface,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 10),
-                                  child: Row(children: [
-                                    SizedBox(
-                                        width: 110,
-                                        child: Text(r.id,
-                                            style: AppTheme.tableData(t)
-                                                .copyWith(
-                                                    fontSize: 11,
-                                                    color: t.textSecondary))),
-                                    Expanded(
-                                        child: Text(
-                                            doc?.nombre ?? r.documentoId,
-                                            style: AppTheme.tableData(t),
-                                            overflow: TextOverflow.ellipsis)),
-                                    SizedBox(
-                                        width: 120,
-                                        child: Text(r.motorOCR,
-                                            style: AppTheme.tableData(t)
-                                                .copyWith(fontSize: 11),
-                                            overflow: TextOverflow.ellipsis)),
-                                    SizedBox(
-                                        width: 100,
-                                        child: Text('${r.tiempoMs} ms',
-                                            style: AppTheme.tableData(t)
-                                                .copyWith(color: t.info))),
-                                    SizedBox(
-                                        width: 80,
-                                        child: Text('${r.camposExtraidos}',
-                                            style: AppTheme.tableData(t))),
-                                    SizedBox(
-                                      width: 110,
-                                      child: Row(children: [
-                                        Icon(_estatusIcon(r.estatus),
-                                            size: 14, color: estColor),
-                                        const SizedBox(width: 4),
-                                        Expanded(
-                                            child: Text(r.estatus,
-                                                style: AppTheme.tableData(t)
-                                                    .copyWith(
-                                                        color: estColor,
-                                                        fontSize: 11))),
-                                      ]),
-                                    ),
-                                    SizedBox(
-                                      width: 100,
-                                      child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            if (r.estatus == 'error' ||
-                                                r.estatus == 'parcial')
-                                              _iconBtn(
-                                                  Icons.autorenew,
-                                                  t.warning,
-                                                  () => _showSnack(
-                                                      'Reintentando: ${r.id}')),
-                                            _iconBtn(
-                                                Icons.info_outline,
-                                                t.info,
-                                                () => _showSnack(
-                                                    'Detalle: ${r.id}')),
-                                          ]),
-                                    ),
-                                  ]),
-                                );
-                              },
-                            ),
-                          ),
-                        ]),
+                        child: PlutoGrid(
+                          columns: _procCols(t),
+                          rows: _procRows(filtered, t),
+                          onLoaded: (e) => _sm = e.stateManager,
+                          configuration: _procConfig(t),
+                          createFooter: (sm) {
+                            sm.setPageSize(25, notify: false);
+                            return PlutoPagination(sm);
+                          },
+                        ),
                       ),
                     ),
             ),
@@ -344,6 +231,156 @@ class _ProcesamientoPageState extends State<ProcesamientoPage> {
       ),
     );
   }
+
+  // ── PLUTOGRID HELPERS ─────────────────────────────────────
+  List<PlutoColumn> _procCols(AppThemeData t) => [
+        PlutoColumn(
+          title: 'ID',
+          field: 'id',
+          type: PlutoColumnType.text(),
+          width: 110,
+          titlePadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) => Text(ctx.cell.value as String,
+              style: AppTheme.tableData(t)
+                  .copyWith(fontSize: 11, color: t.textSecondary)),
+        ),
+        PlutoColumn(
+          title: 'Documento',
+          field: 'documento',
+          type: PlutoColumnType.text(),
+          width: 240,
+          titlePadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) => Text(ctx.cell.value as String,
+              style: AppTheme.tableData(t), overflow: TextOverflow.ellipsis),
+        ),
+        PlutoColumn(
+          title: 'Motor OCR',
+          field: 'motor',
+          type: PlutoColumnType.text(),
+          width: 120,
+          titlePadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) => Text(ctx.cell.value as String,
+              style: AppTheme.tableData(t).copyWith(fontSize: 11),
+              overflow: TextOverflow.ellipsis),
+        ),
+        PlutoColumn(
+          title: 'Tiempo (ms)',
+          field: 'tiempoMs',
+          type: PlutoColumnType.number(),
+          width: 100,
+          titlePadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) => Text('${ctx.cell.value} ms',
+              style: AppTheme.tableData(t).copyWith(color: t.info)),
+        ),
+        PlutoColumn(
+          title: 'Campos',
+          field: 'campos',
+          type: PlutoColumnType.number(),
+          width: 80,
+          titlePadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) =>
+              Text('${ctx.cell.value}', style: AppTheme.tableData(t)),
+        ),
+        PlutoColumn(
+          title: 'Estatus',
+          field: 'estatus',
+          type: PlutoColumnType.text(),
+          width: 110,
+          titlePadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) {
+            final est = ctx.cell.value as String;
+            final color = _estatusColor(est, t);
+            return Row(children: [
+              Icon(_estatusIcon(est), size: 14, color: color),
+              const SizedBox(width: 4),
+              Expanded(
+                  child: Text(est,
+                      style: AppTheme.tableData(t)
+                          .copyWith(color: color, fontSize: 11))),
+            ]);
+          },
+        ),
+        PlutoColumn(
+          title: 'Acciones',
+          field: 'accId',
+          type: PlutoColumnType.text(),
+          width: 90,
+          titlePadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) {
+            final id = ctx.cell.value as String;
+            final est =
+                ctx.row.cells['estatus']?.value as String? ?? '';
+            return Row(mainAxisSize: MainAxisSize.min, children: [
+              if (est == 'error' || est == 'parcial')
+                _iconBtn(Icons.autorenew, t.warning,
+                    () => _showSnack('Reintentando: $id')),
+              _iconBtn(Icons.info_outline, t.info,
+                  () => _showSnack('Detalle: $id')),
+            ]);
+          },
+        ),
+      ];
+
+  List<PlutoRow> _procRows(List filtered, AppThemeData t) {
+    final docs = MetaDocsMockData.documentos;
+    return filtered.map((r) {
+      final doc = docs.where((d) => d.id == r.documentoId).firstOrNull;
+      return PlutoRow(cells: {
+        'id': PlutoCell(value: r.id as String),
+        'documento': PlutoCell(value: doc?.nombre ?? r.documentoId as String),
+        'motor': PlutoCell(value: r.motorOCR as String),
+        'tiempoMs': PlutoCell(value: r.tiempoMs as int),
+        'campos': PlutoCell(value: r.camposExtraidos as int),
+        'estatus': PlutoCell(value: r.estatus as String),
+        'accId': PlutoCell(value: r.id as String),
+      });
+    }).toList();
+  }
+
+  PlutoGridConfiguration _procConfig(AppThemeData t) => PlutoGridConfiguration(
+        style: PlutoGridStyleConfig(
+          gridBackgroundColor: t.surface,
+          rowColor: t.surface,
+          oddRowColor:
+              t.isDark ? const Color(0xFF0D1628) : const Color(0xFFF8FAFC),
+          activatedColor: t.primary.withOpacity(0.10),
+          gridBorderColor: Colors.transparent,
+          borderColor: t.border,
+          activatedBorderColor: t.primary,
+          inactivatedBorderColor: Colors.transparent,
+          columnTextStyle: AppTheme.tableHeader(t),
+          cellTextStyle: AppTheme.tableData(t),
+          iconColor: t.textDisabled,
+          menuBackgroundColor: t.surface,
+          columnHeight: 44,
+          rowHeight: 44,
+        ),
+        columnSize: const PlutoGridColumnSizeConfig(
+          autoSizeMode: PlutoAutoSizeMode.scale,
+          resizeMode: PlutoResizeMode.normal,
+        ),
+      );
 
   Widget _buildMobileCards(List filtered, List docs, AppThemeData t) {
     if (filtered.isEmpty) {

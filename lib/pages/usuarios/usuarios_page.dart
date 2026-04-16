@@ -3,6 +3,7 @@ import 'package:nethive_neo/data/metadocs_mock_data.dart';
 import 'package:nethive_neo/helpers/constants.dart';
 import 'package:nethive_neo/models/models.dart';
 import 'package:nethive_neo/theme/theme.dart';
+import 'package:pluto_grid/pluto_grid.dart';
 
 class UsuariosPage extends StatefulWidget {
   const UsuariosPage({super.key});
@@ -12,6 +13,7 @@ class UsuariosPage extends StatefulWidget {
 }
 
 class _UsuariosPageState extends State<UsuariosPage> {
+  PlutoGridStateManager? _sm;
   String _filterRol = 'todos';
   String _filterEstatus = 'todos';
 
@@ -145,172 +147,15 @@ class _UsuariosPageState extends State<UsuariosPage> {
                       decoration: AppTheme.tableDecoration(t),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(18),
-                        child: Column(
-                          children: [
-                            // Header row
-                            Container(
-                              color: t.isDark
-                                  ? const Color(0xFF0D1628)
-                                  : const Color(0xFFF1F5FF),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 12),
-                              child: Row(children: [
-                                SizedBox(
-                                    width: 180,
-                                    child: Text('Usuario',
-                                        style: AppTheme.tableHeader(t))),
-                                Expanded(
-                                    child: Text('Email',
-                                        style: AppTheme.tableHeader(t))),
-                                SizedBox(
-                                    width: 105,
-                                    child: Text('Rol',
-                                        style: AppTheme.tableHeader(t))),
-                                SizedBox(
-                                    width: 95,
-                                    child: Text('Estatus',
-                                        style: AppTheme.tableHeader(t))),
-                                SizedBox(
-                                    width: 105,
-                                    child: Text('Último acceso',
-                                        style: AppTheme.tableHeader(t))),
-                                SizedBox(
-                                    width: 70,
-                                    child: Text('Perms.',
-                                        style: AppTheme.tableHeader(t))),
-                                SizedBox(
-                                    width: 90,
-                                    child: Text('Acciones',
-                                        style: AppTheme.tableHeader(t))),
-                              ]),
-                            ),
-                            Divider(color: t.border, height: 1),
-
-                            // Data rows
-                            Expanded(
-                              child: ListView.separated(
-                                itemCount: usuarios.length,
-                                separatorBuilder: (_, __) =>
-                                    Divider(color: t.border, height: 1),
-                                itemBuilder: (_, i) {
-                                  final u = usuarios[i];
-                                  final isOdd = i.isOdd;
-                                  final rolColor = _rolColor(u.rol, t);
-                                  final estColor = _estatusColor(u.estatus, t);
-                                  final ua = u.ultimoAcceso;
-                                  final dStr =
-                                      '${ua.day.toString().padLeft(2, "0")}/${ua.month.toString().padLeft(2, "0")}/${ua.year}';
-                                  return Container(
-                                    color: isOdd
-                                        ? (t.isDark
-                                            ? const Color(0xFF0D1628)
-                                            : const Color(0xFFF8FAFC))
-                                        : t.surface,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 16, vertical: 12),
-                                    child: Row(children: [
-                                      // Nombre con avatar
-                                      SizedBox(
-                                        width: 180,
-                                        child: Row(children: [
-                                          () {
-                                            final path = _avatarPath(u.nombre);
-                                            return CircleAvatar(
-                                              radius: 16,
-                                              backgroundColor:
-                                                  rolColor.withOpacity(0.15),
-                                              backgroundImage: path.isNotEmpty
-                                                  ? AssetImage(path)
-                                                  : null,
-                                              child: path.isEmpty
-                                                  ? Text(
-                                                      u.nombre
-                                                          .split(' ')
-                                                          .map((p) => p[0])
-                                                          .take(2)
-                                                          .join(),
-                                                      style: TextStyle(
-                                                          color: rolColor,
-                                                          fontSize: 11,
-                                                          fontWeight:
-                                                              FontWeight.w700),
-                                                    )
-                                                  : null,
-                                            );
-                                          }(),
-                                          const SizedBox(width: 8),
-                                          Expanded(
-                                              child: Text(u.nombre,
-                                                  style: AppTheme.tableData(t),
-                                                  overflow:
-                                                      TextOverflow.ellipsis)),
-                                        ]),
-                                      ),
-                                      // Email
-                                      Expanded(
-                                        child: Text(u.email,
-                                            style: AppTheme.tableData(t)
-                                                .copyWith(
-                                                    color: t.textSecondary),
-                                            overflow: TextOverflow.ellipsis),
-                                      ),
-                                      // Rol badge
-                                      SizedBox(
-                                        width: 105,
-                                        child:
-                                            _chip(_rolLabel(u.rol), rolColor),
-                                      ),
-                                      // Estatus badge
-                                      SizedBox(
-                                        width: 95,
-                                        child: _chip(u.estatus, estColor),
-                                      ),
-                                      // Último acceso
-                                      SizedBox(
-                                        width: 105,
-                                        child: Text(dStr,
-                                            style: AppTheme.tableData(t)
-                                                .copyWith(
-                                                    color: t.textSecondary)),
-                                      ),
-                                      // Permisos count
-                                      SizedBox(
-                                        width: 70,
-                                        child: _chip(
-                                            '${u.permisos.length}',
-                                            t.info),
-                                      ),
-                                      // Acciones
-                                      SizedBox(
-                                        width: 90,
-                                        child: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              _iconBtn(
-                                                  Icons.edit_outlined,
-                                                  t.info,
-                                                  () => _showSnack(
-                                                      'Editar: ${u.nombre}')),
-                                              const SizedBox(width: 4),
-                                              _iconBtn(
-                                                  u.estatus == 'bloqueado'
-                                                      ? Icons.lock_open_outlined
-                                                      : Icons.block_outlined,
-                                                  u.estatus == 'bloqueado'
-                                                      ? t.success
-                                                      : t.error,
-                                                  () => _showSnack(u.estatus ==
-                                                          'bloqueado'
-                                                      ? 'Desbloquear: ${u.nombre}'
-                                                      : 'Bloquear: ${u.nombre}')),
-                                            ]),
-                                      ),
-                                    ]),
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
+                        child: PlutoGrid(
+                          columns: _usuCols(t),
+                          rows: _usuRows(usuarios, t),
+                          onLoaded: (e) => _sm = e.stateManager,
+                          configuration: _usuConfig(t),
+                          createFooter: (sm) {
+                            sm.setPageSize(25, notify: false);
+                            return PlutoPagination(sm);
+                          },
                         ),
                       ),
                     ),
@@ -320,6 +165,182 @@ class _UsuariosPageState extends State<UsuariosPage> {
       ),
     );
   }
+
+  // ── PLUTOGRID HELPERS ─────────────────────────────────────
+  List<PlutoColumn> _usuCols(AppThemeData t) => [
+        PlutoColumn(
+          title: 'Usuario',
+          field: 'nombre',
+          type: PlutoColumnType.text(),
+          width: 200,
+          titlePadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) {
+            final nombre = ctx.cell.value as String;
+            final rol = ctx.row.cells['rol']?.value as String? ?? '';
+            final rolColor = _rolColor(rol, t);
+            final path = _avatarPath(nombre);
+            return Row(children: [
+              CircleAvatar(
+                radius: 15,
+                backgroundColor: rolColor.withOpacity(0.15),
+                backgroundImage: path.isNotEmpty ? AssetImage(path) : null,
+                child: path.isEmpty
+                    ? Text(
+                        nombre.split(' ').map((p) => p[0]).take(2).join(),
+                        style: TextStyle(
+                            color: rolColor,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w700),
+                      )
+                    : null,
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                  child: Text(nombre,
+                      style: AppTheme.tableData(t),
+                      overflow: TextOverflow.ellipsis)),
+            ]);
+          },
+        ),
+        PlutoColumn(
+          title: 'Email',
+          field: 'email',
+          type: PlutoColumnType.text(),
+          width: 220,
+          titlePadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) => Text(ctx.cell.value as String,
+              style:
+                  AppTheme.tableData(t).copyWith(color: t.textSecondary),
+              overflow: TextOverflow.ellipsis),
+        ),
+        PlutoColumn(
+          title: 'Rol',
+          field: 'rol',
+          type: PlutoColumnType.text(),
+          width: 110,
+          titlePadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) {
+            final rol = ctx.cell.value as String;
+            return _chip(_rolLabel(rol), _rolColor(rol, t));
+          },
+        ),
+        PlutoColumn(
+          title: 'Estatus',
+          field: 'estatus',
+          type: PlutoColumnType.text(),
+          width: 95,
+          titlePadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) {
+            final est = ctx.cell.value as String;
+            return _chip(est, _estatusColor(est, t));
+          },
+        ),
+        PlutoColumn(
+          title: 'Último acceso',
+          field: 'ultimoAcceso',
+          type: PlutoColumnType.text(),
+          width: 110,
+          titlePadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) => Text(ctx.cell.value as String,
+              style:
+                  AppTheme.tableData(t).copyWith(color: t.textSecondary)),
+        ),
+        PlutoColumn(
+          title: 'Perms.',
+          field: 'permisos',
+          type: PlutoColumnType.number(),
+          width: 70,
+          titlePadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) =>
+              _chip('${ctx.cell.value}', t.info),
+        ),
+        PlutoColumn(
+          title: 'Acciones',
+          field: 'accNombre',
+          type: PlutoColumnType.text(),
+          width: 90,
+          titlePadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) {
+            final nombre = ctx.cell.value as String;
+            final est =
+                ctx.row.cells['estatus']?.value as String? ?? '';
+            return Row(mainAxisSize: MainAxisSize.min, children: [
+              _iconBtn(Icons.edit_outlined, t.info,
+                  () => _showSnack('Editar: $nombre')),
+              const SizedBox(width: 4),
+              _iconBtn(
+                  est == 'bloqueado'
+                      ? Icons.lock_open_outlined
+                      : Icons.block_outlined,
+                  est == 'bloqueado' ? t.success : t.error,
+                  () => _showSnack(est == 'bloqueado'
+                      ? 'Desbloquear: $nombre'
+                      : 'Bloquear: $nombre')),
+            ]);
+          },
+        ),
+      ];
+
+  List<PlutoRow> _usuRows(List<UsuarioSistema> usuarios, AppThemeData t) =>
+      usuarios.map((u) {
+        final ua = u.ultimoAcceso;
+        final dStr =
+            '${ua.day.toString().padLeft(2, "0")}/${ua.month.toString().padLeft(2, "0")}/${ua.year}';
+        return PlutoRow(cells: {
+          'nombre': PlutoCell(value: u.nombre),
+          'email': PlutoCell(value: u.email),
+          'rol': PlutoCell(value: u.rol),
+          'estatus': PlutoCell(value: u.estatus),
+          'ultimoAcceso': PlutoCell(value: dStr),
+          'permisos': PlutoCell(value: u.permisos.length),
+          'accNombre': PlutoCell(value: u.nombre),
+        });
+      }).toList();
+
+  PlutoGridConfiguration _usuConfig(AppThemeData t) => PlutoGridConfiguration(
+        style: PlutoGridStyleConfig(
+          gridBackgroundColor: t.surface,
+          rowColor: t.surface,
+          oddRowColor:
+              t.isDark ? const Color(0xFF0D1628) : const Color(0xFFF8FAFC),
+          activatedColor: t.primary.withOpacity(0.10),
+          gridBorderColor: Colors.transparent,
+          borderColor: t.border,
+          activatedBorderColor: t.primary,
+          inactivatedBorderColor: Colors.transparent,
+          columnTextStyle: AppTheme.tableHeader(t),
+          cellTextStyle: AppTheme.tableData(t),
+          iconColor: t.textDisabled,
+          menuBackgroundColor: t.surface,
+          columnHeight: 44,
+          rowHeight: 50,
+        ),
+        columnSize: const PlutoGridColumnSizeConfig(
+          autoSizeMode: PlutoAutoSizeMode.scale,
+          resizeMode: PlutoResizeMode.normal,
+        ),
+      );
 
   Widget _buildMobileCards(List<UsuarioSistema> usuarios, AppThemeData t) {
     return ListView.separated(

@@ -14,8 +14,8 @@ class ReportesPage extends StatefulWidget {
 class _ReportesPageState extends State<ReportesPage> {
   int _period = 0; // 0=mes, 1=trimestre, 2=año
 
-  void _showSnack(String msg) => ScaffoldMessenger.of(context)
-      .showSnackBar(SnackBar(content: Text(msg), duration: const Duration(seconds: 2)));
+  void _showSnack(String msg) => ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(msg), duration: const Duration(seconds: 2)));
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +24,28 @@ class _ReportesPageState extends State<ReportesPage> {
     final docs = MetaDocsMockData.documentos;
     final resultados = MetaDocsMockData.resultados;
 
-    final meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
-        'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+    final meses = [
+      'Ene',
+      'Feb',
+      'Mar',
+      'Abr',
+      'May',
+      'Jun',
+      'Jul',
+      'Ago',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dic'
+    ];
     final docsPerMonth = List.generate(12, (i) {
       final mes = i + 1;
       return docs.where((d) => d.fechaIngesta.month == mes).length.toDouble();
     });
     final exitoPerMonth = List.generate(12, (i) {
       final mes = i + 1;
-      final docsDelMes = docs.where((d) => d.fechaIngesta.month == mes).toList();
+      final docsDelMes =
+          docs.where((d) => d.fechaIngesta.month == mes).toList();
       if (docsDelMes.isEmpty) return 0.0;
       final exitosos = docsDelMes
           .where((d) => d.estatus == 'revisado' || d.estatus == 'extraido')
@@ -77,8 +90,10 @@ class _ReportesPageState extends State<ReportesPage> {
                   const SizedBox(width: 12),
                   OutlinedButton.icon(
                     onPressed: () => _showSnack('Exportando reporte PDF...'),
-                    icon: Icon(Icons.picture_as_pdf_outlined, size: 15, color: t.error),
-                    label: Text('PDF', style: AppTheme.button(t).copyWith(color: t.error)),
+                    icon: Icon(Icons.picture_as_pdf_outlined,
+                        size: 15, color: t.error),
+                    label: Text('PDF',
+                        style: AppTheme.button(t).copyWith(color: t.error)),
                     style: OutlinedButton.styleFrom(
                       side: BorderSide(color: t.error.withOpacity(0.5)),
                       shape: RoundedRectangleBorder(
@@ -88,7 +103,8 @@ class _ReportesPageState extends State<ReportesPage> {
                   const SizedBox(width: 6),
                   OutlinedButton.icon(
                     onPressed: () => _showSnack('Exportando reporte Excel...'),
-                    icon: Icon(Icons.table_chart_outlined, size: 15, color: t.success),
+                    icon: Icon(Icons.table_chart_outlined,
+                        size: 15, color: t.success),
                     label: Text('Excel',
                         style: AppTheme.button(t).copyWith(color: t.success)),
                     style: OutlinedButton.styleFrom(
@@ -121,8 +137,10 @@ class _ReportesPageState extends State<ReportesPage> {
                 const SizedBox(width: 12),
                 OutlinedButton.icon(
                   onPressed: () => _showSnack('Exportando reporte PDF...'),
-                  icon: Icon(Icons.picture_as_pdf_outlined, size: 15, color: t.error),
-                  label: Text('PDF', style: AppTheme.button(t).copyWith(color: t.error)),
+                  icon: Icon(Icons.picture_as_pdf_outlined,
+                      size: 15, color: t.error),
+                  label: Text('PDF',
+                      style: AppTheme.button(t).copyWith(color: t.error)),
                   style: OutlinedButton.styleFrom(
                     side: BorderSide(color: t.error.withOpacity(0.5)),
                     shape: RoundedRectangleBorder(
@@ -132,7 +150,8 @@ class _ReportesPageState extends State<ReportesPage> {
                 const SizedBox(width: 6),
                 OutlinedButton.icon(
                   onPressed: () => _showSnack('Exportando reporte Excel...'),
-                  icon: Icon(Icons.table_chart_outlined, size: 15, color: t.success),
+                  icon: Icon(Icons.table_chart_outlined,
+                      size: 15, color: t.success),
                   label: Text('Excel',
                       style: AppTheme.button(t).copyWith(color: t.success)),
                   style: OutlinedButton.styleFrom(
@@ -233,8 +252,7 @@ class _ReportesPageState extends State<ReportesPage> {
                       flex: 3,
                       child: _buildExitoChartCard(t, exitoPerMonth, meses)),
                   const SizedBox(width: 12),
-                  Expanded(
-                      flex: 2, child: _buildTiempoCard(t, tiemposPorTipo)),
+                  Expanded(flex: 2, child: _buildTiempoCard(t, tiemposPorTipo)),
                 ],
               ),
             const SizedBox(height: 16),
@@ -556,8 +574,8 @@ class _ReportesPageState extends State<ReportesPage> {
 
   // ── Helpers ───────────────────────────────────────────────────────────────
 
-  Widget _kpi(String label, String value, IconData icon, Color color,
-      AppThemeData t) {
+  Widget _kpi(
+      String label, String value, IconData icon, Color color, AppThemeData t) {
     return Expanded(
       child: Container(
         padding: const EdgeInsets.all(16),

@@ -56,8 +56,11 @@ class _IngestaPageState extends State<IngestaPage> {
             const SizedBox(height: 20),
 
             // Main area: Drop + Reglas
-            if (isMobile) ...[_dropArea(t), const SizedBox(height: 16), _reglasPanel(t)]
-            else
+            if (isMobile) ...[
+              _dropArea(t),
+              const SizedBox(height: 16),
+              _reglasPanel(t)
+            ] else
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -69,8 +72,11 @@ class _IngestaPageState extends State<IngestaPage> {
             const SizedBox(height: 20),
 
             // Queue + Sources
-            if (isMobile) ...[_colaPanel(t, recent), const SizedBox(height: 16), _origenesPanel(t)]
-            else
+            if (isMobile) ...[
+              _colaPanel(t, recent),
+              const SizedBox(height: 16),
+              _origenesPanel(t)
+            ] else
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -86,7 +92,8 @@ class _IngestaPageState extends State<IngestaPage> {
     );
   }
 
-  Widget _kpiRow(AppThemeData t, int hoy, int kb, int ms, {bool isMobile = false}) {
+  Widget _kpiRow(AppThemeData t, int hoy, int kb, int ms,
+      {bool isMobile = false}) {
     final kpis = [
       (
         label: 'Ingestados hoy',
@@ -114,33 +121,36 @@ class _IngestaPageState extends State<IngestaPage> {
       ),
     ];
     Widget card(int i, {bool hasRight = true}) => Expanded(
-      child: Container(
-        margin: EdgeInsets.only(right: hasRight ? (isMobile ? 10 : 12) : 0),
-        padding: EdgeInsets.all(isMobile ? 12 : 16),
-        decoration: AppTheme.cardDecoration(t),
-        child: Row(children: [
-          Container(
-            width: isMobile ? 32 : 38,
-            height: isMobile ? 32 : 38,
-            decoration: BoxDecoration(
-              color: kpis[i].color.withOpacity(0.14),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Icon(kpis[i].icon, color: kpis[i].color, size: isMobile ? 16 : 19),
+          child: Container(
+            margin: EdgeInsets.only(right: hasRight ? (isMobile ? 10 : 12) : 0),
+            padding: EdgeInsets.all(isMobile ? 12 : 16),
+            decoration: AppTheme.cardDecoration(t),
+            child: Row(children: [
+              Container(
+                width: isMobile ? 32 : 38,
+                height: isMobile ? 32 : 38,
+                decoration: BoxDecoration(
+                  color: kpis[i].color.withOpacity(0.14),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(kpis[i].icon,
+                    color: kpis[i].color, size: isMobile ? 16 : 19),
+              ),
+              SizedBox(width: isMobile ? 8 : 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(kpis[i].value,
+                        style: AppTheme.h3(t)
+                            .copyWith(fontSize: isMobile ? 13 : 17)),
+                    Text(kpis[i].label, style: AppTheme.caption(t)),
+                  ],
+                ),
+              ),
+            ]),
           ),
-          SizedBox(width: isMobile ? 8 : 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(kpis[i].value, style: AppTheme.h3(t).copyWith(fontSize: isMobile ? 13 : 17)),
-                Text(kpis[i].label, style: AppTheme.caption(t)),
-              ],
-            ),
-          ),
-        ]),
-      ),
-    );
+        );
     if (isMobile) {
       return Column(children: [
         Row(children: [card(0), card(1, hasRight: false)]),
@@ -149,7 +159,8 @@ class _IngestaPageState extends State<IngestaPage> {
       ]);
     }
     return Row(
-      children: List.generate(kpis.length, (i) => card(i, hasRight: i < kpis.length - 1)),
+      children: List.generate(
+          kpis.length, (i) => card(i, hasRight: i < kpis.length - 1)),
     );
   }
 

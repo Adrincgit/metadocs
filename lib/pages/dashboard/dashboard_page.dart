@@ -136,11 +136,13 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget _chartsRow1(AppThemeData t) {
     return LayoutBuilder(builder: (_, box) {
       if (box.maxWidth < mobileSize) {
-        return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          SizedBox(height: 240, child: _lineChart(t)),
-          const SizedBox(height: 12),
-          SizedBox(height: 220, child: _pieChart(t)),
-        ]);
+        return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(height: 240, child: _lineChart(t)),
+              const SizedBox(height: 12),
+              SizedBox(height: 220, child: _pieChart(t)),
+            ]);
       }
       return SizedBox(
         height: 280,
@@ -157,11 +159,13 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget _chartsRow2(AppThemeData t) {
     return LayoutBuilder(builder: (_, box) {
       if (box.maxWidth < mobileSize) {
-        return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          SizedBox(height: 220, child: _barChartTipo(t)),
-          const SizedBox(height: 12),
-          SizedBox(height: 200, child: _origenChart(t)),
-        ]);
+        return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(height: 220, child: _barChartTipo(t)),
+              const SizedBox(height: 12),
+              SizedBox(height: 200, child: _origenChart(t)),
+            ]);
       }
       return SizedBox(
         height: 240,
@@ -178,11 +182,13 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget _bottomRow(AppThemeData t) {
     return LayoutBuilder(builder: (_, box) {
       if (box.maxWidth < mobileSize) {
-        return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          _recentActivity(t),
-          const SizedBox(height: 12),
-          _alerts(t),
-        ]);
+        return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _recentActivity(t),
+              const SizedBox(height: 12),
+              _alerts(t),
+            ]);
       }
       return Row(
         crossAxisAlignment: CrossAxisAlignment.start,

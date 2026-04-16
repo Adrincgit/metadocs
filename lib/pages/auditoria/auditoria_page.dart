@@ -2,6 +2,7 @@
 import 'package:nethive_neo/data/metadocs_mock_data.dart';
 import 'package:nethive_neo/helpers/constants.dart';
 import 'package:nethive_neo/theme/theme.dart';
+import 'package:pluto_grid/pluto_grid.dart';
 
 class AuditoriaPage extends StatefulWidget {
   const AuditoriaPage({super.key});
@@ -11,6 +12,7 @@ class AuditoriaPage extends StatefulWidget {
 }
 
 class _AuditoriaPageState extends State<AuditoriaPage> {
+  PlutoGridStateManager? _sm;
   String _filterModulo = 'todos';
   String _filterAccion = 'todos';
   String _filterResultado = 'todos';
@@ -64,14 +66,30 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
     }
     final q = _searchCtrl.text.toLowerCase();
     if (q.isNotEmpty) {
-      eventos = eventos.where((e) =>
-          e.usuario.toLowerCase().contains(q) ||
-          e.descripcion.toLowerCase().contains(q) ||
-          e.modulo.toLowerCase().contains(q)).toList();
+      eventos = eventos
+          .where((e) =>
+              e.usuario.toLowerCase().contains(q) ||
+              e.descripcion.toLowerCase().contains(q) ||
+              e.modulo.toLowerCase().contains(q))
+          .toList();
     }
 
-    final modulos = ['todos', ...MetaDocsMockData.auditoriaEventos.map((e) => e.modulo).toSet().toList()..sort()];
-    final acciones = ['todos', 'subir', 'extraer', 'revisar', 'rechazar', 'archivar', 'configurar', 'editar', 'login'];
+    final modulos = [
+      'todos',
+      ...MetaDocsMockData.auditoriaEventos.map((e) => e.modulo).toSet().toList()
+        ..sort()
+    ];
+    final acciones = [
+      'todos',
+      'subir',
+      'extraer',
+      'revisar',
+      'rechazar',
+      'archivar',
+      'configurar',
+      'editar',
+      'login'
+    ];
     final resultados = ['todos', 'exitoso', 'fallido', 'advertencia'];
 
     return LayoutBuilder(
@@ -86,26 +104,31 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
               children: [
                 // Header
                 Row(children: [
-                  Expanded(child: Column(
+                  Expanded(
+                      child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Auditoría', style: AppTheme.h1(t)),
                       const SizedBox(height: 4),
-                      Text('${MetaDocsMockData.auditoriaEventos.length} eventos registrados — Log de actividad del sistema',
+                      Text(
+                          '${MetaDocsMockData.auditoriaEventos.length} eventos registrados — Log de actividad del sistema',
                           style: AppTheme.bodySmall(t)),
                     ],
                   )),
                   if (!isMobile)
                     OutlinedButton.icon(
-                      onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Exportando log de auditoría…'),
+                      onPressed: () => ScaffoldMessenger.of(context)
+                          .showSnackBar(const SnackBar(
+                              content: Text('Exportando log de auditoría…'),
                               duration: Duration(seconds: 2))),
-                      icon: Icon(Icons.download_outlined, size: 15, color: t.info),
+                      icon: Icon(Icons.download_outlined,
+                          size: 15, color: t.info),
                       label: Text('Exportar log',
                           style: AppTheme.button(t).copyWith(color: t.info)),
                       style: OutlinedButton.styleFrom(
                         side: BorderSide(color: t.info.withOpacity(0.5)),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
                       ),
                     ),
                 ]),
@@ -121,11 +144,17 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
                   ),
                   const SizedBox(height: 8),
                   Row(children: [
-                    Expanded(child: _filterDrop('Módulo', _filterModulo, modulos,
-                        (v) => setState(() => _filterModulo = v!), t)),
+                    Expanded(
+                        child: _filterDrop('Módulo', _filterModulo, modulos,
+                            (v) => setState(() => _filterModulo = v!), t)),
                     const SizedBox(width: 8),
-                    Expanded(child: _filterDrop('Resultado', _filterResultado, resultados,
-                        (v) => setState(() => _filterResultado = v!), t)),
+                    Expanded(
+                        child: _filterDrop(
+                            'Resultado',
+                            _filterResultado,
+                            resultados,
+                            (v) => setState(() => _filterResultado = v!),
+                            t)),
                   ]),
                 ] else
                   Row(children: [
@@ -149,7 +178,8 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
                         (v) => setState(() => _filterResultado = v!), t),
                     const SizedBox(width: 8),
                     Text('${eventos.length} resultados',
-                        style: AppTheme.caption(t).copyWith(color: t.textSecondary)),
+                        style: AppTheme.caption(t)
+                            .copyWith(color: t.textSecondary)),
                   ]),
                 const SizedBox(height: 16),
 
@@ -192,7 +222,8 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
               Row(children: [
                 Text(tsStr, style: AppTheme.caption(t)),
                 const Spacer(),
-                Icon(_resultIcon(ev.resultado as String), size: 14, color: resColor),
+                Icon(_resultIcon(ev.resultado as String),
+                    size: 14, color: resColor),
                 const SizedBox(width: 4),
                 Text(ev.resultado as String,
                     style: AppTheme.caption(t).copyWith(color: resColor)),
@@ -205,7 +236,9 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
               ]),
               const SizedBox(height: 6),
               Text(ev.descripcion as String,
-                  style: AppTheme.body(t), maxLines: 2, overflow: TextOverflow.ellipsis),
+                  style: AppTheme.body(t),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis),
               const SizedBox(height: 4),
               Text(ev.usuario as String,
                   style: AppTheme.caption(t).copyWith(color: t.textSecondary)),
@@ -216,98 +249,165 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
     );
   }
 
-  // ── DESKTOP TABLE ─────────────────────────────────────────
+  // ── DESKTOP TABLE (PlutoGrid) ─────────────────────────────
+  List<PlutoColumn> _cols(AppThemeData t) => [
+        PlutoColumn(
+          title: 'Timestamp',
+          field: 'timestamp',
+          type: PlutoColumnType.text(),
+          width: 130,
+          titlePadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) => Text(ctx.cell.value as String,
+              style: AppTheme.tableData(t)
+                  .copyWith(fontSize: 11, color: t.textSecondary)),
+        ),
+        PlutoColumn(
+          title: 'Usuario',
+          field: 'usuario',
+          type: PlutoColumnType.text(),
+          width: 145,
+          titlePadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) => Text(ctx.cell.value as String,
+              style: AppTheme.tableData(t).copyWith(fontSize: 12),
+              overflow: TextOverflow.ellipsis),
+        ),
+        PlutoColumn(
+          title: 'Módulo',
+          field: 'modulo',
+          type: PlutoColumnType.text(),
+          width: 110,
+          titlePadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) => _chip(ctx.cell.value as String, t.primary, t),
+        ),
+        PlutoColumn(
+          title: 'Acción',
+          field: 'accion',
+          type: PlutoColumnType.text(),
+          width: 95,
+          titlePadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) {
+            final accion = ctx.cell.value as String;
+            return _chip(accion, _accionColor(accion, t), t);
+          },
+        ),
+        PlutoColumn(
+          title: 'Descripción',
+          field: 'descripcion',
+          type: PlutoColumnType.text(),
+          width: 280,
+          titlePadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) => Text(ctx.cell.value as String,
+              style: AppTheme.tableData(t).copyWith(fontSize: 12),
+              overflow: TextOverflow.ellipsis),
+        ),
+        PlutoColumn(
+          title: 'Resultado',
+          field: 'resultado',
+          type: PlutoColumnType.text(),
+          width: 105,
+          titlePadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) {
+            final res = ctx.cell.value as String;
+            final color = _resultColor(res, t);
+            return Row(children: [
+              Icon(_resultIcon(res), size: 14, color: color),
+              const SizedBox(width: 5),
+              Expanded(
+                  child: Text(res,
+                      style: AppTheme.tableData(t)
+                          .copyWith(color: color, fontSize: 12))),
+            ]);
+          },
+        ),
+        PlutoColumn(
+          title: 'IP',
+          field: 'ip',
+          type: PlutoColumnType.text(),
+          width: 100,
+          titlePadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) => Text(ctx.cell.value as String,
+              style: AppTheme.tableData(t).copyWith(
+                  fontSize: 11,
+                  color: t.textSecondary,
+                  fontFamily: 'monospace')),
+        ),
+      ];
+
+  List<PlutoRow> _buildRows(List eventos) => eventos.map((ev) {
+        final ts = ev.timestamp as DateTime;
+        final tsStr =
+            '${ts.day.toString().padLeft(2, "0")}/${ts.month.toString().padLeft(2, "0")}/${ts.year} '
+            '${ts.hour.toString().padLeft(2, "0")}:${ts.minute.toString().padLeft(2, "0")}';
+        return PlutoRow(cells: {
+          'timestamp': PlutoCell(value: tsStr),
+          'usuario': PlutoCell(value: ev.usuario as String),
+          'modulo': PlutoCell(value: ev.modulo as String),
+          'accion': PlutoCell(value: ev.accion as String),
+          'descripcion': PlutoCell(value: ev.descripcion as String),
+          'resultado': PlutoCell(value: ev.resultado as String),
+          'ip': PlutoCell(value: (ev.ip as String?) ?? '—'),
+        });
+      }).toList();
+
+  PlutoGridConfiguration _config(AppThemeData t) => PlutoGridConfiguration(
+        style: PlutoGridStyleConfig(
+          gridBackgroundColor: t.surface,
+          rowColor: t.surface,
+          oddRowColor:
+              t.isDark ? const Color(0xFF0D1628) : const Color(0xFFF8FAFC),
+          activatedColor: t.primary.withOpacity(0.10),
+          gridBorderColor: Colors.transparent,
+          borderColor: t.border,
+          activatedBorderColor: t.primary,
+          inactivatedBorderColor: Colors.transparent,
+          columnTextStyle: AppTheme.tableHeader(t),
+          cellTextStyle: AppTheme.tableData(t),
+          iconColor: t.textDisabled,
+          menuBackgroundColor: t.surface,
+          columnHeight: 44,
+          rowHeight: 44,
+        ),
+        columnSize: const PlutoGridColumnSizeConfig(
+          autoSizeMode: PlutoAutoSizeMode.scale,
+          resizeMode: PlutoResizeMode.normal,
+        ),
+      );
+
   Widget _desktopTable(List eventos, AppThemeData t) {
     return Container(
       decoration: AppTheme.tableDecoration(t),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(18),
-        child: Column(
-          children: [
-            Container(
-              color: t.isDark ? const Color(0xFF0D1628) : const Color(0xFFF1F5FF),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: Row(children: [
-                SizedBox(width: 128, child: Text('Timestamp', style: AppTheme.tableHeader(t))),
-                SizedBox(width: 145, child: Text('Usuario', style: AppTheme.tableHeader(t))),
-                SizedBox(width: 115, child: Text('Módulo', style: AppTheme.tableHeader(t))),
-                SizedBox(width: 95, child: Text('Acción', style: AppTheme.tableHeader(t))),
-                Expanded(child: Text('Descripción', style: AppTheme.tableHeader(t))),
-                SizedBox(width: 105, child: Text('Resultado', style: AppTheme.tableHeader(t))),
-                SizedBox(width: 100, child: Text('IP', style: AppTheme.tableHeader(t))),
-              ]),
-            ),
-            Divider(color: t.border, height: 1),
-            Expanded(
-              child: ListView.separated(
-                itemCount: eventos.length,
-                separatorBuilder: (_, __) => Divider(color: t.border, height: 1),
-                itemBuilder: (_, i) {
-                  final ev = eventos[i];
-                  final isOdd = i.isOdd;
-                  final acColor = _accionColor(ev.accion as String, t);
-                  final resColor = _resultColor(ev.resultado as String, t);
-                  final ts = ev.timestamp as DateTime;
-                  final tsStr =
-                      '${ts.day.toString().padLeft(2, "0")}/${ts.month.toString().padLeft(2, "0")}/${ts.year} ${ts.hour.toString().padLeft(2, "0")}:${ts.minute.toString().padLeft(2, "0")}';
-                  return Container(
-                    color: isOdd
-                        ? (t.isDark ? const Color(0xFF0D1628) : const Color(0xFFF8FAFC))
-                        : t.surface,
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                    child: Row(children: [
-                      SizedBox(
-                        width: 128,
-                        child: Text(tsStr,
-                            style: AppTheme.tableData(t).copyWith(
-                                fontSize: 11, color: t.textSecondary)),
-                      ),
-                      SizedBox(
-                        width: 145,
-                        child: Text(ev.usuario as String,
-                            style: AppTheme.tableData(t).copyWith(fontSize: 12),
-                            overflow: TextOverflow.ellipsis),
-                      ),
-                      SizedBox(
-                        width: 115,
-                        child: _chip(ev.modulo as String, t.primary, t),
-                      ),
-                      SizedBox(
-                        width: 95,
-                        child: _chip(ev.accion as String, acColor, t),
-                      ),
-                      Expanded(
-                        child: Text(ev.descripcion as String,
-                            style: AppTheme.tableData(t).copyWith(fontSize: 12),
-                            overflow: TextOverflow.ellipsis),
-                      ),
-                      SizedBox(
-                        width: 105,
-                        child: Row(children: [
-                          Icon(_resultIcon(ev.resultado as String), size: 14, color: resColor),
-                          const SizedBox(width: 5),
-                          Expanded(
-                            child: Text(ev.resultado as String,
-                                style: AppTheme.tableData(t).copyWith(
-                                    color: resColor, fontSize: 12)),
-                          ),
-                        ]),
-                      ),
-                      SizedBox(
-                        width: 100,
-                        child: Text(
-                          (ev.ip as String?) ?? '—',
-                          style: AppTheme.tableData(t).copyWith(
-                              fontSize: 11, color: t.textSecondary,
-                              fontFamily: 'monospace'),
-                        ),
-                      ),
-                    ]),
-                  );
-                },
-              ),
-            ),
-          ],
+        child: PlutoGrid(
+          columns: _cols(t),
+          rows: _buildRows(eventos),
+          onLoaded: (e) => _sm = e.stateManager,
+          configuration: _config(t),
+          createFooter: (sm) {
+            sm.setPageSize(25, notify: false);
+            return PlutoPagination(sm);
+          },
         ),
       ),
     );
@@ -323,7 +423,8 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
         border: Border.all(color: color.withOpacity(0.35)),
       ),
       child: Text(label,
-          style: TextStyle(color: color, fontSize: 10, fontWeight: FontWeight.w700),
+          style: TextStyle(
+              color: color, fontSize: 10, fontWeight: FontWeight.w700),
           overflow: TextOverflow.ellipsis),
     );
   }
@@ -360,10 +461,13 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
           style: AppTheme.bodySmall(t),
           icon: Icon(Icons.expand_more, size: 15, color: t.textDisabled),
           onChanged: onChanged,
-          items: items.map((e) => DropdownMenuItem(
-            value: e,
-            child: Text(e == 'todos' ? label : e, style: AppTheme.bodySmall(t)),
-          )).toList(),
+          items: items
+              .map((e) => DropdownMenuItem(
+                    value: e,
+                    child: Text(e == 'todos' ? label : e,
+                        style: AppTheme.bodySmall(t)),
+                  ))
+              .toList(),
         ),
       ),
     );

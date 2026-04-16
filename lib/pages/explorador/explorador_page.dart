@@ -34,7 +34,8 @@ class _ExploradorPageState extends State<ExploradorPage> {
   List<Documento> get _filtered => MetaDocsMockData.documentos
       .where((d) => d.estatus == 'revisado' || d.estatus == 'extraido')
       .where((d) => _filterTipo == 'Todos' || d.tipoDocumental == _filterTipo)
-      .where((d) => _filterFormato == 'Todos' ||
+      .where((d) =>
+          _filterFormato == 'Todos' ||
           d.nombre.toLowerCase().endsWith('.${_filterFormato.toLowerCase()}'))
       .toList();
 
@@ -279,11 +280,13 @@ class _ExploradorPageState extends State<ExploradorPage> {
 
           // Format quick-filter
           Row(children: [
-            Text('Formato:', style: AppTheme.caption(t).copyWith(color: t.textSecondary)),
+            Text('Formato:',
+                style: AppTheme.caption(t).copyWith(color: t.textSecondary)),
             const SizedBox(width: 10),
             _fmtChip('Todos', Icons.folder_outlined, t.neutral, t),
             const SizedBox(width: 6),
-            _fmtChip('PDF', Icons.picture_as_pdf_outlined, const Color(0xFFDC2626), t),
+            _fmtChip('PDF', Icons.picture_as_pdf_outlined,
+                const Color(0xFFDC2626), t),
             const SizedBox(width: 6),
             _fmtChip('XML', Icons.code_outlined, const Color(0xFF0284C7), t),
           ]),
@@ -449,9 +452,8 @@ class _ExploradorPageState extends State<ExploradorPage> {
 
   /// Returns a colored icon for a given document filename extension.
   Widget _formatIcon(String nombre) {
-    final ext = nombre.contains('.')
-        ? nombre.split('.').last.toLowerCase()
-        : '';
+    final ext =
+        nombre.contains('.') ? nombre.split('.').last.toLowerCase() : '';
     switch (ext) {
       case 'pdf':
         return const Icon(Icons.picture_as_pdf,
@@ -480,19 +482,15 @@ class _ExploradorPageState extends State<ExploradorPage> {
               width: isSelected ? 1.5 : 1),
         ),
         child: Row(mainAxisSize: MainAxisSize.min, children: [
-          Icon(icon,
-              size: 14,
-              color: isSelected ? color : t.textSecondary),
+          Icon(icon, size: 14, color: isSelected ? color : t.textSecondary),
           const SizedBox(width: 5),
           Text(fmt,
               style: TextStyle(
                   color: isSelected ? color : t.textSecondary,
                   fontSize: 12,
-                  fontWeight:
-                      isSelected ? FontWeight.w700 : FontWeight.w500)),
+                  fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500)),
         ]),
       ),
     );
   }
 }
-
