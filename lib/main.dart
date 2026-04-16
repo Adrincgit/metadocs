@@ -17,8 +17,9 @@ void main() async {
 
   setPathUrlStrategy();
 
-  // Initialize globals (SharedPreferences for theme)
+  // Initialize globals (SharedPreferences)
   await initGlobals();
+  AppTheme.initPrefs(prefs);
 
   GoRouter.optionURLReflectsImperativeAPIs = true;
 

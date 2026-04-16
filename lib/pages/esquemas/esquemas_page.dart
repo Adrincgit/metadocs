@@ -55,10 +55,10 @@ class _EsquemasPageState extends State<EsquemasPage> {
                   child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Esquemas y Taxonomía', style: AppTheme.h1(t)),
+                  Text('Esquemas y TaxonomÃ­a', style: AppTheme.h1(t)),
                   const SizedBox(height: 4),
                   Text(
-                      '${tipos.length} tipos documentales · ${tipos.fold(0, (s, td) => s + td.campos.length)} campos definidos',
+                      '${tipos.length} tipos documentales Â· ${tipos.fold(0, (s, td) => s + td.campos.length)} campos definidos',
                       style: AppTheme.bodySmall(t)),
                 ],
               )),
@@ -296,7 +296,7 @@ class _EsquemasPageState extends State<EsquemasPage> {
                                           Icon(Icons.check_circle_outline,
                                               size: 14, color: t.error),
                                           const SizedBox(width: 4),
-                                          Text('Sí',
+                                          Text('SÃ­',
                                               style: AppTheme.tableData(t)
                                                   .copyWith(color: t.error)),
                                         ])

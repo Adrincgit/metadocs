@@ -108,10 +108,10 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
                       child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Auditoría', style: AppTheme.h1(t)),
+                      Text('AuditorÃ­a', style: AppTheme.h1(t)),
                       const SizedBox(height: 4),
                       Text(
-                          '${MetaDocsMockData.auditoriaEventos.length} eventos registrados — Log de actividad del sistema',
+                          '${MetaDocsMockData.auditoriaEventos.length} eventos registrados â€” Log de actividad del sistema',
                           style: AppTheme.bodySmall(t)),
                     ],
                   )),
@@ -119,7 +119,7 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
                     OutlinedButton.icon(
                       onPressed: () => ScaffoldMessenger.of(context)
                           .showSnackBar(const SnackBar(
-                              content: Text('Exportando log de auditoría…'),
+                              content: Text('Exportando log de auditorÃ­aâ€¦'),
                               duration: Duration(seconds: 2))),
                       icon: Icon(Icons.download_outlined,
                           size: 15, color: t.info),
@@ -140,12 +140,12 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
                     controller: _searchCtrl,
                     onChanged: (_) => setState(() {}),
                     style: AppTheme.body(t),
-                    decoration: _inputDeco('Buscar usuario, descripción…', t),
+                    decoration: _inputDeco('Buscar usuario, descripciÃ³nâ€¦', t),
                   ),
                   const SizedBox(height: 8),
                   Row(children: [
                     Expanded(
-                        child: _filterDrop('Módulo', _filterModulo, modulos,
+                        child: _filterDrop('MÃ³dulo', _filterModulo, modulos,
                             (v) => setState(() => _filterModulo = v!), t)),
                     const SizedBox(width: 8),
                     Expanded(
@@ -164,14 +164,14 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
                         controller: _searchCtrl,
                         onChanged: (_) => setState(() {}),
                         style: AppTheme.body(t),
-                        decoration: _inputDeco('Buscar…', t),
+                        decoration: _inputDeco('Buscarâ€¦', t),
                       ),
                     ),
                     const SizedBox(width: 8),
-                    _filterDrop('Módulo', _filterModulo, modulos,
+                    _filterDrop('MÃ³dulo', _filterModulo, modulos,
                         (v) => setState(() => _filterModulo = v!), t),
                     const SizedBox(width: 8),
-                    _filterDrop('Acción', _filterAccion, acciones,
+                    _filterDrop('AcciÃ³n', _filterAccion, acciones,
                         (v) => setState(() => _filterAccion = v!), t),
                     const SizedBox(width: 8),
                     _filterDrop('Resultado', _filterResultado, resultados,
@@ -274,7 +274,7 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
               overflow: TextOverflow.ellipsis),
         ),
         PlutoColumn(
-          title: 'Módulo',
+          title: 'MÃ³dulo',
           field: 'modulo',
           type: PlutoColumnType.text(),
           width: 110,
@@ -283,7 +283,7 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
           renderer: (ctx) => _chip(ctx.cell.value as String, t.primary, t),
         ),
         PlutoColumn(
-          title: 'Acción',
+          title: 'AcciÃ³n',
           field: 'accion',
           type: PlutoColumnType.text(),
           width: 95,
@@ -295,7 +295,7 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
           },
         ),
         PlutoColumn(
-          title: 'Descripción',
+          title: 'DescripciÃ³n',
           field: 'descripcion',
           type: PlutoColumnType.text(),
           width: 280,
@@ -352,7 +352,7 @@ class _AuditoriaPageState extends State<AuditoriaPage> {
           'accion': PlutoCell(value: ev.accion as String),
           'descripcion': PlutoCell(value: ev.descripcion as String),
           'resultado': PlutoCell(value: ev.resultado as String),
-          'ip': PlutoCell(value: (ev.ip as String?) ?? '—'),
+          'ip': PlutoCell(value: (ev.ip as String?) ?? 'â€”'),
         });
       }).toList();
 

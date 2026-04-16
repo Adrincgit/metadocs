@@ -77,7 +77,7 @@ class _DashboardPageState extends State<DashboardPage> {
           children: [
             Text('Dashboard', style: AppTheme.h1(t)),
             const SizedBox(height: 4),
-            Text('Resumen operativo · 7 de marzo de 2026',
+            Text('Resumen operativo Â· 7 de marzo de 2026',
                 style: AppTheme.bodySmall(t)),
             const SizedBox(height: 24),
             _kpiRow(t),
@@ -111,7 +111,7 @@ class _DashboardPageState extends State<DashboardPage> {
           Icons.psychology_outlined,
           t.indigo,
           t.indigoSoft),
-      _KpiData('Campos Extraídos', '$_camposExtraidos',
+      _KpiData('Campos ExtraÃ­dos', '$_camposExtraidos',
           Icons.data_object_rounded, t.success, t.successSoft),
     ];
     return LayoutBuilder(builder: (_, box) {
@@ -226,7 +226,7 @@ class _DashboardPageState extends State<DashboardPage> {
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text('Volumen de Ingesta Mensual', style: AppTheme.h3(t)),
         const SizedBox(height: 2),
-        Text('Documentos procesados por mes — 2026',
+        Text('Documentos procesados por mes â€” 2026',
             style: AppTheme.bodySmall(t)),
         const SizedBox(height: 16),
         Expanded(
@@ -427,7 +427,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     }
                     final full = top[i].key;
                     final label =
-                        full.length > 7 ? '${full.substring(0, 6)}…' : full;
+                        full.length > 7 ? '${full.substring(0, 6)}â€¦' : full;
                     return Padding(
                       padding: const EdgeInsets.only(top: 4),
                       child: Text(label,
@@ -449,9 +449,9 @@ class _DashboardPageState extends State<DashboardPage> {
     final labelMap = {
       'email': 'Email',
       'carga_manual': 'Manual',
-      'escaner': 'Escáner',
+      'escaner': 'EscÃ¡ner',
       'api': 'API REST',
-      'integracion': 'Integración',
+      'integracion': 'IntegraciÃ³n',
     };
     final sorted = _porOrigen.entries.toList()
       ..sort((a, b) => b.value.compareTo(a.value));
@@ -534,7 +534,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis),
                       const SizedBox(height: 2),
-                      Text('${evt.usuario} · ${evt.modulo}',
+                      Text('${evt.usuario} Â· ${evt.modulo}',
                           style: AppTheme.caption(t)),
                     ],
                   ),
@@ -565,7 +565,7 @@ class _DashboardPageState extends State<DashboardPage> {
           icon: Icons.cancel_outlined,
           color: t.error,
           title: '${errDocs.length} documentos rechazados',
-          subtitle: 'Confianza IA < 65 % — revisión manual requerida',
+          subtitle: 'Confianza IA < 65 % â€” revisiÃ³n manual requerida',
           t: t,
         ),
         const SizedBox(height: 8),
@@ -573,15 +573,15 @@ class _DashboardPageState extends State<DashboardPage> {
           icon: Icons.hourglass_bottom_rounded,
           color: t.warning,
           title: '${pendDocs.length} pendientes de OCR',
-          subtitle: 'En cola · sin procesamiento iniciado',
+          subtitle: 'En cola Â· sin procesamiento iniciado',
           t: t,
         ),
         const SizedBox(height: 8),
         _AlertItem(
           icon: Icons.wifi_off_rounded,
           color: t.info,
-          title: 'Email IMAP en revisión',
-          subtitle: 'Certificado SSL expirado — verificar',
+          title: 'Email IMAP en revisiÃ³n',
+          subtitle: 'Certificado SSL expirado â€” verificar',
           t: t,
         ),
       ]),

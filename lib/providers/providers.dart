@@ -1,2 +1,2 @@
-﻿// lib/providers/providers.dart
+// lib/providers/providers.dart
 export 'visual_state_provider.dart';

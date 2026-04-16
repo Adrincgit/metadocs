@@ -12,7 +12,7 @@ class ReportesPage extends StatefulWidget {
 }
 
 class _ReportesPageState extends State<ReportesPage> {
-  int _period = 0; // 0=mes, 1=trimestre, 2=año
+  int _period = 0; // 0=mes, 1=trimestre, 2=aÃ±o
 
   void _showSnack(String msg) => ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(msg), duration: const Duration(seconds: 2)));

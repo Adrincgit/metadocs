@@ -96,7 +96,7 @@ class _UsuariosPageState extends State<UsuariosPage> {
                   Text('Usuarios y Roles', style: AppTheme.h1(t)),
                   const SizedBox(height: 4),
                   Text(
-                      '${MetaDocsMockData.usuarios.where((u) => u.estatus == "activo").length} activos · ${MetaDocsMockData.usuarios.length} usuarios registrados',
+                      '${MetaDocsMockData.usuarios.where((u) => u.estatus == "activo").length} activos Â· ${MetaDocsMockData.usuarios.length} usuarios registrados',
                       style: AppTheme.bodySmall(t)),
                 ],
               )),
@@ -239,7 +239,7 @@ class _UsuariosPageState extends State<UsuariosPage> {
           },
         ),
         PlutoColumn(
-          title: 'Último acceso',
+          title: 'Ãšltimo acceso',
           field: 'ultimoAcceso',
           type: PlutoColumnType.text(),
           width: 110,
@@ -392,7 +392,7 @@ class _UsuariosPageState extends State<UsuariosPage> {
               _chip('${u.permisos.length} perms', t.info),
             ]),
             const SizedBox(height: 6),
-            Text('Último acceso: $dStr', style: AppTheme.caption(t)),
+            Text('Ãšltimo acceso: $dStr', style: AppTheme.caption(t)),
           ]),
         );
       },

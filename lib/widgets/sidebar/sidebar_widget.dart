@@ -24,7 +24,7 @@ class _MenuGroup {
   const _MenuGroup(this.label, this.accentFn, this.entries);
 }
 
-// --- DefiniciÛn del men˙ -----------------------------------------------------
+// --- Definici√≥n del men√∫ -----------------------------------------------------
 
 final List<_MenuGroup> _groups = [
   _MenuGroup('OVERVIEW', (t) => t.primary, [
@@ -41,7 +41,7 @@ final List<_MenuGroup> _groups = [
     _MenuEntry('Esquemas', Icons.schema_outlined, '/esquemas'),
   ]),
   _MenuGroup('AI', (t) => t.indigo, [
-    _MenuEntry('An·lisis con IA', Icons.auto_awesome_outlined, '/analisis-ia'),
+    _MenuEntry('An√°lisis con IA', Icons.auto_awesome_outlined, '/analisis-ia'),
     _MenuEntry('Consultas', Icons.chat_outlined, '/consultas'),
   ]),
   _MenuGroup('INSIGHTS', (t) => t.success, [
@@ -49,9 +49,9 @@ final List<_MenuGroup> _groups = [
   ]),
   _MenuGroup('ADMIN', (t) => t.neutral, [
     _MenuEntry('Integraciones', Icons.cable_outlined, '/integraciones'),
-    _MenuEntry('ConfiguraciÛn', Icons.settings_outlined, '/configuracion'),
+    _MenuEntry('Configuraci√≥n', Icons.settings_outlined, '/configuracion'),
     _MenuEntry('Usuarios y Roles', Icons.manage_accounts_outlined, '/usuarios'),
-    _MenuEntry('AuditorÌa', Icons.history_edu_outlined, '/auditoria'),
+    _MenuEntry('Auditor√≠a', Icons.history_edu_outlined, '/auditoria'),
   ]),
 ];
 
@@ -77,7 +77,7 @@ class SidebarWidget extends StatelessWidget {
           // -- Logo ----------------------------------------------------------
           const _SidebarLogo(),
 
-          // -- Grupos de mÛdulos ---------------------------------------------
+          // -- Grupos de m√≥dulos ---------------------------------------------
           Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(vertical: 8),
@@ -95,7 +95,7 @@ class SidebarWidget extends StatelessWidget {
             ),
           ),
 
-          // -- BotÛn salir ---------------------------------------------------
+          // -- Bot√≥n salir ---------------------------------------------------
           const _ExitButton(),
           const SizedBox(height: 8),
         ],
@@ -172,7 +172,7 @@ class _SidebarLogo extends StatelessWidget {
   }
 }
 
-// --- SecciÛn de grupo ---------------------------------------------------------
+// --- Secci√≥n de grupo ---------------------------------------------------------
 
 class _GroupSection extends StatelessWidget {
   final _MenuGroup group;
@@ -225,7 +225,7 @@ class _GroupSection extends StatelessWidget {
   }
 }
 
-// --- Õtem de men˙ -------------------------------------------------------------
+// --- √çtem de men√∫ -------------------------------------------------------------
 
 class _SidebarMenuItem extends StatefulWidget {
   final _MenuEntry entry;
@@ -274,7 +274,7 @@ class _SidebarMenuItemState extends State<_SidebarMenuItem> {
               .read<VisualStateProvider>()
               .setCurrentRoute(widget.entry.route);
           context.go(widget.entry.route);
-          // Cierra drawer si est· abierto (mobile)
+          // Cierra drawer si est√° abierto (mobile)
           if (Scaffold.maybeOf(context)?.isDrawerOpen ?? false) {
             Navigator.of(context).pop();
           }
@@ -313,7 +313,7 @@ class _SidebarMenuItemState extends State<_SidebarMenuItem> {
   }
 }
 
-// --- BotÛn Salir --------------------------------------------------------------
+// --- Bot√≥n Salir --------------------------------------------------------------
 
 class _ExitButton extends StatefulWidget {
   const _ExitButton();

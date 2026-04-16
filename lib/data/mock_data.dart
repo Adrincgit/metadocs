@@ -1,1 +1,1 @@
-﻿// Legacy ERP mock data — replaced by MetaDocsMockData
+// Legacy ERP mock data — replaced by MetaDocsMockData

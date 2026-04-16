@@ -1,1 +1,1 @@
-﻿// Reserved — ERP Gestión Comercial
+// Reserved — ERP Gestión Comercial

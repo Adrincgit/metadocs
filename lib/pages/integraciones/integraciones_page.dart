@@ -85,15 +85,15 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
                   Text('Integraciones y Conectores', style: AppTheme.h1(t)),
                   const SizedBox(height: 4),
                   Text(
-                    '${ints.where((i) => i.estatus == "activa").length} activas · ${ints.length} configuradas',
+                    '${ints.where((i) => i.estatus == "activa").length} activas Â· ${ints.length} configuradas',
                     style: AppTheme.bodySmall(t),
                   ),
                 ],
               )),
               FilledButton.icon(
-                onPressed: () => _snack('Nueva integración (demo)'),
+                onPressed: () => _snack('Nueva integraciÃ³n (demo)'),
                 icon: const Icon(Icons.add, size: 15),
-                label: const Text('Nueva integración'),
+                label: const Text('Nueva integraciÃ³n'),
                 style: FilledButton.styleFrom(
                   backgroundColor: t.primary,
                   foregroundColor: Colors.white,
@@ -110,7 +110,7 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
                   : Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // LEFT: módulos
+                        // LEFT: mÃ³dulos
                         SizedBox(
                           width: 280,
                           child: Container(
@@ -120,7 +120,7 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(16),
-                                  child: Text('Módulos', style: AppTheme.h3(t)),
+                                  child: Text('MÃ³dulos', style: AppTheme.h3(t)),
                                 ),
                                 Divider(color: t.border, height: 1),
                                 Expanded(
@@ -195,7 +195,7 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
                         ),
                         const SizedBox(width: 16),
 
-                        // RIGHT: configuración
+                        // RIGHT: configuraciÃ³n
                         Expanded(child: _configPanel(_selected, t)),
                       ],
                     ),
@@ -236,7 +236,7 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(intg.nombre, style: AppTheme.body(t).copyWith(fontWeight: FontWeight.w600)),
-                Text('${intg.tipo} · ${intg.version}', style: AppTheme.caption(t)),
+                Text('${intg.tipo} Â· ${intg.version}', style: AppTheme.caption(t)),
               ],
             )),
             Container(
@@ -261,7 +261,7 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
     final tColor = _tipoColor(intg.tipo, t);
     final eColor = _estatusColor(intg.estatus, t);
     final syncStr = intg.ultimaSincronizacion == null
-        ? '—'
+        ? 'â€”'
         : '${intg.ultimaSincronizacion!.day.toString().padLeft(2, "0")}/${intg.ultimaSincronizacion!.month.toString().padLeft(2, "0")}/${intg.ultimaSincronizacion!.year} ${intg.ultimaSincronizacion!.hour.toString().padLeft(2, "0")}:${intg.ultimaSincronizacion!.minute.toString().padLeft(2, "0")}';
 
     return Container(
@@ -271,7 +271,7 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Módulo header
+            // MÃ³dulo header
             Row(children: [
               Container(
                 width: 42,
@@ -320,9 +320,9 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
             Row(children: [
               _metaItem('Tipo', intg.tipo, t),
               const SizedBox(width: 32),
-              _metaItem('Versión', intg.version, t),
+              _metaItem('VersiÃ³n', intg.version, t),
               const SizedBox(width: 32),
-              _metaItem('Última sync', syncStr, t),
+              _metaItem('Ãšltima sync', syncStr, t),
             ]),
             const SizedBox(height: 24),
             Divider(color: t.border),
@@ -338,7 +338,7 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
             // Action row
             Row(children: [
               OutlinedButton.icon(
-                onPressed: () => _snack('Módulo ${intg.estatus == "activa" ? "pausado" : "activado"}: ${intg.nombre}'),
+                onPressed: () => _snack('MÃ³dulo ${intg.estatus == "activa" ? "pausado" : "activado"}: ${intg.nombre}'),
                 icon: Icon(
                     intg.estatus == 'activa'
                         ? Icons.pause_outlined
@@ -346,7 +346,7 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
                     size: 15,
                     color: intg.estatus == 'activa' ? t.warning : t.success),
                 label: Text(
-                    intg.estatus == 'activa' ? 'Pausar módulo' : 'Activar módulo',
+                    intg.estatus == 'activa' ? 'Pausar mÃ³dulo' : 'Activar mÃ³dulo',
                     style: AppTheme.button(t).copyWith(
                         color: intg.estatus == 'activa' ? t.warning : t.success)),
                 style: OutlinedButton.styleFrom(
@@ -358,7 +358,7 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
               ),
               const SizedBox(width: 10),
               OutlinedButton.icon(
-                onPressed: () => _snack('Sincronizando: ${intg.nombre}…'),
+                onPressed: () => _snack('Sincronizando: ${intg.nombre}â€¦'),
                 icon: Icon(Icons.sync, size: 15, color: t.info),
                 label: Text('Sincronizar',
                     style: AppTheme.button(t).copyWith(color: t.info)),
@@ -369,7 +369,7 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
               ),
               const Spacer(),
               FilledButton.icon(
-                onPressed: () => _snack('Configuración guardada: ${intg.nombre}'),
+                onPressed: () => _snack('ConfiguraciÃ³n guardada: ${intg.nombre}'),
                 icon: const Icon(Icons.save_outlined, size: 15),
                 label: const Text('Guardar cambios'),
                 style: FilledButton.styleFrom(
@@ -393,7 +393,7 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
       'email' => _emailConfig(s, t),
       'api' => _apiConfig(s, t),
       'scanner' => _scannerConfig(s, t),
-      _ => [Text('Sin configuración disponible.', style: AppTheme.body(t))],
+      _ => [Text('Sin configuraciÃ³n disponible.', style: AppTheme.body(t))],
     };
   }
 
@@ -405,7 +405,7 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
         _providerSelector(s, t),
         const SizedBox(height: 16),
         _twoCol(
-          _field('Nombre del módulo', s.moduleName, t),
+          _field('Nombre del mÃ³dulo', s.moduleName, t),
           _dropdown('Modelo', s.model,
               ['gemini-2.5-flash', 'gemini-2.0-pro', 'claude-3-5-sonnet', 'gpt-4o', 'text-embedding-004'],
               (v) => setState(() => s.model = v!), t),
@@ -413,10 +413,10 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
         const SizedBox(height: 16),
         _apiKeyField(s, t),
         const SizedBox(height: 20),
-        _sectionTitle('Reglas del módulo', Icons.rule_outlined, t),
+        _sectionTitle('Reglas del mÃ³dulo', Icons.rule_outlined, t),
         const SizedBox(height: 12),
         _twoCol(
-          _toggle('Indexar automáticamente', s.autoIndex, (v) => setState(() => s.autoIndex = v), t),
+          _toggle('Indexar automÃ¡ticamente', s.autoIndex, (v) => setState(() => s.autoIndex = v), t),
           _toggle('Modo avanzado (API)', s.advancedMode, (v) => setState(() => s.advancedMode = v), t),
         ),
         const SizedBox(height: 12),
@@ -425,7 +425,7 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
         const SizedBox(height: 16),
         _sectionTitle('Prompt del sistema', Icons.chat_outlined, t),
         const SizedBox(height: 10),
-        _textArea('Instrucciones del sistema para este módulo…', s.promptCtrl, t),
+        _textArea('Instrucciones del sistema para este mÃ³duloâ€¦', s.promptCtrl, t),
       ];
 
   List<Widget> _ocrConfig(_ModuleState s, AppThemeData t) => [
@@ -442,15 +442,15 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
         ]),
         const SizedBox(height: 16),
         _twoCol(
-          _field('Versión API', s.moduleName, t),
+          _field('VersiÃ³n API', s.moduleName, t),
           _dropdown('Idioma principal', s.model,
               ['es', 'en', 'es+en', 'pt', 'fr'], (v) => setState(() => s.model = v!), t),
         ),
         const SizedBox(height: 16),
-        _labeledSlider('Umbral mínimo de confianza', s.threshold, 0.5, 1.0,
+        _labeledSlider('Umbral mÃ­nimo de confianza', s.threshold, 0.5, 1.0,
             (v) => setState(() => s.threshold = v), t),
         const SizedBox(height: 20),
-        _sectionTitle('Reglas del módulo', Icons.rule_outlined, t),
+        _sectionTitle('Reglas del mÃ³dulo', Icons.rule_outlined, t),
         const SizedBox(height: 12),
         _twoCol(
           _toggle('Procesar al ingestar', s.autoIndex, (v) => setState(() => s.autoIndex = v), t),
@@ -478,7 +478,7 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
         const SizedBox(height: 16),
         _twoCol(
           _field('Bucket / Container', s.moduleName, t),
-          _dropdown('Región', s.model,
+          _dropdown('RegiÃ³n', s.model,
               ['us-central1', 'us-east1', 'europe-west1', 'southamerica-east1'],
               (v) => setState(() => s.model = v!), t),
         ),
@@ -492,11 +492,11 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
           _toggle('Versionado de archivos', s.advancedMode, (v) => setState(() => s.advancedMode = v), t),
         ),
         const SizedBox(height: 12),
-        _field('Retención (días)', TextEditingController(text: '365'), t),
+        _field('RetenciÃ³n (dÃ­as)', TextEditingController(text: '365'), t),
       ];
 
   List<Widget> _emailConfig(_ModuleState s, AppThemeData t) => [
-        _sectionTitle('Configuración IMAP', Icons.email_outlined, t),
+        _sectionTitle('ConfiguraciÃ³n IMAP', Icons.email_outlined, t),
         const SizedBox(height: 14),
         _twoCol(
           _field('Servidor IMAP', s.moduleName, t),
@@ -505,7 +505,7 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
         const SizedBox(height: 16),
         _twoCol(
           _field('Usuario / Email', s.promptCtrl, t),
-          _apiKeyField(s, t, label: 'Contraseña'),
+          _apiKeyField(s, t, label: 'ContraseÃ±a'),
         ),
         const SizedBox(height: 16),
         _field('Carpeta', TextEditingController(text: 'INBOX'), t),
@@ -517,7 +517,7 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
           _toggle('Eliminar tras procesar', s.advancedMode, (v) => setState(() => s.advancedMode = v), t),
         ),
         const SizedBox(height: 12),
-        _dropdown('Frecuencia de revisión', s.model,
+        _dropdown('Frecuencia de revisiÃ³n', s.model,
             ['Cada 5 minutos', 'Cada 15 minutos', 'Cada 30 minutos', 'Cada hora'],
             (v) => setState(() => s.model = v!), t),
       ];
@@ -527,7 +527,7 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
         const SizedBox(height: 14),
         _field('URL base', s.moduleName, t),
         const SizedBox(height: 16),
-        _apiKeyField(s, t, label: 'Token de autenticación'),
+        _apiKeyField(s, t, label: 'Token de autenticaciÃ³n'),
         const SizedBox(height: 16),
         _field('Webhook URL', TextEditingController(text: 'https://'), t),
         const SizedBox(height: 20),
@@ -545,7 +545,7 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
       ];
 
   List<Widget> _scannerConfig(_ModuleState s, AppThemeData t) => [
-        _sectionTitle('Conector de Escáner', Icons.scanner_outlined, t),
+        _sectionTitle('Conector de EscÃ¡ner', Icons.scanner_outlined, t),
         const SizedBox(height: 14),
         _twoCol(
           _dropdown('Driver', s.provider,
@@ -557,7 +557,7 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
         ),
         const SizedBox(height: 16),
         _twoCol(
-          _dropdown('Resolución DPI', '300',
+          _dropdown('ResoluciÃ³n DPI', '300',
               ['150', '200', '300', '600'],
               (v) => setState(() => s.provider = v!), t),
           _dropdown('Color', 'Escala de grises',
@@ -569,7 +569,7 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
         const SizedBox(height: 12),
         _twoCol(
           _toggle('Auto-procesar tras escanear', s.autoIndex, (v) => setState(() => s.autoIndex = v), t),
-          _toggle('Dúplex automático', s.advancedMode, (v) => setState(() => s.advancedMode = v), t),
+          _toggle('DÃºplex automÃ¡tico', s.advancedMode, (v) => setState(() => s.advancedMode = v), t),
         ),
       ];
 
@@ -633,7 +633,7 @@ class _IntegracionesPageState extends State<IntegracionesPage> {
         obscureText: !s.showKey,
         style: AppTheme.body(t).copyWith(fontSize: 13),
         decoration: InputDecoration(
-          hintText: 'Dejar vacío para mantener la actual',
+          hintText: 'Dejar vacÃ­o para mantener la actual',
           hintStyle: AppTheme.body(t).copyWith(color: t.textDisabled, fontSize: 12),
           contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           suffixIcon: IconButton(
@@ -827,14 +827,14 @@ class _ModuleState {
         'ia' => _ModuleState(
             provider: 'Google Gemini',
             model: 'gemini-2.5-flash',
-            moduleNameVal: 'Búsqueda semántica',
+            moduleNameVal: 'BÃºsqueda semÃ¡ntica',
             promptVal:
-                'Eres un motor de indexación semántica para documentos empresariales. Genera embeddings representativos del contenido documental.',
+                'Eres un motor de indexaciÃ³n semÃ¡ntica para documentos empresariales. Genera embeddings representativos del contenido documental.',
           ),
         'ocr' => _ModuleState(
             provider: 'Azure Cognitive',
             model: 'es+en',
-            moduleNameVal: 'Análisis óptico v4.0',
+            moduleNameVal: 'AnÃ¡lisis Ã³ptico v4.0',
             threshold: 0.80,
           ),
         'storage' => _ModuleState(
@@ -855,13 +855,13 @@ class _ModuleState {
         'scanner' => _ModuleState(
             provider: 'TWAIN',
             model: 'PDF',
-            moduleNameVal: 'Escáner Fujitsu fi-800R',
+            moduleNameVal: 'EscÃ¡ner Fujitsu fi-800R',
             autoIndex: false,
           ),
         _ => _ModuleState(
-            provider: 'Genérico',
+            provider: 'GenÃ©rico',
             model: 'default',
-            moduleNameVal: 'Módulo',
+            moduleNameVal: 'MÃ³dulo',
           ),
       };
 

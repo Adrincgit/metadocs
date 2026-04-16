@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:metadocs/helpers/globals.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const kThemeModeKey = '__theme_mode__';
 
@@ -53,11 +53,16 @@ class AppThemeData {
   final bool isDark;
 }
 
-// --- AppTheme — acceso a paleta, texto y Material ThemeData -------------------
+// --- AppTheme â€” acceso a paleta, texto y Material ThemeData -------------------
 abstract class AppTheme {
+  // -- SharedPreferences propia (sin depender de globals.dart) -----------------
+  static SharedPreferences? _prefs;
+
+  static void initPrefs(SharedPreferences p) => _prefs = p;
+
   // -- Persistencia del modo ----------------------------------------------------
   static ThemeMode get themeMode {
-    final darkMode = prefs.getBool(kThemeModeKey);
+    final darkMode = _prefs?.getBool(kThemeModeKey);
 
     // Para MetaDocs conviene iniciar oscuro por defecto
     if (darkMode == null) return ThemeMode.dark;
@@ -66,10 +71,10 @@ abstract class AppTheme {
   }
 
   static void saveThemeMode(ThemeMode mode) => mode == ThemeMode.system
-      ? prefs.remove(kThemeModeKey)
-      : prefs.setBool(kThemeModeKey, mode == ThemeMode.dark);
+      ? _prefs?.remove(kThemeModeKey)
+      : _prefs?.setBool(kThemeModeKey, mode == ThemeMode.dark);
 
-  // -- Gradientes útiles para headers, banners, highlights ---------------------
+  // -- Gradientes Ãºtiles para headers, banners, highlights ---------------------
   static const LinearGradient primaryGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
@@ -130,11 +135,11 @@ abstract class AppTheme {
     error: Color(0xFFEF4444),
     errorSoft: Color(0xFF4A1113),
 
-    // Info / IA / búsqueda / semantic search
+    // Info / IA / bÃºsqueda / semantic search
     info: Color(0xFF22D3EE),
     infoSoft: Color(0xFF0C364D),
 
-    // Violeta ocasional para módulos AI o énfasis secundarios
+    // Violeta ocasional para mÃ³dulos AI o Ã©nfasis secundarios
     indigo: Color(0xFF8B5CF6),
     indigoSoft: Color(0xFF312E81),
 
@@ -152,7 +157,7 @@ abstract class AppTheme {
     isDark: true,
   );
 
-  // -- Selector de tema según contexto ------------------------------------------
+  // -- Selector de tema segÃºn contexto ------------------------------------------
   static AppThemeData of(BuildContext context) =>
       Theme.of(context).brightness == Brightness.dark ? dark : light;
 
@@ -342,7 +347,7 @@ abstract class AppTheme {
   static AppThemeData get lightTheme => light;
   static AppThemeData get darkTheme => dark;
 
-  // -- Decoración estándar para cards -------------------------------------------
+  // -- DecoraciÃ³n estÃ¡ndar para cards -------------------------------------------
   static BoxDecoration cardDecoration(AppThemeData t) => BoxDecoration(
         color: t.surface,
         borderRadius: BorderRadius.circular(18),
@@ -356,7 +361,7 @@ abstract class AppTheme {
         ],
       );
 
-  // -- Decoración estándar para PlutoGrid container -----------------------------
+  // -- DecoraciÃ³n estÃ¡ndar para PlutoGrid container -----------------------------
   static BoxDecoration tableDecoration(AppThemeData t) => BoxDecoration(
         color: t.surface,
         borderRadius: BorderRadius.circular(18),
