@@ -29,21 +29,21 @@
 
 ---
 
-## FASE 0 — Limpieza de la base ERP anterior
+## FASE 0 — Limpieza de la base ERP anterior ✅ COMPLETADA
 > Eliminar todo rastro del ERP comercial antes de construir MetaDocs.
 
-- [ ] Vaciar `lib/data/mock_data.dart` (eliminar clientes, vendedores, facturas, órdenes)
-- [ ] Limpiar `lib/models/models.dart` (eliminar todos los modelos ERP)
-- [ ] Limpiar `lib/providers/visual_state_provider.dart` (conservar solo lógica de tema + navegación)
-- [ ] Limpiar `lib/pages/pages.dart` (barrel vacío listo para nuevas páginas)
-- [ ] Limpiar `lib/router/router.dart` (placeholder temporal en `/`)
-- [ ] Limpiar `lib/widgets/sidebar/` (eliminar grupos y ítems del ERP)
-- [ ] Limpiar `lib/widgets/header/` (eliminar referencias ERP)
-- [ ] Verificar que `flutter run -d chrome` compila sin errores tras la limpieza
+- [x] Vaciar `lib/data/mock_data.dart` (eliminar clientes, vendedores, facturas, órdenes)
+- [x] Limpiar `lib/models/models.dart` (eliminar todos los modelos ERP)
+- [x] Limpiar `lib/providers/visual_state_provider.dart` (conservar solo lógica de tema + navegación)
+- [x] Limpiar `lib/pages/pages.dart` (barrel vacío listo para nuevas páginas)
+- [x] Limpiar `lib/router/router.dart` (placeholder temporal en `/`)
+- [x] Limpiar `lib/widgets/sidebar/` (eliminar grupos y ítems del ERP)
+- [x] Limpiar `lib/widgets/header/` (eliminar referencias ERP)
+- [x] Verificar que `flutter run -d chrome` compila sin errores tras la limpieza
 
 ---
 
-## FASE 1 — Cimientos del sistema
+## FASE 1 — Cimientos del sistema ✅ COMPLETADA
 
 ### 1.1 · Theme Enterprise (MetaDocs)
 - [ ] Reescribir `lib/theme/theme.dart` conservando la paleta dark blue corporativa
@@ -106,7 +106,7 @@
 
 ---
 
-## FASE 2 — Layout Principal (Shell)
+## FASE 2 — Layout Principal (Shell) ✅ COMPLETADA
 
 ### 2.1 · MainContainer
 - [ ] Crear `lib/pages/main_container/main_container_page.dart`
@@ -149,7 +149,7 @@
 
 ---
 
-## FASE 3 — Pantallas Fase 1ª (10 pantallas)
+## FASE 3 — Pantallas Fase 1ª (10 pantallas) ✅ COMPLETADA
 
 ### 3.1 · Dashboard (`/`)
 - [ ] Crear `lib/pages/dashboard/dashboard_page.dart`
@@ -260,8 +260,8 @@
 
 ---
 
-## FASE 4 — Pantallas Fase 2ª (3 pantallas)
-> Implementar solo si hay tiempo disponible después de completar Fase 3.
+## FASE 4 — Pantallas Fase 2ª (3 pantallas) ✅ COMPLETADA
+> Build `flutter build web --release --no-wasm-dry-run` exitoso. Commit: "feat: Phase 3+4 — 13 MetaDocs screens implemented".
 
 ### 4.1 · Procesamiento (`/procesamiento`)
 - [ ] Crear `lib/pages/procesamiento/procesamiento_page.dart`
