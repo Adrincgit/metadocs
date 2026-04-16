@@ -14,8 +14,7 @@ class _AnalisisIaPageState extends State<AnalisisIaPage> {
   int _selectedIdx = 0;
   bool _loading = false;
 
-  Documento get _selected =>
-      MetaDocsMockData.documentos[_selectedIdx];
+  Documento get _selected => MetaDocsMockData.documentos[_selectedIdx];
 
   void _showSnack(String msg) => ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(msg), duration: const Duration(seconds: 2)));
@@ -34,9 +33,8 @@ class _AnalisisIaPageState extends State<AnalisisIaPage> {
     final t = AppTheme.of(context);
     final doc = _selected;
     final resultados = MetaDocsMockData.resultados;
-    final resultado = resultados
-        .where((r) => r.documentoId == doc.id)
-        .firstOrNull;
+    final resultado =
+        resultados.where((r) => r.documentoId == doc.id).firstOrNull;
 
     return ColoredBox(
       color: t.background,
@@ -143,8 +141,7 @@ class _AnalisisIaPageState extends State<AnalisisIaPage> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  CircularProgressIndicator(
-                                      color: t.primary),
+                                  CircularProgressIndicator(color: t.primary),
                                   const SizedBox(height: 16),
                                   Text('Procesando con IAâ€¦',
                                       style: AppTheme.body(t)),
@@ -161,7 +158,8 @@ class _AnalisisIaPageState extends State<AnalisisIaPage> {
                                   padding: const EdgeInsets.all(20),
                                   decoration: AppTheme.cardDecoration(t),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(children: [
                                         Expanded(
@@ -176,8 +174,7 @@ class _AnalisisIaPageState extends State<AnalisisIaPage> {
                                               const SizedBox(height: 4),
                                               Text(
                                                   '${doc.tipoDocumental} Â· ${doc.paginas} pÃ¡gs. Â· ${(doc.tamanoKb / 1024).toStringAsFixed(1)} MB',
-                                                  style:
-                                                      AppTheme.bodySmall(t)),
+                                                  style: AppTheme.bodySmall(t)),
                                             ],
                                           ),
                                         ),
@@ -234,26 +231,51 @@ class _AnalisisIaPageState extends State<AnalisisIaPage> {
                                             style: AppTheme.h3(t)),
                                       ]),
                                       const SizedBox(height: 16),
-                                      Wrap(spacing: 10, runSpacing: 10, children: [
-                                        _iaBtn(Icons.summarize_outlined,
-                                            'Resumir documento',
-                                            t.primary, t, () => _simulate('Resumen IA')),
-                                        _iaBtn(Icons.data_object_outlined,
-                                            'Extraer datos',
-                                            t.success, t, () => _simulate('ExtracciÃ³n de datos')),
-                                        _iaBtn(Icons.security_outlined,
-                                            'Detectar riesgos',
-                                            t.error, t, () => _simulate('AnÃ¡lisis de riesgo')),
-                                        _iaBtn(Icons.compare_arrows_outlined,
-                                            'Comparar versiones',
-                                            t.warning, t, () => _simulate('ComparaciÃ³n')),
-                                        _iaBtn(Icons.category_outlined,
-                                            'Re-clasificar',
-                                            t.indigo, t, () => _simulate('Re-clasificaciÃ³n')),
-                                        _iaBtn(Icons.translate_outlined,
-                                            'Traducir',
-                                            t.info, t, () => _simulate('TraducciÃ³n')),
-                                      ]),
+                                      Wrap(
+                                          spacing: 10,
+                                          runSpacing: 10,
+                                          children: [
+                                            _iaBtn(
+                                                Icons.summarize_outlined,
+                                                'Resumir documento',
+                                                t.primary,
+                                                t,
+                                                () => _simulate('Resumen IA')),
+                                            _iaBtn(
+                                                Icons.data_object_outlined,
+                                                'Extraer datos',
+                                                t.success,
+                                                t,
+                                                () => _simulate(
+                                                    'ExtracciÃ³n de datos')),
+                                            _iaBtn(
+                                                Icons.security_outlined,
+                                                'Detectar riesgos',
+                                                t.error,
+                                                t,
+                                                () => _simulate(
+                                                    'AnÃ¡lisis de riesgo')),
+                                            _iaBtn(
+                                                Icons.compare_arrows_outlined,
+                                                'Comparar versiones',
+                                                t.warning,
+                                                t,
+                                                () =>
+                                                    _simulate('ComparaciÃ³n')),
+                                            _iaBtn(
+                                                Icons.category_outlined,
+                                                'Re-clasificar',
+                                                t.indigo,
+                                                t,
+                                                () => _simulate(
+                                                    'Re-clasificaciÃ³n')),
+                                            _iaBtn(
+                                                Icons.translate_outlined,
+                                                'Traducir',
+                                                t.info,
+                                                t,
+                                                () => _simulate('TraducciÃ³n')),
+                                          ]),
                                     ],
                                   ),
                                 ),
@@ -275,41 +297,39 @@ class _AnalisisIaPageState extends State<AnalisisIaPage> {
                                           Text('Campos extraÃ­dos',
                                               style: AppTheme.h3(t)),
                                           const Spacer(),
-                                          Text(
-                                              '${doc.metadatos.length} campos',
+                                          Text('${doc.metadatos.length} campos',
                                               style: AppTheme.caption(t)),
                                         ]),
                                         const SizedBox(height: 14),
                                         ...doc.metadatos.entries
                                             .take(8)
                                             .map((e) => Padding(
-                                              padding:
-                                                  const EdgeInsets.only(
-                                                      bottom: 8),
-                                              child: Row(children: [
-                                                SizedBox(
-                                                  width: 160,
-                                                  child: Text(e.key,
-                                                      style: AppTheme
-                                                          .bodySmall(t)
-                                                          .copyWith(
-                                                              color:
-                                                                  t.textSecondary)),
-                                                ),
-                                                Expanded(
-                                                  child: Text(e.value,
-                                                      style: AppTheme
-                                                          .body(t)
-                                                          .copyWith(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500),
-                                                      overflow:
-                                                          TextOverflow
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 8),
+                                                  child: Row(children: [
+                                                    SizedBox(
+                                                      width: 160,
+                                                      child: Text(e.key,
+                                                          style: AppTheme
+                                                                  .bodySmall(t)
+                                                              .copyWith(
+                                                                  color: t
+                                                                      .textSecondary)),
+                                                    ),
+                                                    Expanded(
+                                                      child: Text(e.value,
+                                                          style: AppTheme.body(
+                                                                  t)
+                                                              .copyWith(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500),
+                                                          overflow: TextOverflow
                                                               .ellipsis),
-                                                ),
-                                              ]),
-                                            )),
+                                                    ),
+                                                  ]),
+                                                )),
                                         if (doc.metadatos.length > 8)
                                           Text(
                                               '+ ${doc.metadatos.length - 8} campos mÃ¡sâ€¦',
@@ -343,35 +363,30 @@ class _AnalisisIaPageState extends State<AnalisisIaPage> {
                                             runSpacing: 6,
                                             children: doc.etiquetas
                                                 .map((e) => Container(
-                                                      padding:
-                                                          const EdgeInsets
-                                                              .symmetric(
-                                                              horizontal: 10,
-                                                              vertical: 5),
-                                                      decoration:
-                                                          BoxDecoration(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          horizontal: 10,
+                                                          vertical: 5),
+                                                      decoration: BoxDecoration(
                                                         color: t.primary
-                                                            .withOpacity(
-                                                                0.10),
+                                                            .withOpacity(0.10),
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(
-                                                                    20),
+                                                                .circular(20),
                                                         border: Border.all(
                                                             color: t.primary
                                                                 .withOpacity(
                                                                     0.3)),
                                                       ),
                                                       child: Text(e,
-                                                          style:
-                                                              AppTheme.bodySmall(
-                                                                      t)
-                                                                  .copyWith(
-                                                                      color:
-                                                                          t.primary,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500)),
+                                                          style: AppTheme
+                                                                  .bodySmall(t)
+                                                              .copyWith(
+                                                                  color:
+                                                                      t.primary,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500)),
                                                     ))
                                                 .toList(),
                                           ),
@@ -396,8 +411,8 @@ class _AnalisisIaPageState extends State<AnalisisIaPage> {
                                               style: AppTheme.h3(t)),
                                         ]),
                                         const SizedBox(height: 14),
-                                        _metaRow('Motor OCR',
-                                            resultado.motorOCR, t),
+                                        _metaRow(
+                                            'Motor OCR', resultado.motorOCR, t),
                                         _metaRow('Tiempo',
                                             '${resultado.tiempoMs} ms', t),
                                         _metaRow('Campos extraÃ­dos',
@@ -405,10 +420,8 @@ class _AnalisisIaPageState extends State<AnalisisIaPage> {
                                         _metaRow(
                                             'Estatus', resultado.estatus, t),
                                         if (resultado.errores.isNotEmpty)
-                                          _metaRow(
-                                              'Errores',
-                                              resultado.errores.join(', '),
-                                              t),
+                                          _metaRow('Errores',
+                                              resultado.errores.join(', '), t),
                                       ],
                                     ),
                                   ),
@@ -450,13 +463,11 @@ class _AnalisisIaPageState extends State<AnalisisIaPage> {
         SizedBox(
           width: 140,
           child: Text(label,
-              style: AppTheme.bodySmall(t)
-                  .copyWith(color: t.textSecondary)),
+              style: AppTheme.bodySmall(t).copyWith(color: t.textSecondary)),
         ),
         Expanded(
           child: Text(value,
-              style: AppTheme.body(t)
-                  .copyWith(fontWeight: FontWeight.w500),
+              style: AppTheme.body(t).copyWith(fontWeight: FontWeight.w500),
               overflow: TextOverflow.ellipsis),
         ),
       ]),

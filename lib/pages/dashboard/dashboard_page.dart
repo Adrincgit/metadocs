@@ -95,17 +95,20 @@ class _DashboardPageState extends State<DashboardPage> {
   // ── KPI Row ──────────────────────────────────────────────────────────────
   Widget _kpiRow(AppThemeData t) {
     final kpis = [
-      _KpiData('Total Documentos', '$_totalDocs',
-          Icons.description_outlined, t.primary, t.primarySoft),
+      _KpiData('Total Documentos', '$_totalDocs', Icons.description_outlined,
+          t.primary, t.primarySoft),
       _KpiData('Pendientes de OCR', '$_pendientes',
           Icons.hourglass_empty_rounded, t.warning, t.warningSoft),
-      _KpiData('Rechazados', '$_errores',
-          Icons.error_outline_rounded, t.error, t.errorSoft),
-      _KpiData('En Procesamiento', '$_enProceso',
-          Icons.sync_rounded, t.info, t.infoSoft),
-      _KpiData('Confianza IA prom.',
+      _KpiData('Rechazados', '$_errores', Icons.error_outline_rounded, t.error,
+          t.errorSoft),
+      _KpiData('En Procesamiento', '$_enProceso', Icons.sync_rounded, t.info,
+          t.infoSoft),
+      _KpiData(
+          'Confianza IA prom.',
           '${(_confianzaPromedio * 100).toStringAsFixed(1)} %',
-          Icons.psychology_outlined, t.indigo, t.indigoSoft),
+          Icons.psychology_outlined,
+          t.indigo,
+          t.indigoSoft),
       _KpiData('Campos Extraídos', '$_camposExtraidos',
           Icons.data_object_rounded, t.success, t.successSoft),
     ];
@@ -166,11 +169,21 @@ class _DashboardPageState extends State<DashboardPage> {
   // ── Line Chart ────────────────────────────────────────────────────────────
   Widget _lineChart(AppThemeData t) {
     const labels = [
-      'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
-      'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
+      'Ene',
+      'Feb',
+      'Mar',
+      'Abr',
+      'May',
+      'Jun',
+      'Jul',
+      'Ago',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dic'
     ];
-    final spots = List.generate(
-        12, (i) => FlSpot(i.toDouble(), _volumenMensual[i]));
+    final spots =
+        List.generate(12, (i) => FlSpot(i.toDouble(), _volumenMensual[i]));
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -194,10 +207,10 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
             borderData: FlBorderData(show: false),
             titlesData: FlTitlesData(
-              rightTitles: const AxisTitles(
-                  sideTitles: SideTitles(showTitles: false)),
-              topTitles: const AxisTitles(
-                  sideTitles: SideTitles(showTitles: false)),
+              rightTitles:
+                  const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+              topTitles:
+                  const AxisTitles(sideTitles: SideTitles(showTitles: false)),
               leftTitles: AxisTitles(
                 sideTitles: SideTitles(
                   showTitles: true,
@@ -285,11 +298,10 @@ class _DashboardPageState extends State<DashboardPage> {
                 sectionsSpace: 2,
                 pieTouchData: PieTouchData(
                   touchCallback: (evt, res) => setState(() {
-                    _touchedPieIndex =
-                        (evt.isInterestedForInteractions &&
-                                res?.touchedSection != null)
-                            ? res!.touchedSection!.touchedSectionIndex
-                            : null;
+                    _touchedPieIndex = (evt.isInterestedForInteractions &&
+                            res?.touchedSection != null)
+                        ? res!.touchedSection!.touchedSectionIndex
+                        : null;
                   }),
                 ),
               )),
@@ -310,8 +322,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           color: c, borderRadius: BorderRadius.circular(2)),
                     ),
                     const SizedBox(width: 5),
-                    Text('${e.key} (${e.value})',
-                        style: AppTheme.caption(t)),
+                    Text('${e.key} (${e.value})', style: AppTheme.caption(t)),
                   ]),
                 );
               }).toList(),
@@ -359,10 +370,10 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
             borderData: FlBorderData(show: false),
             titlesData: FlTitlesData(
-              rightTitles: const AxisTitles(
-                  sideTitles: SideTitles(showTitles: false)),
-              topTitles: const AxisTitles(
-                  sideTitles: SideTitles(showTitles: false)),
+              rightTitles:
+                  const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+              topTitles:
+                  const AxisTitles(sideTitles: SideTitles(showTitles: false)),
               leftTitles: AxisTitles(
                 sideTitles: SideTitles(
                   showTitles: true,
@@ -464,36 +475,37 @@ class _DashboardPageState extends State<DashboardPage> {
         Text('Actividad Reciente', style: AppTheme.h3(t)),
         const SizedBox(height: 14),
         ...recent.map((evt) => Padding(
-          padding: const EdgeInsets.only(bottom: 12),
-          child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Container(
-              width: 34,
-              height: 34,
-              decoration: BoxDecoration(
-                color: _accionColor(evt.accion, t).withOpacity(0.14),
-                borderRadius: BorderRadius.circular(9),
-              ),
-              child: Icon(_accionIcon(evt.accion),
-                  color: _accionColor(evt.accion, t), size: 16),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(evt.descripcion,
-                      style: AppTheme.bodySmall(t)
-                          .copyWith(color: t.textPrimary),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis),
-                  const SizedBox(height: 2),
-                  Text('${evt.usuario} · ${evt.modulo}',
-                      style: AppTheme.caption(t)),
-                ],
-              ),
-            ),
-          ]),
-        )),
+              padding: const EdgeInsets.only(bottom: 12),
+              child:
+                  Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Container(
+                  width: 34,
+                  height: 34,
+                  decoration: BoxDecoration(
+                    color: _accionColor(evt.accion, t).withOpacity(0.14),
+                    borderRadius: BorderRadius.circular(9),
+                  ),
+                  child: Icon(_accionIcon(evt.accion),
+                      color: _accionColor(evt.accion, t), size: 16),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(evt.descripcion,
+                          style: AppTheme.bodySmall(t)
+                              .copyWith(color: t.textPrimary),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis),
+                      const SizedBox(height: 2),
+                      Text('${evt.usuario} · ${evt.modulo}',
+                          style: AppTheme.caption(t)),
+                    ],
+                  ),
+                ),
+              ]),
+            )),
       ]),
     );
   }
@@ -562,8 +574,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
 // ── KPI helpers ───────────────────────────────────────────────────────────────
 class _KpiData {
-  const _KpiData(
-      this.label, this.value, this.icon, this.color, this.softColor);
+  const _KpiData(this.label, this.value, this.icon, this.color, this.softColor);
   final String label;
   final String value;
   final IconData icon;
@@ -645,4 +656,3 @@ class _AlertItem extends StatelessWidget {
     );
   }
 }
-

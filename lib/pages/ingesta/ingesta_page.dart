@@ -30,8 +30,7 @@ class _IngestaPageState extends State<IngestaPage> {
         .toList();
     final totalKb = docs.fold(0, (s, d) => s + d.tamanoKb);
     final resultados = MetaDocsMockData.resultados;
-    final tiemposProcesados =
-        resultados.where((r) => r.tiempoMs > 0).toList();
+    final tiemposProcesados = resultados.where((r) => r.tiempoMs > 0).toList();
     final tiempoPromedio = tiemposProcesados.isEmpty
         ? 0
         : tiemposProcesados.fold(0, (s, r) => s + r.tiempoMs) ~/
@@ -83,17 +82,36 @@ class _IngestaPageState extends State<IngestaPage> {
 
   Widget _kpiRow(AppThemeData t, int hoy, int kb, int ms) {
     final kpis = [
-      (label: 'Ingestados hoy', value: '$hoy docs', icon: Icons.today_outlined, color: t.success),
-      (label: 'Tamaño total corpus', value: '${(kb / 1024).toStringAsFixed(1)} MB', icon: Icons.storage_outlined, color: t.info),
-      (label: 'Tiempo prom. OCR', value: '${(ms / 1000).toStringAsFixed(2)} s', icon: Icons.timer_outlined, color: t.indigo),
-      (label: 'Total en catálogo', value: '${MetaDocsMockData.documentos.length}', icon: Icons.library_books_outlined, color: t.primary),
+      (
+        label: 'Ingestados hoy',
+        value: '$hoy docs',
+        icon: Icons.today_outlined,
+        color: t.success
+      ),
+      (
+        label: 'Tamaño total corpus',
+        value: '${(kb / 1024).toStringAsFixed(1)} MB',
+        icon: Icons.storage_outlined,
+        color: t.info
+      ),
+      (
+        label: 'Tiempo prom. OCR',
+        value: '${(ms / 1000).toStringAsFixed(2)} s',
+        icon: Icons.timer_outlined,
+        color: t.indigo
+      ),
+      (
+        label: 'Total en catálogo',
+        value: '${MetaDocsMockData.documentos.length}',
+        icon: Icons.library_books_outlined,
+        color: t.primary
+      ),
     ];
     return Row(
       children: kpis.map((k) {
         return Expanded(
           child: Container(
-            margin: EdgeInsets.only(
-                right: kpis.last.label == k.label ? 0 : 12),
+            margin: EdgeInsets.only(right: kpis.last.label == k.label ? 0 : 12),
             padding: const EdgeInsets.all(16),
             decoration: AppTheme.cardDecoration(t),
             child: Row(children: [
@@ -111,9 +129,7 @@ class _IngestaPageState extends State<IngestaPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(k.value,
-                        style: AppTheme.h3(t)
-                            .copyWith(fontSize: 17)),
+                    Text(k.value, style: AppTheme.h3(t).copyWith(fontSize: 17)),
                     Text(k.label, style: AppTheme.caption(t)),
                   ],
                 ),
@@ -145,9 +161,7 @@ class _IngestaPageState extends State<IngestaPage> {
               duration: const Duration(milliseconds: 200),
               height: 180,
               decoration: BoxDecoration(
-                color: _dragOver
-                    ? t.primary.withOpacity(0.08)
-                    : t.background,
+                color: _dragOver ? t.primary.withOpacity(0.08) : t.background,
                 borderRadius: BorderRadius.circular(14),
                 border: Border.all(
                   color: _dragOver ? t.primary : t.border,
@@ -243,23 +257,23 @@ class _IngestaPageState extends State<IngestaPage> {
         ]),
         const SizedBox(height: 14),
         ...reglas.map((r) => Padding(
-          padding: const EdgeInsets.only(bottom: 10),
-          child: Row(children: [
-            Icon(
-              r.activa ? Icons.check_circle_outline : Icons.cancel_outlined,
-              size: 16,
-              color: r.activa ? t.success : t.neutral,
-            ),
-            const SizedBox(width: 8),
-            Expanded(child: Text(r.label, style: AppTheme.body(t))),
-            Switch(
-              value: r.activa,
-              onChanged: (_) => _showSnack('Regla actualizada (demo)'),
-              activeColor: t.primary,
-              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
-          ]),
-        )),
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Row(children: [
+                Icon(
+                  r.activa ? Icons.check_circle_outline : Icons.cancel_outlined,
+                  size: 16,
+                  color: r.activa ? t.success : t.neutral,
+                ),
+                const SizedBox(width: 8),
+                Expanded(child: Text(r.label, style: AppTheme.body(t))),
+                Switch(
+                  value: r.activa,
+                  onChanged: (_) => _showSnack('Regla actualizada (demo)'),
+                  activeColor: t.primary,
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+              ]),
+            )),
       ]),
     );
   }
@@ -293,14 +307,12 @@ class _IngestaPageState extends State<IngestaPage> {
               const SizedBox(width: 10),
               Expanded(
                 child: Text(doc.nombre,
-                    style: AppTheme.bodySmall(t)
-                        .copyWith(color: t.textPrimary),
+                    style: AppTheme.bodySmall(t).copyWith(color: t.textPrimary),
                     overflow: TextOverflow.ellipsis),
               ),
               const SizedBox(width: 8),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: color.withOpacity(0.12),
                   borderRadius: BorderRadius.circular(4),
@@ -326,7 +338,12 @@ class _IngestaPageState extends State<IngestaPage> {
       (nombre: 'API REST', tipo: 'api', estatus: 'activa', docs: 12),
       (nombre: 'Carga Manual', tipo: 'manual', estatus: 'activa', docs: 22),
       (nombre: 'Escáner MFP', tipo: 'escaner', estatus: 'activa', docs: 11),
-      (nombre: 'Integración ERP', tipo: 'integracion', estatus: 'activa', docs: 7),
+      (
+        nombre: 'Integración ERP',
+        tipo: 'integracion',
+        estatus: 'activa',
+        docs: 7
+      ),
     ];
     return Container(
       padding: const EdgeInsets.all(20),
@@ -350,8 +367,7 @@ class _IngestaPageState extends State<IngestaPage> {
                   color: color.withOpacity(0.12),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(Icons.cloud_done_outlined,
-                    size: 16, color: color),
+                child: Icon(Icons.cloud_done_outlined, size: 16, color: color),
               ),
               const SizedBox(width: 10),
               Expanded(
@@ -359,14 +375,12 @@ class _IngestaPageState extends State<IngestaPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(o.nombre, style: AppTheme.body(t)),
-                    Text('${o.docs} documentos',
-                        style: AppTheme.caption(t)),
+                    Text('${o.docs} documentos', style: AppTheme.caption(t)),
                   ],
                 ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
                 decoration: BoxDecoration(
                   color: color.withOpacity(0.12),
                   borderRadius: BorderRadius.circular(5),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nethive_neo/data/metadocs_mock_data.dart';
+import 'package:nethive_neo/helpers/constants.dart';
 import 'package:nethive_neo/models/models.dart';
 import 'package:nethive_neo/theme/theme.dart';
 import 'package:pluto_grid/pluto_grid.dart';
@@ -16,8 +17,17 @@ class _ExploradorPageState extends State<ExploradorPage> {
   String _filterTipo = 'Todos';
   String _groupBy = 'Ninguno';
 
-  final _tipos = ['Todos', 'Contrato', 'Factura', 'Expediente Clínico',
-      'Oficio', 'Acta Constitutiva', 'Informe Técnico', 'Solicitud', 'Dictamen'];
+  final _tipos = [
+    'Todos',
+    'Contrato',
+    'Factura',
+    'Expediente Clínico',
+    'Oficio',
+    'Acta Constitutiva',
+    'Informe Técnico',
+    'Solicitud',
+    'Dictamen'
+  ];
   final _groupOpts = ['Ninguno', 'Tipo documental', 'Mes de ingesta', 'Origen'];
 
   List<Documento> get _filtered => MetaDocsMockData.documentos
@@ -26,106 +36,110 @@ class _ExploradorPageState extends State<ExploradorPage> {
       .toList();
 
   List<PlutoColumn> _cols(AppThemeData t) => [
-    PlutoColumn(
-      title: 'Documento',
-      field: 'nombre',
-      type: PlutoColumnType.text(),
-      width: 220,
-      titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      renderer: (ctx) => Text(ctx.cell.value as String,
-          style: AppTheme.tableData(t), overflow: TextOverflow.ellipsis),
-    ),
-    PlutoColumn(
-      title: 'Tipo',
-      field: 'tipo',
-      type: PlutoColumnType.text(),
-      width: 130,
-      titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      renderer: (ctx) => Text(ctx.cell.value as String,
-          style: AppTheme.tableData(t)),
-    ),
-    PlutoColumn(
-      title: 'Campo extraído',
-      field: 'campo',
-      type: PlutoColumnType.text(),
-      width: 160,
-      titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      renderer: (ctx) => Text(ctx.cell.value as String,
-          style: AppTheme.tableData(t)
-              .copyWith(color: t.info, fontWeight: FontWeight.w500)),
-    ),
-    PlutoColumn(
-      title: 'Valor',
-      field: 'valor',
-      type: PlutoColumnType.text(),
-      width: 200,
-      titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      renderer: (ctx) => Text(ctx.cell.value as String,
-          style: AppTheme.tableData(t), overflow: TextOverflow.ellipsis),
-    ),
-    PlutoColumn(
-      title: 'Confianza',
-      field: 'confianza',
-      type: PlutoColumnType.number(),
-      width: 110,
-      titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      renderer: (ctx) {
-        final val = (ctx.cell.value as num).toDouble();
-        final color = val >= 0.9 ? t.success : val >= 0.7 ? t.warning : t.error;
-        return Text('${(val * 100).toStringAsFixed(0)} %',
-            style: AppTheme.tableData(t)
-                .copyWith(color: color, fontWeight: FontWeight.w600));
-      },
-    ),
-    PlutoColumn(
-      title: 'Tipo de campo',
-      field: 'tipoCampo',
-      type: PlutoColumnType.text(),
-      width: 110,
-      titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      renderer: (ctx) {
-        final tipo = ctx.cell.value as String;
-        final color = _tipoCampoColor(tipo, t);
-        return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
-          decoration: BoxDecoration(
-            color: color.withOpacity(0.12),
-            borderRadius: BorderRadius.circular(5),
-            border: Border.all(color: color.withOpacity(0.35)),
-          ),
-          child: Text(tipo.toUpperCase(),
-              style: TextStyle(
-                  color: color, fontSize: 9, fontWeight: FontWeight.w700)),
-        );
-      },
-    ),
-    PlutoColumn(
-      title: 'Origen doc.',
-      field: 'origen',
-      type: PlutoColumnType.text(),
-      width: 110,
-      titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      renderer: (ctx) => Text(ctx.cell.value as String,
-          style: AppTheme.tableData(t)),
-    ),
-    PlutoColumn(
-      title: 'Fecha ingesta',
-      field: 'fecha',
-      type: PlutoColumnType.text(),
-      width: 110,
-      titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      renderer: (ctx) => Text(ctx.cell.value as String,
-          style: AppTheme.tableData(t)),
-    ),
-  ];
+        PlutoColumn(
+          title: 'Documento',
+          field: 'nombre',
+          type: PlutoColumnType.text(),
+          width: 220,
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) => Text(ctx.cell.value as String,
+              style: AppTheme.tableData(t), overflow: TextOverflow.ellipsis),
+        ),
+        PlutoColumn(
+          title: 'Tipo',
+          field: 'tipo',
+          type: PlutoColumnType.text(),
+          width: 130,
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) =>
+              Text(ctx.cell.value as String, style: AppTheme.tableData(t)),
+        ),
+        PlutoColumn(
+          title: 'Campo extraído',
+          field: 'campo',
+          type: PlutoColumnType.text(),
+          width: 160,
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) => Text(ctx.cell.value as String,
+              style: AppTheme.tableData(t)
+                  .copyWith(color: t.info, fontWeight: FontWeight.w500)),
+        ),
+        PlutoColumn(
+          title: 'Valor',
+          field: 'valor',
+          type: PlutoColumnType.text(),
+          width: 200,
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) => Text(ctx.cell.value as String,
+              style: AppTheme.tableData(t), overflow: TextOverflow.ellipsis),
+        ),
+        PlutoColumn(
+          title: 'Confianza',
+          field: 'confianza',
+          type: PlutoColumnType.number(),
+          width: 110,
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) {
+            final val = (ctx.cell.value as num).toDouble();
+            final color = val >= 0.9
+                ? t.success
+                : val >= 0.7
+                    ? t.warning
+                    : t.error;
+            return Text('${(val * 100).toStringAsFixed(0)} %',
+                style: AppTheme.tableData(t)
+                    .copyWith(color: color, fontWeight: FontWeight.w600));
+          },
+        ),
+        PlutoColumn(
+          title: 'Tipo de campo',
+          field: 'tipoCampo',
+          type: PlutoColumnType.text(),
+          width: 110,
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) {
+            final tipo = ctx.cell.value as String;
+            final color = _tipoCampoColor(tipo, t);
+            return Container(
+              padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
+              decoration: BoxDecoration(
+                color: color.withOpacity(0.12),
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(color: color.withOpacity(0.35)),
+              ),
+              child: Text(tipo.toUpperCase(),
+                  style: TextStyle(
+                      color: color, fontSize: 9, fontWeight: FontWeight.w700)),
+            );
+          },
+        ),
+        PlutoColumn(
+          title: 'Origen doc.',
+          field: 'origen',
+          type: PlutoColumnType.text(),
+          width: 110,
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) =>
+              Text(ctx.cell.value as String, style: AppTheme.tableData(t)),
+        ),
+        PlutoColumn(
+          title: 'Fecha ingesta',
+          field: 'fecha',
+          type: PlutoColumnType.text(),
+          width: 110,
+          titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          cellPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          renderer: (ctx) =>
+              Text(ctx.cell.value as String, style: AppTheme.tableData(t)),
+        ),
+      ];
 
   List<PlutoRow> _rows(AppThemeData t) {
     final rows = <PlutoRow>[];
@@ -138,7 +152,8 @@ class _ExploradorPageState extends State<ExploradorPage> {
 
       for (final entry in doc.metadatos.entries) {
         final campoMeta = campos
-            .where((c) => c.nombre.toLowerCase() ==
+            .where((c) =>
+                c.nombre.toLowerCase() ==
                 entry.key.replaceAll('_', ' ').toLowerCase())
             .firstOrNull;
         final tipoCampo = campoMeta?.tipo ?? 'texto';
@@ -169,26 +184,28 @@ class _ExploradorPageState extends State<ExploradorPage> {
       };
 
   PlutoGridConfiguration _config(AppThemeData t) => PlutoGridConfiguration(
-    style: PlutoGridStyleConfig(
-      gridBackgroundColor: t.surface,
-      rowColor: t.surface,
-      oddRowColor: t.isDark ? const Color(0xFF0D1628) : const Color(0xFFF8FAFC),
-      activatedColor: t.primary.withOpacity(0.10),
-      gridBorderColor: Colors.transparent,
-      borderColor: t.border,
-      activatedBorderColor: t.primary,
-      inactivatedBorderColor: Colors.transparent,
-      columnTextStyle: AppTheme.tableHeader(t),
-      cellTextStyle: AppTheme.tableData(t),
-      iconColor: t.textDisabled,
-      menuBackgroundColor: t.surface,
-      columnHeight: 44,
-      rowHeight: 44,
-    ),
-    columnSize: const PlutoGridColumnSizeConfig(
-      autoSizeMode: PlutoAutoSizeMode.none,
-    ),
-  );
+        style: PlutoGridStyleConfig(
+          gridBackgroundColor: t.surface,
+          rowColor: t.surface,
+          oddRowColor:
+              t.isDark ? const Color(0xFF0D1628) : const Color(0xFFF8FAFC),
+          activatedColor: t.primary.withOpacity(0.10),
+          gridBorderColor: Colors.transparent,
+          borderColor: t.border,
+          activatedBorderColor: t.primary,
+          inactivatedBorderColor: Colors.transparent,
+          columnTextStyle: AppTheme.tableHeader(t),
+          cellTextStyle: AppTheme.tableData(t),
+          iconColor: t.textDisabled,
+          menuBackgroundColor: t.surface,
+          columnHeight: 44,
+          rowHeight: 44,
+        ),
+        columnSize: const PlutoGridColumnSizeConfig(
+          autoSizeMode: PlutoAutoSizeMode.scale,
+          resizeMode: PlutoResizeMode.normal,
+        ),
+      );
 
   void _showSnack(String msg) => ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(msg), duration: const Duration(seconds: 2)));
@@ -205,12 +222,14 @@ class _ExploradorPageState extends State<ExploradorPage> {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           // Header
           Row(children: [
-            Expanded(child: Column(
+            Expanded(
+                child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Explorador de Metadatos', style: AppTheme.h1(t)),
                 const SizedBox(height: 4),
-                Text('${rows.length} campos extraídos de ${_filtered.length} documentos',
+                Text(
+                    '${rows.length} campos extraídos de ${_filtered.length} documentos',
                     style: AppTheme.bodySmall(t)),
               ],
             )),
@@ -236,8 +255,7 @@ class _ExploradorPageState extends State<ExploradorPage> {
                 (v) => setState(() => _groupBy = v!)),
             if (_filterTipo != 'Todos')
               TextButton.icon(
-                onPressed: () =>
-                    setState(() => _filterTipo = 'Todos'),
+                onPressed: () => setState(() => _filterTipo = 'Todos'),
                 icon: const Icon(Icons.clear, size: 13),
                 label: const Text('Limpiar filtros'),
               ),
@@ -254,27 +272,108 @@ class _ExploradorPageState extends State<ExploradorPage> {
           ]),
           const SizedBox(height: 12),
 
-          // Grid
+          // Grid / Cards
           Expanded(
-            child: Container(
-              decoration: AppTheme.tableDecoration(t),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(18),
-                child: PlutoGrid(
-                  columns: _cols(t),
-                  rows: rows,
-                  onLoaded: (e) => _sm = e.stateManager,
-                  configuration: _config(t),
-                  createFooter: (sm) {
-                    sm.setPageSize(25, notify: false);
-                    return PlutoPagination(sm);
-                  },
-                ),
-              ),
-            ),
+            child: MediaQuery.sizeOf(context).width < mobileSize
+                ? _buildMobileCards(t)
+                : Container(
+                    decoration: AppTheme.tableDecoration(t),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(18),
+                      child: PlutoGrid(
+                        columns: _cols(t),
+                        rows: rows,
+                        onLoaded: (e) => _sm = e.stateManager,
+                        configuration: _config(t),
+                        createFooter: (sm) {
+                          sm.setPageSize(25, notify: false);
+                          return PlutoPagination(sm);
+                        },
+                      ),
+                    ),
+                  ),
           ),
         ]),
       ),
+    );
+  }
+
+  Widget _buildMobileCards(AppThemeData t) {
+    if (_filtered.isEmpty) {
+      return Center(child: Text('Sin registros', style: AppTheme.body(t)));
+    }
+    return ListView.builder(
+      itemCount: _filtered.length,
+      itemBuilder: (_, i) {
+        final doc = _filtered[i];
+        final fecha =
+            '${doc.fechaIngesta.day.toString().padLeft(2, '0')}/${doc.fechaIngesta.month.toString().padLeft(2, '0')}/${doc.fechaIngesta.year}';
+        final campos = doc.metadatos.entries.toList();
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: Container(
+            padding: const EdgeInsets.all(14),
+            decoration: BoxDecoration(
+              color: t.surface,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: t.border),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(children: [
+                  Expanded(
+                    child: Text(doc.nombre,
+                        style: AppTheme.body(t)
+                            .copyWith(fontWeight: FontWeight.w600),
+                        overflow: TextOverflow.ellipsis),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 7, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: t.info.withOpacity(0.10),
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: t.info.withOpacity(0.35)),
+                    ),
+                    child: Text(doc.tipoDocumental,
+                        style: TextStyle(
+                            color: t.info,
+                            fontSize: 9,
+                            fontWeight: FontWeight.w700)),
+                  ),
+                ]),
+                const SizedBox(height: 6),
+                Text('${campos.length} campos extraídos · $fecha',
+                    style: AppTheme.caption(t)
+                        .copyWith(color: t.textSecondary)),
+                const SizedBox(height: 8),
+                ...campos.take(4).map((e) => Padding(
+                  padding: const EdgeInsets.only(bottom: 3),
+                  child: Row(children: [
+                    SizedBox(
+                      width: 110,
+                      child: Text(e.key,
+                          style: AppTheme.caption(t)
+                              .copyWith(color: t.info, fontWeight: FontWeight.w500),
+                          overflow: TextOverflow.ellipsis),
+                    ),
+                    Expanded(
+                      child: Text(e.value.toString(),
+                          style: AppTheme.caption(t),
+                          overflow: TextOverflow.ellipsis),
+                    ),
+                  ]),
+                )),
+                if (campos.length > 4)
+                  Text('+ ${campos.length - 4} campos más',
+                      style: AppTheme.caption(t)
+                          .copyWith(color: t.textDisabled)),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -321,4 +420,3 @@ class _ExploradorPageState extends State<ExploradorPage> {
     );
   }
 }
-
