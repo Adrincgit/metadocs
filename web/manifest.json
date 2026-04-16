@@ -1,11 +1,11 @@
 {
-    "name": "nethive_neo",
-    "short_name": "nethive_neo",
+    "name": "MetaDocs — AI Document Intelligence",
+    "short_name": "MetaDocs",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#0F1C2E",
+    "theme_color": "#6366F1",
+    "description": "MetaDocs — AI Document Intelligence Demo by CBLuna",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

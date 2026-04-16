@@ -126,15 +126,18 @@ class _SidebarLogo extends StatelessWidget {
             width: 32,
             height: 32,
             decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [Color(0xFF6366F1), Color(0xFF818CF8)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
               borderRadius: BorderRadius.circular(8),
+              color: Colors.white.withAlpha(15),
             ),
-            child:
-                const Icon(Icons.auto_awesome, color: Colors.white, size: 18),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset(
+                'assets/images/favicon.png',
+                width: 32,
+                height: 32,
+                fit: BoxFit.contain,
+              ),
+            ),
           ),
           const SizedBox(width: 12),
           Expanded(
