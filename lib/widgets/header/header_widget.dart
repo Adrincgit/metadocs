@@ -205,7 +205,7 @@ class _UserAvatarState extends State<_UserAvatar> {
         ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Image.asset(
-            'assets/images/avatares/carlos.png',
+            'assets/images/avatares/Carlos.png',
             width: 36,
             height: 36,
             fit: BoxFit.cover,
